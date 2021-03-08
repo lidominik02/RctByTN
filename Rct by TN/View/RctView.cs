@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Rct_by_TN
 {
-    public partial class Form1 : Form
+    public partial class RctView : Form
     {
-        public Form1()
+        public RctView()
         {
             InitializeComponent();
         }

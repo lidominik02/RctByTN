@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dominik02\\Source\\Repos\\teamname\\Rct by TN\\Rct by TN.csproj": {}
+    "C:\\Users\\Dominik02\\source\\repos\\teamname\\Rct by TN\\Rct by TN.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dominik02\\Source\\Repos\\teamname\\Rct by TN\\Rct by TN.csproj": {
+    "C:\\Users\\Dominik02\\source\\repos\\teamname\\Rct by TN\\Rct by TN.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dominik02\\Source\\Repos\\teamname\\Rct by TN\\Rct by TN.csproj",
+        "projectUniqueName": "C:\\Users\\Dominik02\\source\\repos\\teamname\\Rct by TN\\Rct by TN.csproj",
         "projectName": "Rct by TN",
-        "projectPath": "C:\\Users\\Dominik02\\Source\\Repos\\teamname\\Rct by TN\\Rct by TN.csproj",
+        "projectPath": "C:\\Users\\Dominik02\\source\\repos\\teamname\\Rct by TN\\Rct by TN.csproj",
         "packagesPath": "C:\\Users\\Dominik02\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dominik02\\Source\\Repos\\teamname\\Rct by TN\\obj\\",
+        "outputPath": "C:\\Users\\Dominik02\\source\\repos\\teamname\\Rct by TN\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dominik02\\AppData\\Roaming\\NuGet\\NuGet.Config",
