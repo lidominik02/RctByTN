@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\RctByTN",
+    "\\RctByTN\\View"
   ],
-  "SelectedNode": "\\teamname.sln",
+  "SelectedNode": "\\RctByTN\\View\\RctView.cs",
   "PreviewInSolutionExplorer": false
 }

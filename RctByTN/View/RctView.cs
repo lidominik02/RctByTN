@@ -17,5 +17,9 @@ namespace RctByTN
             InitializeComponent();
         }
 
+        private void RctView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
