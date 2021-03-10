@@ -51,6 +51,7 @@ namespace RctByTN
             this.openEditButton = new System.Windows.Forms.Button();
             this.nextPictureBox = new System.Windows.Forms.PictureBox();
             this.cancelPictureBox = new System.Windows.Forms.PictureBox();
+            this.buttonGridPanel = new System.Windows.Forms.TableLayoutPanel();
             this.parkElementPanel1.SuspendLayout();
             this.parkElementPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -280,11 +281,25 @@ namespace RctByTN
             this.cancelPictureBox.TabIndex = 8;
             this.cancelPictureBox.TabStop = false;
             // 
+            // buttonGridPanel
+            // 
+            this.buttonGridPanel.ColumnCount = 1;
+            this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.buttonGridPanel.Location = new System.Drawing.Point(17, 134);
+            this.buttonGridPanel.Name = "buttonGridPanel";
+            this.buttonGridPanel.RowCount = 1;
+            this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.buttonGridPanel.Size = new System.Drawing.Size(1250, 650);
+            this.buttonGridPanel.TabIndex = 9;
+            // 
             // RctView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 844);
+            this.Controls.Add(this.buttonGridPanel);
             this.Controls.Add(this.cancelPictureBox);
             this.Controls.Add(this.nextPictureBox);
             this.Controls.Add(this.parkEditLayoutPanel);
@@ -331,6 +346,7 @@ namespace RctByTN
         private System.Windows.Forms.Button openEditButton;
         private System.Windows.Forms.PictureBox nextPictureBox;
         private System.Windows.Forms.PictureBox cancelPictureBox;
+        private System.Windows.Forms.TableLayoutPanel buttonGridPanel;
     }
 }
 
