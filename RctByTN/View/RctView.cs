@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RctByTN.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,14 +16,18 @@ namespace RctByTN
         private const Int32 ParkHeight = 13;
         private const Int32 ParkWidth = 25;
 
+        private RctModel _model;
         private Button[,] _buttonGrid;
+        private bool _isParkElementSelected;
         public RctView()
         {
             InitializeComponent();
+            _isParkElementSelected = false;
         }
 
         private void RctView_Load(object sender, EventArgs e)
         {
+            _model = new RctModel();
             GenerateTable();
         }
 
@@ -52,8 +57,18 @@ namespace RctByTN
                     _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
                     _buttonGrid[i, j].Margin = new Padding(0);
                     _buttonGrid[i, j].Dock = DockStyle.Fill;
+                    _buttonGrid[i, j].Click += buttonGrid_Click;
                     buttonGridPanel.Controls.Add(_buttonGrid[i, j]);
                 }
+            }
+        }
+
+        private void buttonGrid_Click(object sender, EventArgs e)
+        {
+            if(!_isParkElementSelected)
+            {
+                MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
+                    , "Az építés megkezdése sikertelen!",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
@@ -68,6 +83,19 @@ namespace RctByTN
             {
                 parkElementPanel1.Visible = true;
                 parkElementPanel2.Visible = false;
+            }
+        }
+
+        private void openEditButton_Click(object sender, EventArgs e)
+        {
+            _model.IsParkOpen = !_model.IsParkOpen;
+            if (_model.IsParkOpen)
+            {
+                openEditButton.Text = "Park szerkesztése";
+            }
+            else
+            {
+                openEditButton.Text = "Park megnyitása";
             }
         }
     }
