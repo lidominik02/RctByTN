@@ -41,8 +41,6 @@ namespace RctByTN
             this.grassButton = new System.Windows.Forms.Button();
             this.treeButton = new System.Windows.Forms.Button();
             this.bushButton = new System.Windows.Forms.Button();
-            this.nextButton = new System.Windows.Forms.PictureBox();
-            this.cancelButton = new System.Windows.Forms.PictureBox();
             this.incomeLabel = new System.Windows.Forms.Label();
             this.outcomeLabel = new System.Windows.Forms.Label();
             this.cashLabel = new System.Windows.Forms.Label();
@@ -51,13 +49,15 @@ namespace RctByTN
             this.parkEditLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.openEditButton = new System.Windows.Forms.Button();
+            this.nextPictureBox = new System.Windows.Forms.PictureBox();
+            this.cancelPictureBox = new System.Windows.Forms.PictureBox();
             this.parkElementPanel1.SuspendLayout();
             this.parkElementPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nextButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cancelButton)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.parkEditLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nextPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cancelPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // parkElementPanel1
@@ -68,11 +68,10 @@ namespace RctByTN
             this.parkElementPanel1.Controls.Add(this.hotDogButton);
             this.parkElementPanel1.Controls.Add(this.iceCreamButton);
             this.parkElementPanel1.Controls.Add(this.candyButton);
-            this.parkElementPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.parkElementPanel1.Location = new System.Drawing.Point(0, 794);
             this.parkElementPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel1.Name = "parkElementPanel1";
-            this.parkElementPanel1.Size = new System.Drawing.Size(1280, 50);
+            this.parkElementPanel1.Size = new System.Drawing.Size(1080, 50);
             this.parkElementPanel1.TabIndex = 0;
             // 
             // rollerCoasterButton
@@ -141,12 +140,10 @@ namespace RctByTN
             this.parkElementPanel2.Controls.Add(this.grassButton);
             this.parkElementPanel2.Controls.Add(this.treeButton);
             this.parkElementPanel2.Controls.Add(this.bushButton);
-            this.parkElementPanel2.Controls.Add(this.nextButton);
-            this.parkElementPanel2.Controls.Add(this.cancelButton);
             this.parkElementPanel2.Location = new System.Drawing.Point(0, 794);
             this.parkElementPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel2.Name = "parkElementPanel2";
-            this.parkElementPanel2.Size = new System.Drawing.Size(1280, 50);
+            this.parkElementPanel2.Size = new System.Drawing.Size(1080, 50);
             this.parkElementPanel2.TabIndex = 1;
             this.parkElementPanel2.Visible = false;
             // 
@@ -189,24 +186,6 @@ namespace RctByTN
             this.bushButton.TabIndex = 3;
             this.bushButton.Text = "Bokor";
             this.bushButton.UseVisualStyleBackColor = true;
-            // 
-            // nextButton
-            // 
-            this.nextButton.Location = new System.Drawing.Point(640, 0);
-            this.nextButton.Margin = new System.Windows.Forms.Padding(0);
-            this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(160, 50);
-            this.nextButton.TabIndex = 2;
-            this.nextButton.TabStop = false;
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.Location = new System.Drawing.Point(800, 0);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(160, 50);
-            this.cancelButton.TabIndex = 4;
-            this.cancelButton.TabStop = false;
             // 
             // incomeLabel
             // 
@@ -282,11 +261,32 @@ namespace RctByTN
             this.openEditButton.Text = "Park megnyitása";
             this.openEditButton.UseVisualStyleBackColor = true;
             // 
+            // nextPictureBox
+            // 
+            this.nextPictureBox.Image = global::RctByTN.Properties.Resources.next;
+            this.nextPictureBox.Location = new System.Drawing.Point(1130, 794);
+            this.nextPictureBox.Name = "nextPictureBox";
+            this.nextPictureBox.Size = new System.Drawing.Size(50, 50);
+            this.nextPictureBox.TabIndex = 7;
+            this.nextPictureBox.TabStop = false;
+            this.nextPictureBox.Click += new System.EventHandler(this.nextPictureBox_Click);
+            // 
+            // cancelPictureBox
+            // 
+            this.cancelPictureBox.Image = global::RctByTN.Properties.Resources.bin;
+            this.cancelPictureBox.Location = new System.Drawing.Point(1201, 794);
+            this.cancelPictureBox.Name = "cancelPictureBox";
+            this.cancelPictureBox.Size = new System.Drawing.Size(50, 50);
+            this.cancelPictureBox.TabIndex = 8;
+            this.cancelPictureBox.TabStop = false;
+            // 
             // RctView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 844);
+            this.Controls.Add(this.cancelPictureBox);
+            this.Controls.Add(this.nextPictureBox);
             this.Controls.Add(this.parkEditLayoutPanel);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.parkElementPanel2);
@@ -297,12 +297,12 @@ namespace RctByTN
             this.Load += new System.EventHandler(this.RctView_Load);
             this.parkElementPanel1.ResumeLayout(false);
             this.parkElementPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nextButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cancelButton)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.parkEditLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nextPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cancelPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -321,8 +321,6 @@ namespace RctByTN
         private System.Windows.Forms.Button grassButton;
         private System.Windows.Forms.Button treeButton;
         private System.Windows.Forms.Button bushButton;
-        private System.Windows.Forms.PictureBox nextButton;
-        private System.Windows.Forms.PictureBox cancelButton;
         private System.Windows.Forms.Label incomeLabel;
         private System.Windows.Forms.Label outcomeLabel;
         private System.Windows.Forms.Label cashLabel;
@@ -331,6 +329,8 @@ namespace RctByTN
         private System.Windows.Forms.FlowLayoutPanel parkEditLayoutPanel;
         private System.Windows.Forms.PictureBox logoPictureBox;
         private System.Windows.Forms.Button openEditButton;
+        private System.Windows.Forms.PictureBox nextPictureBox;
+        private System.Windows.Forms.PictureBox cancelPictureBox;
     }
 }
 

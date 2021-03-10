@@ -21,5 +21,19 @@ namespace RctByTN
         {
 
         }
+
+        private void nextPictureBox_Click(object sender, EventArgs e)
+        {
+            if (parkElementPanel1.Visible)
+            {
+                parkElementPanel1.Visible = false;
+                parkElementPanel2.Visible = true;
+            }
+            else
+            {
+                parkElementPanel1.Visible = true;
+                parkElementPanel2.Visible = false;
+            }
+        }
     }
 }
