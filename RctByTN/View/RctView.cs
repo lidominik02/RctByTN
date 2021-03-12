@@ -28,6 +28,8 @@ namespace RctByTN
         private void RctView_Load(object sender, EventArgs e)
         {
             _model = new RctModel();
+            this.MinimumSize = new Size(1300, 900);
+            this.MaximumSize = new Size(1300, 900);
             GenerateTable();
         }
 
