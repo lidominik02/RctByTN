@@ -14,7 +14,7 @@ namespace RctByTN
     public partial class RctView : Form
     {
         private const Int32 ParkHeight = 13;
-        private const Int32 ParkWidth = 25;
+        private const Int32 ParkWidth = 23;
 
         private RctModel _model;
         private Button[,] _buttonGrid;
@@ -28,8 +28,8 @@ namespace RctByTN
         private void RctView_Load(object sender, EventArgs e)
         {
             _model = new RctModel();
-            this.MinimumSize = new Size(1300, 900);
-            this.MaximumSize = new Size(1300, 900);
+            this.MinimumSize = new Size(1280, 900);
+            this.MaximumSize = new Size(1280, 900);
             GenerateTable();
         }
 
@@ -43,7 +43,7 @@ namespace RctByTN
 
             for (int i = 0; i < ParkWidth; i++)
             {
-                this.buttonGridPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 1250 / ParkWidth));
+                this.buttonGridPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 1200 / ParkWidth));
             }
             for (int i = 0; i < ParkHeight; i++)
             {

@@ -222,7 +222,7 @@ namespace RctByTN
             this.flowLayoutPanel1.Controls.Add(this.outcomeLabel);
             this.flowLayoutPanel1.Controls.Add(this.campaignButton);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(977, 2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(952, 2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(300, 127);
             this.flowLayoutPanel1.TabIndex = 5;
@@ -240,16 +240,16 @@ namespace RctByTN
             // 
             this.parkEditLayoutPanel.Controls.Add(this.logoPictureBox);
             this.parkEditLayoutPanel.Controls.Add(this.openEditButton);
-            this.parkEditLayoutPanel.Location = new System.Drawing.Point(26, 2);
+            this.parkEditLayoutPanel.Location = new System.Drawing.Point(28, 2);
             this.parkEditLayoutPanel.Name = "parkEditLayoutPanel";
-            this.parkEditLayoutPanel.Size = new System.Drawing.Size(934, 127);
+            this.parkEditLayoutPanel.Size = new System.Drawing.Size(902, 127);
             this.parkEditLayoutPanel.TabIndex = 6;
             // 
             // logoPictureBox
             // 
             this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(929, 75);
+            this.logoPictureBox.Size = new System.Drawing.Size(890, 75);
             this.logoPictureBox.TabIndex = 0;
             this.logoPictureBox.TabStop = false;
             // 
@@ -257,7 +257,7 @@ namespace RctByTN
             // 
             this.openEditButton.Location = new System.Drawing.Point(3, 84);
             this.openEditButton.Name = "openEditButton";
-            this.openEditButton.Size = new System.Drawing.Size(929, 33);
+            this.openEditButton.Size = new System.Drawing.Size(890, 33);
             this.openEditButton.TabIndex = 1;
             this.openEditButton.Text = "Park megnyitása";
             this.openEditButton.UseVisualStyleBackColor = true;
@@ -287,19 +287,19 @@ namespace RctByTN
             this.buttonGridPanel.ColumnCount = 1;
             this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.buttonGridPanel.Location = new System.Drawing.Point(17, 133);
+            this.buttonGridPanel.Location = new System.Drawing.Point(28, 133);
             this.buttonGridPanel.Name = "buttonGridPanel";
             this.buttonGridPanel.RowCount = 1;
             this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 650F));
-            this.buttonGridPanel.Size = new System.Drawing.Size(1250, 650);
+            this.buttonGridPanel.Size = new System.Drawing.Size(1200, 650);
             this.buttonGridPanel.TabIndex = 9;
             // 
             // RctView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1278, 844);
+            this.ClientSize = new System.Drawing.Size(1258, 844);
             this.Controls.Add(this.buttonGridPanel);
             this.Controls.Add(this.cancelPictureBox);
             this.Controls.Add(this.nextPictureBox);
