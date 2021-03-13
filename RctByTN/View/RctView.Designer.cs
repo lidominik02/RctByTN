@@ -63,16 +63,17 @@ namespace RctByTN
             // 
             // parkElementPanel1
             // 
+            this.parkElementPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.parkElementPanel1.Controls.Add(this.rollerCoasterButton);
             this.parkElementPanel1.Controls.Add(this.giantWheelButton);
             this.parkElementPanel1.Controls.Add(this.carouselButton);
             this.parkElementPanel1.Controls.Add(this.hotDogButton);
             this.parkElementPanel1.Controls.Add(this.iceCreamButton);
             this.parkElementPanel1.Controls.Add(this.candyButton);
-            this.parkElementPanel1.Location = new System.Drawing.Point(0, 793);
+            this.parkElementPanel1.Location = new System.Drawing.Point(0, 529);
             this.parkElementPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel1.Name = "parkElementPanel1";
-            this.parkElementPanel1.Size = new System.Drawing.Size(1080, 50);
+            this.parkElementPanel1.Size = new System.Drawing.Size(720, 33);
             this.parkElementPanel1.TabIndex = 0;
             // 
             // rollerCoasterButton
@@ -80,57 +81,57 @@ namespace RctByTN
             this.rollerCoasterButton.Location = new System.Drawing.Point(0, 0);
             this.rollerCoasterButton.Margin = new System.Windows.Forms.Padding(0);
             this.rollerCoasterButton.Name = "rollerCoasterButton";
-            this.rollerCoasterButton.Size = new System.Drawing.Size(160, 50);
+            this.rollerCoasterButton.Size = new System.Drawing.Size(107, 33);
             this.rollerCoasterButton.TabIndex = 0;
             this.rollerCoasterButton.Text = "Hullámvasút";
             this.rollerCoasterButton.UseVisualStyleBackColor = true;
             // 
             // giantWheelButton
             // 
-            this.giantWheelButton.Location = new System.Drawing.Point(160, 0);
+            this.giantWheelButton.Location = new System.Drawing.Point(107, 0);
             this.giantWheelButton.Margin = new System.Windows.Forms.Padding(0);
             this.giantWheelButton.Name = "giantWheelButton";
-            this.giantWheelButton.Size = new System.Drawing.Size(160, 50);
+            this.giantWheelButton.Size = new System.Drawing.Size(107, 33);
             this.giantWheelButton.TabIndex = 1;
             this.giantWheelButton.Text = "Óriáskerék";
             this.giantWheelButton.UseVisualStyleBackColor = true;
             // 
             // carouselButton
             // 
-            this.carouselButton.Location = new System.Drawing.Point(320, 0);
+            this.carouselButton.Location = new System.Drawing.Point(214, 0);
             this.carouselButton.Margin = new System.Windows.Forms.Padding(0);
             this.carouselButton.Name = "carouselButton";
-            this.carouselButton.Size = new System.Drawing.Size(160, 50);
+            this.carouselButton.Size = new System.Drawing.Size(107, 33);
             this.carouselButton.TabIndex = 2;
             this.carouselButton.Text = "Körhinta";
             this.carouselButton.UseVisualStyleBackColor = true;
             // 
             // hotDogButton
             // 
-            this.hotDogButton.Location = new System.Drawing.Point(480, 0);
+            this.hotDogButton.Location = new System.Drawing.Point(321, 0);
             this.hotDogButton.Margin = new System.Windows.Forms.Padding(0);
             this.hotDogButton.Name = "hotDogButton";
-            this.hotDogButton.Size = new System.Drawing.Size(160, 50);
+            this.hotDogButton.Size = new System.Drawing.Size(107, 33);
             this.hotDogButton.TabIndex = 3;
             this.hotDogButton.Text = "Hot-dog árus";
             this.hotDogButton.UseVisualStyleBackColor = true;
             // 
             // iceCreamButton
             // 
-            this.iceCreamButton.Location = new System.Drawing.Point(640, 0);
+            this.iceCreamButton.Location = new System.Drawing.Point(428, 0);
             this.iceCreamButton.Margin = new System.Windows.Forms.Padding(0);
             this.iceCreamButton.Name = "iceCreamButton";
-            this.iceCreamButton.Size = new System.Drawing.Size(160, 50);
+            this.iceCreamButton.Size = new System.Drawing.Size(107, 33);
             this.iceCreamButton.TabIndex = 4;
             this.iceCreamButton.Text = "Fagylaltos";
             this.iceCreamButton.UseVisualStyleBackColor = true;
             // 
             // candyButton
             // 
-            this.candyButton.Location = new System.Drawing.Point(800, 0);
+            this.candyButton.Location = new System.Drawing.Point(535, 0);
             this.candyButton.Margin = new System.Windows.Forms.Padding(0);
             this.candyButton.Name = "candyButton";
-            this.candyButton.Size = new System.Drawing.Size(160, 50);
+            this.candyButton.Size = new System.Drawing.Size(107, 33);
             this.candyButton.TabIndex = 5;
             this.candyButton.Text = "Vattacukor árus";
             this.candyButton.UseVisualStyleBackColor = true;
@@ -142,10 +143,10 @@ namespace RctByTN
             this.parkElementPanel2.Controls.Add(this.grassButton);
             this.parkElementPanel2.Controls.Add(this.treeButton);
             this.parkElementPanel2.Controls.Add(this.bushButton);
-            this.parkElementPanel2.Location = new System.Drawing.Point(0, 793);
+            this.parkElementPanel2.Location = new System.Drawing.Point(0, 529);
             this.parkElementPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel2.Name = "parkElementPanel2";
-            this.parkElementPanel2.Size = new System.Drawing.Size(1080, 50);
+            this.parkElementPanel2.Size = new System.Drawing.Size(720, 33);
             this.parkElementPanel2.TabIndex = 1;
             this.parkElementPanel2.Visible = false;
             // 
@@ -154,37 +155,37 @@ namespace RctByTN
             this.roadButton.Location = new System.Drawing.Point(0, 0);
             this.roadButton.Margin = new System.Windows.Forms.Padding(0);
             this.roadButton.Name = "roadButton";
-            this.roadButton.Size = new System.Drawing.Size(160, 50);
+            this.roadButton.Size = new System.Drawing.Size(107, 33);
             this.roadButton.TabIndex = 0;
             this.roadButton.Text = "Út";
             this.roadButton.UseVisualStyleBackColor = true;
             // 
             // grassButton
             // 
-            this.grassButton.Location = new System.Drawing.Point(160, 0);
+            this.grassButton.Location = new System.Drawing.Point(107, 0);
             this.grassButton.Margin = new System.Windows.Forms.Padding(0);
             this.grassButton.Name = "grassButton";
-            this.grassButton.Size = new System.Drawing.Size(160, 50);
+            this.grassButton.Size = new System.Drawing.Size(107, 33);
             this.grassButton.TabIndex = 1;
             this.grassButton.Text = "Fű";
             this.grassButton.UseVisualStyleBackColor = true;
             // 
             // treeButton
             // 
-            this.treeButton.Location = new System.Drawing.Point(320, 0);
+            this.treeButton.Location = new System.Drawing.Point(214, 0);
             this.treeButton.Margin = new System.Windows.Forms.Padding(0);
             this.treeButton.Name = "treeButton";
-            this.treeButton.Size = new System.Drawing.Size(160, 50);
+            this.treeButton.Size = new System.Drawing.Size(107, 33);
             this.treeButton.TabIndex = 2;
             this.treeButton.Text = "Fa";
             this.treeButton.UseVisualStyleBackColor = true;
             // 
             // bushButton
             // 
-            this.bushButton.Location = new System.Drawing.Point(480, 0);
+            this.bushButton.Location = new System.Drawing.Point(321, 0);
             this.bushButton.Margin = new System.Windows.Forms.Padding(0);
             this.bushButton.Name = "bushButton";
-            this.bushButton.Size = new System.Drawing.Size(160, 50);
+            this.bushButton.Size = new System.Drawing.Size(107, 33);
             this.bushButton.TabIndex = 3;
             this.bushButton.Text = "Bokor";
             this.bushButton.UseVisualStyleBackColor = true;
@@ -192,27 +193,30 @@ namespace RctByTN
             // incomeLabel
             // 
             this.incomeLabel.AutoSize = true;
-            this.incomeLabel.Location = new System.Drawing.Point(3, 25);
+            this.incomeLabel.Location = new System.Drawing.Point(2, 15);
+            this.incomeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.incomeLabel.Name = "incomeLabel";
-            this.incomeLabel.Size = new System.Drawing.Size(110, 25);
+            this.incomeLabel.Size = new System.Drawing.Size(71, 15);
             this.incomeLabel.TabIndex = 3;
             this.incomeLabel.Text = "Income: 120";
             // 
             // outcomeLabel
             // 
             this.outcomeLabel.AutoSize = true;
-            this.outcomeLabel.Location = new System.Drawing.Point(3, 50);
+            this.outcomeLabel.Location = new System.Drawing.Point(2, 30);
+            this.outcomeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.outcomeLabel.Name = "outcomeLabel";
-            this.outcomeLabel.Size = new System.Drawing.Size(125, 25);
+            this.outcomeLabel.Size = new System.Drawing.Size(81, 15);
             this.outcomeLabel.TabIndex = 4;
             this.outcomeLabel.Text = "Outcome: 201";
             // 
             // cashLabel
             // 
             this.cashLabel.AutoSize = true;
-            this.cashLabel.Location = new System.Drawing.Point(3, 0);
+            this.cashLabel.Location = new System.Drawing.Point(2, 0);
+            this.cashLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cashLabel.Name = "cashLabel";
-            this.cashLabel.Size = new System.Drawing.Size(89, 25);
+            this.cashLabel.Size = new System.Drawing.Size(57, 15);
             this.cashLabel.TabIndex = 2;
             this.cashLabel.Text = "Cash: 420";
             // 
@@ -224,16 +228,18 @@ namespace RctByTN
             this.flowLayoutPanel1.Controls.Add(this.outcomeLabel);
             this.flowLayoutPanel1.Controls.Add(this.campaignButton);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(952, 2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(635, 1);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(300, 127);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 85);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // campaignButton
             // 
-            this.campaignButton.Location = new System.Drawing.Point(3, 78);
+            this.campaignButton.Location = new System.Drawing.Point(2, 47);
+            this.campaignButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.campaignButton.Name = "campaignButton";
-            this.campaignButton.Size = new System.Drawing.Size(297, 42);
+            this.campaignButton.Size = new System.Drawing.Size(198, 28);
             this.campaignButton.TabIndex = 5;
             this.campaignButton.Text = "Kampány indítása";
             this.campaignButton.UseVisualStyleBackColor = true;
@@ -242,24 +248,27 @@ namespace RctByTN
             // 
             this.parkEditLayoutPanel.Controls.Add(this.logoPictureBox);
             this.parkEditLayoutPanel.Controls.Add(this.openEditButton);
-            this.parkEditLayoutPanel.Location = new System.Drawing.Point(28, 2);
+            this.parkEditLayoutPanel.Location = new System.Drawing.Point(19, 1);
+            this.parkEditLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.parkEditLayoutPanel.Name = "parkEditLayoutPanel";
-            this.parkEditLayoutPanel.Size = new System.Drawing.Size(902, 127);
+            this.parkEditLayoutPanel.Size = new System.Drawing.Size(601, 85);
             this.parkEditLayoutPanel.TabIndex = 6;
             // 
             // logoPictureBox
             // 
-            this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.logoPictureBox.Location = new System.Drawing.Point(2, 2);
+            this.logoPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(890, 75);
+            this.logoPictureBox.Size = new System.Drawing.Size(593, 50);
             this.logoPictureBox.TabIndex = 0;
             this.logoPictureBox.TabStop = false;
             // 
             // openEditButton
             // 
-            this.openEditButton.Location = new System.Drawing.Point(3, 84);
+            this.openEditButton.Location = new System.Drawing.Point(2, 56);
+            this.openEditButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openEditButton.Name = "openEditButton";
-            this.openEditButton.Size = new System.Drawing.Size(890, 33);
+            this.openEditButton.Size = new System.Drawing.Size(593, 22);
             this.openEditButton.TabIndex = 1;
             this.openEditButton.Text = "Park megnyitása";
             this.openEditButton.UseVisualStyleBackColor = true;
@@ -269,9 +278,10 @@ namespace RctByTN
             // 
             this.nextPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.nextPictureBox.Image = global::RctByTN.Properties.Resources.next;
-            this.nextPictureBox.Location = new System.Drawing.Point(1130, 793);
+            this.nextPictureBox.Location = new System.Drawing.Point(753, 529);
+            this.nextPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nextPictureBox.Name = "nextPictureBox";
-            this.nextPictureBox.Size = new System.Drawing.Size(50, 50);
+            this.nextPictureBox.Size = new System.Drawing.Size(33, 33);
             this.nextPictureBox.TabIndex = 7;
             this.nextPictureBox.TabStop = false;
             this.nextPictureBox.Click += new System.EventHandler(this.nextPictureBox_Click);
@@ -280,9 +290,10 @@ namespace RctByTN
             // 
             this.cancelPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelPictureBox.Image = global::RctByTN.Properties.Resources.bin;
-            this.cancelPictureBox.Location = new System.Drawing.Point(1201, 793);
+            this.cancelPictureBox.Location = new System.Drawing.Point(801, 529);
+            this.cancelPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelPictureBox.Name = "cancelPictureBox";
-            this.cancelPictureBox.Size = new System.Drawing.Size(50, 50);
+            this.cancelPictureBox.Size = new System.Drawing.Size(33, 33);
             this.cancelPictureBox.TabIndex = 8;
             this.cancelPictureBox.TabStop = false;
             // 
@@ -293,20 +304,21 @@ namespace RctByTN
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGridPanel.ColumnCount = 1;
             this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.buttonGridPanel.Location = new System.Drawing.Point(28, 133);
+            this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 13F));
+            this.buttonGridPanel.Location = new System.Drawing.Point(19, 89);
+            this.buttonGridPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonGridPanel.Name = "buttonGridPanel";
             this.buttonGridPanel.RowCount = 1;
             this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 650F));
-            this.buttonGridPanel.Size = new System.Drawing.Size(1200, 650);
+            this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 433F));
+            this.buttonGridPanel.Size = new System.Drawing.Size(800, 433);
             this.buttonGridPanel.TabIndex = 9;
             // 
             // RctView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1258, 844);
+            this.ClientSize = new System.Drawing.Size(839, 563);
             this.Controls.Add(this.buttonGridPanel);
             this.Controls.Add(this.cancelPictureBox);
             this.Controls.Add(this.nextPictureBox);
@@ -314,7 +326,6 @@ namespace RctByTN
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.parkElementPanel2);
             this.Controls.Add(this.parkElementPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "RctView";
             this.Text = "Roller Coaster Tycoon by TN";
             this.Load += new System.EventHandler(this.RctView_Load);

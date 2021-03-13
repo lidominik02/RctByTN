@@ -28,8 +28,8 @@ namespace RctByTN
         private void RctView_Load(object sender, EventArgs e)
         {
             _model = new RctModel();
-            this.MinimumSize = new Size(1280, 900);
-            this.MaximumSize = new Size(1280, 900);
+            //this.MinimumSize = new Size(1280, 900);
+            //this.MaximumSize = new Size(1280, 900);
             GenerateTable();
         }
 
@@ -43,11 +43,13 @@ namespace RctByTN
 
             for (int i = 0; i < ParkWidth; i++)
             {
-                this.buttonGridPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 1200 / ParkWidth));
+                this.buttonGridPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,
+                                                                        1 / Convert.ToSingle(ParkWidth)));
             }
             for (int i = 0; i < ParkHeight; i++)
             {
-                this.buttonGridPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 650 / ParkHeight));
+                this.buttonGridPanel.RowStyles.Add(new RowStyle(SizeType.Percent,
+                                                                        1 / Convert.ToSingle(ParkHeight)));
             }
 
             for (Int32 i = 0; i < ParkHeight; i++)
@@ -58,7 +60,7 @@ namespace RctByTN
                     _buttonGrid[i, j].Size = new Size(50, 50);
                     _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
                     _buttonGrid[i, j].Margin = new Padding(0);
-                    _buttonGrid[i, j].Dock = DockStyle.Fill;
+                    //_buttonGrid[i, j].Dock = DockStyle.Fill;
                     _buttonGrid[i, j].Click += buttonGrid_Click;
                     buttonGridPanel.Controls.Add(_buttonGrid[i, j]);
                 }
