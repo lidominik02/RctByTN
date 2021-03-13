@@ -137,6 +137,7 @@ namespace RctByTN
             // 
             // parkElementPanel2
             // 
+            this.parkElementPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.parkElementPanel2.Controls.Add(this.roadButton);
             this.parkElementPanel2.Controls.Add(this.grassButton);
             this.parkElementPanel2.Controls.Add(this.treeButton);
@@ -217,6 +218,7 @@ namespace RctByTN
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.Controls.Add(this.cashLabel);
             this.flowLayoutPanel1.Controls.Add(this.incomeLabel);
             this.flowLayoutPanel1.Controls.Add(this.outcomeLabel);
@@ -265,6 +267,7 @@ namespace RctByTN
             // 
             // nextPictureBox
             // 
+            this.nextPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.nextPictureBox.Image = global::RctByTN.Properties.Resources.next;
             this.nextPictureBox.Location = new System.Drawing.Point(1130, 793);
             this.nextPictureBox.Name = "nextPictureBox";
@@ -275,6 +278,7 @@ namespace RctByTN
             // 
             // cancelPictureBox
             // 
+            this.cancelPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelPictureBox.Image = global::RctByTN.Properties.Resources.bin;
             this.cancelPictureBox.Location = new System.Drawing.Point(1201, 793);
             this.cancelPictureBox.Name = "cancelPictureBox";
@@ -284,6 +288,9 @@ namespace RctByTN
             // 
             // buttonGridPanel
             // 
+            this.buttonGridPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGridPanel.ColumnCount = 1;
             this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -297,8 +304,8 @@ namespace RctByTN
             // 
             // RctView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1258, 844);
             this.Controls.Add(this.buttonGridPanel);
             this.Controls.Add(this.cancelPictureBox);
