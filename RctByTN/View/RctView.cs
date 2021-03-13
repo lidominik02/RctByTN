@@ -28,10 +28,8 @@ namespace RctByTN
         private void RctView_Load(object sender, EventArgs e)
         {
             _model = new RctModel();
-            this.MinimumSize = new Size(1240, 900);
-            this.MaximumSize = new Size(1240, 900);
-            parkElementPanel1.Visible = true;
-            parkElementPanel2.Visible = false;
+            this.MinimumSize = new Size(1280, 900);
+            this.MaximumSize = new Size(1280, 900);
             GenerateTable();
         }
 
@@ -78,8 +76,16 @@ namespace RctByTN
 
         private void nextPictureBox_Click(object sender, EventArgs e)
         {
-            parkElementPanel1.Visible = !parkElementPanel1.Visible;
-            parkElementPanel2.Visible = !parkElementPanel2.Visible;
+            if (parkElementPanel1.Visible)
+            {
+                parkElementPanel1.Visible = false;
+                parkElementPanel2.Visible = true;
+            }
+            else
+            {
+                parkElementPanel1.Visible = true;
+                parkElementPanel2.Visible = false;
+            }
         }
 
         private void openEditButton_Click(object sender, EventArgs e)

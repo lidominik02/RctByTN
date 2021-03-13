@@ -69,10 +69,10 @@ namespace RctByTN
             this.parkElementPanel1.Controls.Add(this.hotDogButton);
             this.parkElementPanel1.Controls.Add(this.iceCreamButton);
             this.parkElementPanel1.Controls.Add(this.candyButton);
-            this.parkElementPanel1.Location = new System.Drawing.Point(11, 809);
+            this.parkElementPanel1.Location = new System.Drawing.Point(0, 793);
             this.parkElementPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel1.Name = "parkElementPanel1";
-            this.parkElementPanel1.Size = new System.Drawing.Size(960, 50);
+            this.parkElementPanel1.Size = new System.Drawing.Size(1080, 50);
             this.parkElementPanel1.TabIndex = 0;
             // 
             // rollerCoasterButton
@@ -141,10 +141,10 @@ namespace RctByTN
             this.parkElementPanel2.Controls.Add(this.grassButton);
             this.parkElementPanel2.Controls.Add(this.treeButton);
             this.parkElementPanel2.Controls.Add(this.bushButton);
-            this.parkElementPanel2.Location = new System.Drawing.Point(11, 809);
+            this.parkElementPanel2.Location = new System.Drawing.Point(0, 793);
             this.parkElementPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel2.Name = "parkElementPanel2";
-            this.parkElementPanel2.Size = new System.Drawing.Size(960, 50);
+            this.parkElementPanel2.Size = new System.Drawing.Size(1080, 50);
             this.parkElementPanel2.TabIndex = 1;
             this.parkElementPanel2.Visible = false;
             // 
@@ -191,33 +191,27 @@ namespace RctByTN
             // incomeLabel
             // 
             this.incomeLabel.AutoSize = true;
-            this.incomeLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.incomeLabel.Location = new System.Drawing.Point(2, 30);
-            this.incomeLabel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 0);
+            this.incomeLabel.Location = new System.Drawing.Point(3, 25);
             this.incomeLabel.Name = "incomeLabel";
-            this.incomeLabel.Size = new System.Drawing.Size(118, 28);
+            this.incomeLabel.Size = new System.Drawing.Size(110, 25);
             this.incomeLabel.TabIndex = 3;
             this.incomeLabel.Text = "Income: 120";
             // 
             // outcomeLabel
             // 
             this.outcomeLabel.AutoSize = true;
-            this.outcomeLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.outcomeLabel.Location = new System.Drawing.Point(2, 59);
-            this.outcomeLabel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 2);
+            this.outcomeLabel.Location = new System.Drawing.Point(3, 50);
             this.outcomeLabel.Name = "outcomeLabel";
-            this.outcomeLabel.Size = new System.Drawing.Size(135, 28);
+            this.outcomeLabel.Size = new System.Drawing.Size(125, 25);
             this.outcomeLabel.TabIndex = 4;
             this.outcomeLabel.Text = "Outcome: 201";
             // 
             // cashLabel
             // 
             this.cashLabel.AutoSize = true;
-            this.cashLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cashLabel.Location = new System.Drawing.Point(2, 1);
-            this.cashLabel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 0);
+            this.cashLabel.Location = new System.Drawing.Point(3, 0);
             this.cashLabel.Name = "cashLabel";
-            this.cashLabel.Size = new System.Drawing.Size(95, 28);
+            this.cashLabel.Size = new System.Drawing.Size(89, 25);
             this.cashLabel.TabIndex = 2;
             this.cashLabel.Text = "Cash: 420";
             // 
@@ -228,18 +222,16 @@ namespace RctByTN
             this.flowLayoutPanel1.Controls.Add(this.outcomeLabel);
             this.flowLayoutPanel1.Controls.Add(this.campaignButton);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(911, 1);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(952, 2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(300, 134);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(300, 127);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // campaignButton
             // 
-            this.campaignButton.Location = new System.Drawing.Point(2, 91);
-            this.campaignButton.Margin = new System.Windows.Forms.Padding(2);
+            this.campaignButton.Location = new System.Drawing.Point(3, 78);
             this.campaignButton.Name = "campaignButton";
-            this.campaignButton.Size = new System.Drawing.Size(295, 35);
+            this.campaignButton.Size = new System.Drawing.Size(297, 42);
             this.campaignButton.TabIndex = 5;
             this.campaignButton.Text = "Kampány indítása";
             this.campaignButton.UseVisualStyleBackColor = true;
@@ -248,27 +240,24 @@ namespace RctByTN
             // 
             this.parkEditLayoutPanel.Controls.Add(this.logoPictureBox);
             this.parkEditLayoutPanel.Controls.Add(this.openEditButton);
-            this.parkEditLayoutPanel.Location = new System.Drawing.Point(12, 1);
-            this.parkEditLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.parkEditLayoutPanel.Location = new System.Drawing.Point(28, 2);
             this.parkEditLayoutPanel.Name = "parkEditLayoutPanel";
-            this.parkEditLayoutPanel.Size = new System.Drawing.Size(895, 127);
+            this.parkEditLayoutPanel.Size = new System.Drawing.Size(902, 127);
             this.parkEditLayoutPanel.TabIndex = 6;
             // 
             // logoPictureBox
             // 
-            this.logoPictureBox.Location = new System.Drawing.Point(2, 2);
-            this.logoPictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(890, 85);
+            this.logoPictureBox.Size = new System.Drawing.Size(890, 75);
             this.logoPictureBox.TabIndex = 0;
             this.logoPictureBox.TabStop = false;
             // 
             // openEditButton
             // 
-            this.openEditButton.Location = new System.Drawing.Point(2, 91);
-            this.openEditButton.Margin = new System.Windows.Forms.Padding(2);
+            this.openEditButton.Location = new System.Drawing.Point(3, 84);
             this.openEditButton.Name = "openEditButton";
-            this.openEditButton.Size = new System.Drawing.Size(890, 35);
+            this.openEditButton.Size = new System.Drawing.Size(890, 33);
             this.openEditButton.TabIndex = 1;
             this.openEditButton.Text = "Park megnyitása";
             this.openEditButton.UseVisualStyleBackColor = true;
@@ -277,8 +266,7 @@ namespace RctByTN
             // nextPictureBox
             // 
             this.nextPictureBox.Image = global::RctByTN.Properties.Resources.next;
-            this.nextPictureBox.Location = new System.Drawing.Point(1111, 809);
-            this.nextPictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.nextPictureBox.Location = new System.Drawing.Point(1130, 793);
             this.nextPictureBox.Name = "nextPictureBox";
             this.nextPictureBox.Size = new System.Drawing.Size(50, 50);
             this.nextPictureBox.TabIndex = 7;
@@ -288,8 +276,7 @@ namespace RctByTN
             // cancelPictureBox
             // 
             this.cancelPictureBox.Image = global::RctByTN.Properties.Resources.bin;
-            this.cancelPictureBox.Location = new System.Drawing.Point(1161, 809);
-            this.cancelPictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.cancelPictureBox.Location = new System.Drawing.Point(1201, 793);
             this.cancelPictureBox.Name = "cancelPictureBox";
             this.cancelPictureBox.Size = new System.Drawing.Size(50, 50);
             this.cancelPictureBox.TabIndex = 8;
@@ -299,9 +286,8 @@ namespace RctByTN
             // 
             this.buttonGridPanel.ColumnCount = 1;
             this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 14F));
-            this.buttonGridPanel.Location = new System.Drawing.Point(11, 139);
-            this.buttonGridPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.buttonGridPanel.Location = new System.Drawing.Point(28, 133);
             this.buttonGridPanel.Name = "buttonGridPanel";
             this.buttonGridPanel.RowCount = 1;
             this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -311,9 +297,9 @@ namespace RctByTN
             // 
             // RctView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1224, 861);
+            this.ClientSize = new System.Drawing.Size(1258, 844);
             this.Controls.Add(this.buttonGridPanel);
             this.Controls.Add(this.cancelPictureBox);
             this.Controls.Add(this.nextPictureBox);
@@ -321,6 +307,7 @@ namespace RctByTN
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.parkElementPanel2);
             this.Controls.Add(this.parkElementPanel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "RctView";
             this.Text = "Roller Coaster Tycoon by TN";
             this.Load += new System.EventHandler(this.RctView_Load);
