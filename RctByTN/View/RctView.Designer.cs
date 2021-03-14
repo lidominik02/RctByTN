@@ -1,5 +1,5 @@
 ﻿
-namespace RctByTN
+namespace RctByTN.View
 {
     partial class RctView
     {
@@ -299,8 +299,8 @@ namespace RctByTN
             // 
             // buttonGridPanel
             // 
-            this.buttonGridPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.buttonGridPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGridPanel.ColumnCount = 1;
             this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));

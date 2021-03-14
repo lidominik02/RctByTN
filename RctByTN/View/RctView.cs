@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RctByTN
+namespace RctByTN.View
 {
     public partial class RctView : Form
     {
@@ -18,11 +18,9 @@ namespace RctByTN
 
         private RctModel _model;
         private Button[,] _buttonGrid;
-        private bool _isParkElementSelected;
         public RctView()
         {
             InitializeComponent();
-            _isParkElementSelected = false;
         }
 
         private void RctView_Load(object sender, EventArgs e)
@@ -69,11 +67,17 @@ namespace RctByTN
 
         private void buttonGrid_Click(object sender, EventArgs e)
         {
-            if(!_isParkElementSelected)
+            //TODO: instead of _parkSelected use int variable
+            //(values: -1 to not selected and tabindex of the button)
+            /*if()
             {
                 MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
                     , "Az építés megkezdése sikertelen!",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
+            }*/
+
+            var cgv = new CreateGameView();
+            cgv.Show();
+
         }
 
         private void nextPictureBox_Click(object sender, EventArgs e)
