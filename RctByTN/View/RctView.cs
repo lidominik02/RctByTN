@@ -75,7 +75,7 @@ namespace RctByTN.View
                     , "Az építés megkezdése sikertelen!",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }*/
 
-            var cgv = new CreateGameView();
+            var cgv = new CreateRestaurantView();
             cgv.Show();
 
         }
