@@ -18,17 +18,11 @@ namespace RctByTN.View
 
         private RctModel _model;
         private Button[,] _buttonGrid;
-<<<<<<< HEAD
         private Int32 _selectedTab;
         public RctView()
         {
             InitializeComponent();
             _selectedTab = -1;
-=======
-        public RctView()
-        {
-            InitializeComponent();
->>>>>>> c2aba0af82d0f1957ce04abe1586aee6cad50421
         }
 
         private void RctView_Load(object sender, EventArgs e)
@@ -73,60 +67,42 @@ namespace RctByTN.View
 
         private void buttonGrid_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-            if(_selectedTab==-1)
-            {
-                MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
-                    , "Az építés megkezdése sikertelen!",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
-            
+            var cgv = new CreateRestaurantView();
+            cgv.Show();
+            //_model.Build(_selectedTab);
         }
 
         private void parkElementPanel_Click(object sender, EventArgs e)
         {
-                _selectedTab = ((Button)sender).TabIndex;
-                _model.BuildParkElement(_selectedTab);
-=======
-            //TODO: instead of _parkSelected use int variable
-            //(values: -1 to not selected and tabindex of the button)
-            /*if()
-            {
-                MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
-                    , "Az építés megkezdése sikertelen!",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }*/
-
-            var cgv = new CreateRestaurantView();
-            cgv.Show();
-
->>>>>>> c2aba0af82d0f1957ce04abe1586aee6cad50421
+            _selectedTab = ((Button)sender).TabIndex;
         }
 
         private void nextPictureBox_Click(object sender, EventArgs e)
         {
             if (parkElementPanel1.Visible)
-            {
-                parkElementPanel1.Visible = false;
-                parkElementPanel2.Visible = true;
-            }
-            else
-            {
-                parkElementPanel1.Visible = true;
-                parkElementPanel2.Visible = false;
-            }
-        }
-
-        private void openEditButton_Click(object sender, EventArgs e)
+                {
+            parkElementPanel1.Visible = false;
+            parkElementPanel2.Visible = true;
+                }
+        else
         {
-            _model.IsParkOpen = !_model.IsParkOpen;
-            if (_model.IsParkOpen)
-            {
-                openEditButton.Text = "Park szerkesztése";
-            }
-            else
-            {
-                openEditButton.Text = "Park megnyitása";
-            }
+            parkElementPanel1.Visible = true;
+            parkElementPanel2.Visible = false;
         }
+    }
+
+    private void openEditButton_Click(object sender, EventArgs e)
+    {
+        _model.IsParkOpen = !_model.IsParkOpen;
+        if (_model.IsParkOpen)
+        {
+            openEditButton.Text = "Park szerkesztése";
+        }
+        else
+        {
+            openEditButton.Text = "Park megnyitása";
+        }
+    }
 
         private void cancelPictureBox_Click(object sender, EventArgs e)
         {

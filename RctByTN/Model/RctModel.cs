@@ -30,7 +30,7 @@ namespace RctByTN.Model
             //cash = ???
         }
 
-        public void BuildParkElement(Int32 selectedTab)
+        public void Build(Int32 selectedTab)
         {
             switch (selectedTab)
             {
