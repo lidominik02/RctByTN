@@ -18,18 +18,16 @@ namespace RctByTN
 
         private RctModel _model;
         private Button[,] _buttonGrid;
-        private bool _isParkElementSelected;
+        private Int32 _selectedTab;
         public RctView()
         {
             InitializeComponent();
-            _isParkElementSelected = false;
+            _selectedTab = -1;
         }
 
         private void RctView_Load(object sender, EventArgs e)
         {
             _model = new RctModel();
-            //this.MinimumSize = new Size(1280, 900);
-            //this.MaximumSize = new Size(1280, 900);
             GenerateTable();
         }
 
@@ -69,11 +67,18 @@ namespace RctByTN
 
         private void buttonGrid_Click(object sender, EventArgs e)
         {
-            if(!_isParkElementSelected)
+            if(_selectedTab==-1)
             {
                 MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
                     , "Az építés megkezdése sikertelen!",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
+            
+        }
+
+        private void parkElementPanel_Click(object sender, EventArgs e)
+        {
+                _selectedTab = ((Button)sender).TabIndex;
+                _model.BuildParkElement(_selectedTab);
         }
 
         private void nextPictureBox_Click(object sender, EventArgs e)
@@ -101,6 +106,11 @@ namespace RctByTN
             {
                 openEditButton.Text = "Park megnyitása";
             }
+        }
+
+        private void cancelPictureBox_Click(object sender, EventArgs e)
+        {
+            _selectedTab = -1;
         }
     }
 }
