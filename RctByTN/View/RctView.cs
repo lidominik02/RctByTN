@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RctByTN
+namespace RctByTN.View
 {
     public partial class RctView : Form
     {
@@ -18,11 +18,17 @@ namespace RctByTN
 
         private RctModel _model;
         private Button[,] _buttonGrid;
+<<<<<<< HEAD
         private Int32 _selectedTab;
         public RctView()
         {
             InitializeComponent();
             _selectedTab = -1;
+=======
+        public RctView()
+        {
+            InitializeComponent();
+>>>>>>> c2aba0af82d0f1957ce04abe1586aee6cad50421
         }
 
         private void RctView_Load(object sender, EventArgs e)
@@ -67,6 +73,7 @@ namespace RctByTN
 
         private void buttonGrid_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             if(_selectedTab==-1)
             {
                 MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
@@ -79,6 +86,19 @@ namespace RctByTN
         {
                 _selectedTab = ((Button)sender).TabIndex;
                 _model.BuildParkElement(_selectedTab);
+=======
+            //TODO: instead of _parkSelected use int variable
+            //(values: -1 to not selected and tabindex of the button)
+            /*if()
+            {
+                MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
+                    , "Az építés megkezdése sikertelen!",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }*/
+
+            var cgv = new CreateRestaurantView();
+            cgv.Show();
+
+>>>>>>> c2aba0af82d0f1957ce04abe1586aee6cad50421
         }
 
         private void nextPictureBox_Click(object sender, EventArgs e)
