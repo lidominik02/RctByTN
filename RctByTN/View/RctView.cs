@@ -28,13 +28,13 @@ namespace RctByTN.View
         private void RctView_Load(object sender, EventArgs e)
         {
             _model = new RctModel();
-            _model.ElementChanged += new EventHandler(Game_ElementChanged);
+            _model.ElementChanged += new EventHandler<ParkElementEventArgs>(Game_ElementChanged);
             GenerateTable();
         }
 
-        private void Game_ElementChanged(Object sender, EventArgs e)
+        private void Game_ElementChanged(Object sender, ParkElementEventArgs e)
         {
-            RefreshTable();
+            RefreshTable(e.Element);
         }
 
         public void GenerateTable()
@@ -71,9 +71,8 @@ namespace RctByTN.View
             }
         }
 
-        private void RefreshTable()
+        private void RefreshTable(ParkElement element)
         {
-            foreach(ParkElement element in _model.ParkElementList)
                 switch (element.Status)
                 {
                     case ElementStatus.Operate:

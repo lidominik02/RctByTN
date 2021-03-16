@@ -13,7 +13,7 @@ namespace RctByTN.Model
         private List<Guest> guestList;
         private List<ParkElement> parkElementList;
 
-        public event EventHandler ElementChanged;
+        public event EventHandler<ParkElementEventArgs> ElementChanged;
 
         public bool IsParkOpen { get => isParkOpen; set => isParkOpen = value; }
         public int Cash { get => cash; set => cash = value; }
@@ -34,10 +34,11 @@ namespace RctByTN.Model
 
         public void Build(Int32 selectedTab)
         {
+            ParkElement newElement = null;
             switch (selectedTab)
             {
                 case 0:
-                    //ParkElement newElement = new RollerCoaster();
+                    //newElement = new RollerCoaster();
                     //ParkElementList.Add(newElement);
                     break;
                 case 1:
@@ -59,14 +60,14 @@ namespace RctByTN.Model
                 case 9:
                     break;
             }
-            OnElementChanged();
+            OnElementChanged(newElement);
         }
 
-        private void OnElementChanged()
+        private void OnElementChanged(ParkElement newElement)
         {
             if (ElementChanged != null)
             {
-                ElementChanged(this, EventArgs.Empty);
+                ElementChanged(this, new ParkElementEventArgs(newElement));
             }
         }
     }

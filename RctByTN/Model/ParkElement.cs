@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RctByTN.Model
 {
-    abstract class ParkElement
+    public abstract class ParkElement
     {
         protected Int32 x;
         protected Int32 y;

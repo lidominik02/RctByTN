@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RctByTN.Model
 {
-    class Guest
+    public class Guest
     {
     }
 }
