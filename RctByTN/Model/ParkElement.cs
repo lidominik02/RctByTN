@@ -16,11 +16,12 @@ namespace RctByTN.Model
         public int BuildCost { get => buildCost; set => buildCost = value; }
         public ElementStatus Status { get => status; set => status = value; }
 
-        public ParkElement(Int32 x, Int32 y, Int32 buildcost)
+        public ParkElement(Int32 x, Int32 y, Int32 buildcost, ElementStatus status)
         {
             this.X = x;
             this.Y = y;
             this.BuildCost = buildcost;
+            this.Status = status;
         }
 
         public abstract void ModifyGuest(Guest guest);
