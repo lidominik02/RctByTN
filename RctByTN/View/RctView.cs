@@ -29,12 +29,26 @@ namespace RctByTN.View
         {
             _model = new RctModel();
             _model.ElementChanged += new EventHandler<ParkElementEventArgs>(Game_ElementChanged);
+            parkElementPanel1.Visible = true;
+            parkElementPanel2.Visible = false;
             GenerateTable();
         }
 
         private void Game_ElementChanged(Object sender, ParkElementEventArgs e)
         {
-            RefreshTable(e.Element);
+            var element = e.Element;
+            switch (element.Status)
+            {
+                case ElementStatus.Operate:
+                    _buttonGrid[element.X, element.Y].BackColor = Color.Green;
+                    break;
+                case ElementStatus.InWaiting:
+                    _buttonGrid[element.X, element.Y].BackColor = Color.Orange;
+                    break;
+                case ElementStatus.InBuild:
+                    _buttonGrid[element.X, element.Y].BackColor = Color.Red;
+                    break;
+            }
         }
 
         public void GenerateTable()
@@ -64,34 +78,30 @@ namespace RctByTN.View
                     _buttonGrid[i, j].Size = new Size(50, 50);
                     _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
                     _buttonGrid[i, j].Margin = new Padding(0);
-                    //_buttonGrid[i, j].Dock = DockStyle.Fill;
+                    _buttonGrid[i, j].TabIndex = i * ParkWidth + j;
                     _buttonGrid[i, j].Click += buttonGrid_Click;
                     buttonGridPanel.Controls.Add(_buttonGrid[i, j]);
                 }
             }
         }
 
-        private void RefreshTable(ParkElement element)
+        private void RefreshTable()
         {
-                switch (element.Status)
-                {
-                    case ElementStatus.Operate:
-                        _buttonGrid[element.X, element.Y].BackColor = Color.Green;
-                        break;
-                    case ElementStatus.InWaiting:
-                        _buttonGrid[element.X, element.Y].BackColor = Color.Orange;
-                        break;
-                    case ElementStatus.InBuild:
-                        _buttonGrid[element.X, element.Y].BackColor = Color.Red;
-                        break;
-                }
+            //for the guest 
         }
 
         private void buttonGrid_Click(object sender, EventArgs e)
         {
-            var cgv = new CreateRestaurantView();
-            cgv.Show();
-            //_model.Build(_selectedTab);
+            if (_selectedTab == -1)
+            {
+                MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
+                    , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //var cgv = new CreateRestaurantView();
+            //cgv.Show();
+            Int32 x = (sender as Button).TabIndex / ParkWidth;
+            Int32 y = (sender as Button).TabIndex % ParkWidth;
+            _model.Build(x,y,_selectedTab);
         }
 
         private void parkElementPanel_Click(object sender, EventArgs e)
@@ -101,30 +111,22 @@ namespace RctByTN.View
 
         private void nextPictureBox_Click(object sender, EventArgs e)
         {
-            if (parkElementPanel1.Visible)
-                {
-            parkElementPanel1.Visible = false;
-            parkElementPanel2.Visible = true;
-                }
-        else
-        {
-            parkElementPanel1.Visible = true;
-            parkElementPanel2.Visible = false;
+            parkElementPanel1.Visible = !parkElementPanel1.Visible;
+            parkElementPanel2.Visible = !parkElementPanel2.Visible;
         }
-    }
 
-    private void openEditButton_Click(object sender, EventArgs e)
-    {
-        _model.IsParkOpen = !_model.IsParkOpen;
-        if (_model.IsParkOpen)
+        private void openEditButton_Click(object sender, EventArgs e)
         {
-            openEditButton.Text = "Park szerkesztése";
+            _model.IsParkOpen = !_model.IsParkOpen;
+            if (_model.IsParkOpen)
+            {
+                openEditButton.Text = "Park szerkesztése";
+            }
+            else
+            {
+                openEditButton.Text = "Park megnyitása";
+            }
         }
-        else
-        {
-            openEditButton.Text = "Park megnyitása";
-        }
-    }
 
         private void cancelPictureBox_Click(object sender, EventArgs e)
         {
