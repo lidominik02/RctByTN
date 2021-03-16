@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RctByTN.Model
 {
@@ -12,6 +13,12 @@ namespace RctByTN.Model
         private Int32 outcome;
         private List<Guest> guestList;
         private List<ParkElement> parkElementList;
+
+        private const Int32 GameBuildCost = 500;
+        private const Int32 RestaurantBuildCost = 500;
+        private const Int32 RoadBuildCost = 500;
+        private const Int32 PlantBuildCost = 500;
+        private const Int32 BuildTime = 3000;
 
         public event EventHandler<ParkElementEventArgs> ElementChanged;
 
@@ -32,14 +39,13 @@ namespace RctByTN.Model
             //cash = ???
         }
 
-        public void Build(Int32 selectedTab)
+        public void Build(Int32 x, Int32 y,Int32 selectedTab)
         {
             ParkElement newElement = null;
             switch (selectedTab)
             {
                 case 0:
-                    //newElement = new RollerCoaster();
-                    //ParkElementList.Add(newElement);
+                    newElement = new Game(x,y,GameBuildCost,ElementStatus.InBuild);
                     break;
                 case 1:
                     break;
@@ -54,13 +60,24 @@ namespace RctByTN.Model
                 case 6:
                     break;
                 case 7:
+                    newElement = new Road(x,y,RoadBuildCost,ElementStatus.InBuild);
                     break;
                 case 8:
                     break;
                 case 9:
                     break;
             }
-            OnElementChanged(newElement);
+
+            if(newElement != null)
+            {
+                SetInterval(BuildTime, () =>
+                 {
+                     newElement.Status = ElementStatus.InWaiting;
+                     OnElementChanged(newElement);
+                 });
+                parkElementList.Add(newElement);
+                OnElementChanged(newElement);
+            }
         }
 
         private void OnElementChanged(ParkElement newElement)
@@ -69,6 +86,14 @@ namespace RctByTN.Model
             {
                 ElementChanged(this, new ParkElementEventArgs(newElement));
             }
+        }
+
+        private async void SetInterval(Int32 millisecond, Action action)
+        {
+            await Task.Run(async () =>{
+                await Task.Delay(millisecond);
+                action();
+            });
         }
     }
 }
