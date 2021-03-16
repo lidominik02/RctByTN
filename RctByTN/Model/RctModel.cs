@@ -13,6 +13,8 @@ namespace RctByTN.Model
         private List<Guest> guestList;
         private List<ParkElement> parkElementList;
 
+        public event EventHandler ElementChanged;
+
         public bool IsParkOpen { get => isParkOpen; set => isParkOpen = value; }
         public int Cash { get => cash; set => cash = value; }
         public int Income { get => income; set => income = value; }
@@ -56,6 +58,15 @@ namespace RctByTN.Model
                     break;
                 case 9:
                     break;
+            }
+            OnElementChanged();
+        }
+
+        private void OnElementChanged()
+        {
+            if (ElementChanged != null)
+            {
+                ElementChanged(this, EventArgs.Empty);
             }
         }
     }

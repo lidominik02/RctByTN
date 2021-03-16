@@ -28,7 +28,13 @@ namespace RctByTN.View
         private void RctView_Load(object sender, EventArgs e)
         {
             _model = new RctModel();
+            _model.ElementChanged += new EventHandler(Game_ElementChanged);
             GenerateTable();
+        }
+
+        private void Game_ElementChanged(Object sender, EventArgs e)
+        {
+            RefreshTable();
         }
 
         public void GenerateTable()
@@ -63,6 +69,23 @@ namespace RctByTN.View
                     buttonGridPanel.Controls.Add(_buttonGrid[i, j]);
                 }
             }
+        }
+
+        private void RefreshTable()
+        {
+            foreach(ParkElement element in _model.ParkElementList)
+                switch (element.Status)
+                {
+                    case ElementStatus.Operate:
+                        _buttonGrid[element.X, element.Y].BackColor = Color.Green;
+                        break;
+                    case ElementStatus.InWaiting:
+                        _buttonGrid[element.X, element.Y].BackColor = Color.Orange;
+                        break;
+                    case ElementStatus.InBuild:
+                        _buttonGrid[element.X, element.Y].BackColor = Color.Red;
+                        break;
+                }
         }
 
         private void buttonGrid_Click(object sender, EventArgs e)
