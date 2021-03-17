@@ -16,8 +16,11 @@ namespace RctByTN.Model
 
         private const Int32 GameBuildCost = 500;
         private const Int32 GameTicketCost = 50;
-        private const Int32 GameMaintainCost = 15;
+        private const Int32 GameMaintainCost = 25;
         private const Int32 RestaurantBuildCost = 500;
+        private const Int32 RestaurantMaintainCost = 30;
+        private const Int32 RestaurantTicketServiceTime = 10;
+        private const Int32 RestaurantFoodCost = 20;
         private const Int32 RoadBuildCost = 500;
         private const Int32 PlantBuildCost = 500;
         private const Int32 BuildTime = 3000;
@@ -56,19 +59,25 @@ namespace RctByTN.Model
                     newElement = new Carousel(x, y, 0, 10, GameTicketCost, GameMaintainCost, GameBuildCost);
                     break;
                 case 3:
+                    newElement = new HotDogVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, RestaurantFoodCost);
                     break;
                 case 4:
+                    newElement = new IceCreamVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, RestaurantFoodCost);
                     break;
                 case 5:
+                    newElement = new CottonCandyVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, RestaurantFoodCost);
                     break;
                 case 6:
+                    newElement = new Road(x, y, RoadBuildCost);
                     break;
                 case 7:
-                    newElement = new Road(x,y,RoadBuildCost);
+                    newElement = new Tree(x, y, PlantBuildCost);
                     break;
                 case 8:
+                    newElement = new Grass(x, y, PlantBuildCost);
                     break;
                 case 9:
+                    newElement = new Bush(x, y, PlantBuildCost);
                     break;
             }
 

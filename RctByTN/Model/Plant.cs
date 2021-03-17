@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RctByTN.Model
 {
-    class Plant : ParkElement
+    abstract class Plant : ParkElement
     {
         public Plant(int x, int y, int buildcost) : base(x, y, buildcost)
         {
