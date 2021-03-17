@@ -97,7 +97,7 @@ namespace RctByTN.View
                 MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
                     , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //var cgv = new CreateRestaurantView();
+            //svar cgv = new CreateRestaurantView();
             //cgv.Show();
             Int32 x = (sender as Button).TabIndex / ParkWidth;
             Int32 y = (sender as Button).TabIndex % ParkWidth;

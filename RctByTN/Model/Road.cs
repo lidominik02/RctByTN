@@ -6,7 +6,7 @@ namespace RctByTN.Model
 {
     class Road : ParkElement
     {
-        public Road(int x, int y, int buildcost, ElementStatus status) : base(x, y, buildcost, status)
+        public Road(int x, int y, int buildcost) : base(x, y, buildcost)
         {
         }
 

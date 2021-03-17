@@ -15,6 +15,8 @@ namespace RctByTN.Model
         private List<ParkElement> parkElementList;
 
         private const Int32 GameBuildCost = 500;
+        private const Int32 GameTicketCost = 50;
+        private const Int32 GameMaintainCost = 15;
         private const Int32 RestaurantBuildCost = 500;
         private const Int32 RoadBuildCost = 500;
         private const Int32 PlantBuildCost = 500;
@@ -45,11 +47,13 @@ namespace RctByTN.Model
             switch (selectedTab)
             {
                 case 0:
-                    newElement = new Game(x,y,GameBuildCost,ElementStatus.InBuild);
+                    newElement = new RollerCoaster(x,y,0,10,GameTicketCost,GameMaintainCost,GameBuildCost);
                     break;
                 case 1:
+                    newElement = new GiantWheel(x, y, 0, 10, GameTicketCost, GameMaintainCost, GameBuildCost);
                     break;
                 case 2:
+                    newElement = new Carousel(x, y, 0, 10, GameTicketCost, GameMaintainCost, GameBuildCost);
                     break;
                 case 3:
                     break;
@@ -60,7 +64,7 @@ namespace RctByTN.Model
                 case 6:
                     break;
                 case 7:
-                    newElement = new Road(x,y,RoadBuildCost,ElementStatus.InBuild);
+                    newElement = new Road(x,y,RoadBuildCost);
                     break;
                 case 8:
                     break;
