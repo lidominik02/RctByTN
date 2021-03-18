@@ -101,7 +101,7 @@ namespace RctByTN.View
             Int32 x = (sender as Button).TabIndex / ParkWidth;
             Int32 y = (sender as Button).TabIndex % ParkWidth;
 
-            if (_selectedTab >= 0 && _selectedTab <= 3) 
+            if (_selectedTab >= 0 && _selectedTab <= 2) 
             {
                 var cgv = new CreateGameView();
                 if (cgv.ShowDialog() == DialogResult.OK)
@@ -109,7 +109,7 @@ namespace RctByTN.View
                     _model.Build(x, y, _selectedTab, cgv.TicketCost, cgv.MinCapacity);
                 }
             }
-            else if(_selectedTab>=4 && _selectedTab<=5)
+            else if(_selectedTab>=3 && _selectedTab<=5)
             {
                 var crv = new CreateRestaurantView();
                 if (crv.ShowDialog() == DialogResult.OK)
