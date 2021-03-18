@@ -44,28 +44,28 @@ namespace RctByTN.Model
             //cash = ???
         }
 
-        public void Build(Int32 x, Int32 y,Int32 selectedTab)
+        public void Build(Int32 x, Int32 y,Int32 selectedTab,Int32 cost,Int32 minCapacity)
         {
             ParkElement newElement = null;
             switch (selectedTab)
             {
                 case 0:
-                    newElement = new RollerCoaster(x,y,0,10,GameTicketCost,GameMaintainCost,GameBuildCost);
+                    newElement = new RollerCoaster(x,y,minCapacity,10,cost,GameMaintainCost,GameBuildCost);
                     break;
                 case 1:
-                    newElement = new GiantWheel(x, y, 0, 10, GameTicketCost, GameMaintainCost, GameBuildCost);
+                    newElement = new GiantWheel(x, y, minCapacity, 10,cost, GameMaintainCost, GameBuildCost);
                     break;
                 case 2:
-                    newElement = new Carousel(x, y, 0, 10, GameTicketCost, GameMaintainCost, GameBuildCost);
+                    newElement = new Carousel(x, y, minCapacity, 10, cost, GameMaintainCost, GameBuildCost);
                     break;
                 case 3:
-                    newElement = new HotDogVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, RestaurantFoodCost);
+                    newElement = new HotDogVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
                     break;
                 case 4:
-                    newElement = new IceCreamVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, RestaurantFoodCost);
+                    newElement = new IceCreamVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
                     break;
                 case 5:
-                    newElement = new CottonCandyVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, RestaurantFoodCost);
+                    newElement = new CottonCandyVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
                     break;
                 case 6:
                     newElement = new Road(x, y, RoadBuildCost);

@@ -97,11 +97,30 @@ namespace RctByTN.View
                 MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
                     , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //svar cgv = new CreateRestaurantView();
-            //cgv.Show();
+
             Int32 x = (sender as Button).TabIndex / ParkWidth;
             Int32 y = (sender as Button).TabIndex % ParkWidth;
-            _model.Build(x,y,_selectedTab);
+
+            if (_selectedTab >= 0 && _selectedTab <= 3) 
+            {
+                var cgv = new CreateGameView();
+                if (cgv.ShowDialog() == DialogResult.OK)
+                {
+                    _model.Build(x, y, _selectedTab, cgv.TicketCost, cgv.MinCapacity);
+                }
+            }
+            else if(_selectedTab>=4 && _selectedTab<=5)
+            {
+                var crv = new CreateRestaurantView();
+                if (crv.ShowDialog() == DialogResult.OK)
+                {
+                    _model.Build(x, y, _selectedTab, crv.FoodCost, 0);
+                }
+            }
+            else
+            {
+                _model.Build(x, y, _selectedTab, 0, 0);
+            }
         }
 
         private void parkElementPanel_Click(object sender, EventArgs e)

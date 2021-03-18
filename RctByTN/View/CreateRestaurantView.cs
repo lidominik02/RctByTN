@@ -10,6 +10,9 @@ namespace RctByTN.View
 {
     public partial class CreateRestaurantView : Form
     {
+        private Int32 _foodCost;
+
+        public Int32 FoodCost { get => _foodCost; set => _foodCost = value; }
         public CreateRestaurantView()
         {
             InitializeComponent();
@@ -23,6 +26,11 @@ namespace RctByTN.View
         private void notAcceptedButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void acceptedButton_Click(object sender, EventArgs e)
+        {
+            _foodCost = Int32.Parse(priceTextBox.Text);
         }
     }
 }
