@@ -12,10 +12,11 @@ namespace RctByTN.View
     {
         private Int32 _foodCost;
 
-        public Int32 FoodCost { get => _foodCost; set => _foodCost = value; }
+        public Int32 FoodCost { get => _foodCost;}
         public CreateRestaurantView()
         {
             InitializeComponent();
+            _foodCost = 0;
         }
 
         private void priceTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -28,9 +29,27 @@ namespace RctByTN.View
             Close();
         }
 
-        private void acceptedButton_Click(object sender, EventArgs e)
+        private void acceptedButton_Click(object sender, EventArgs e) 
         {
-            _foodCost = Int32.Parse(priceTextBox.Text);
+            try
+            {
+                _foodCost = Int32.Parse(priceTextBox.Text);
+            }
+            catch (Exception)
+            {
+                this.DialogResult = DialogResult.No;
+            }
+        }
+
+        private void priceTextBox_TextChanged(object sender, EventArgs e)
+        {
+            bool IsNullOrEmptyInputs = String.IsNullOrEmpty(priceTextBox.Text);
+            acceptedButton.Enabled = !IsNullOrEmptyInputs;
+        }
+
+        private void CreateRestaurantView_Load(object sender, EventArgs e)
+        {
+            acceptedButton.Enabled = false;
         }
     }
 }

@@ -43,10 +43,9 @@ namespace RctByTN.View
             // 
             this.acceptedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.acceptedButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.acceptedButton.Location = new System.Drawing.Point(18, 201);
-            this.acceptedButton.Margin = new System.Windows.Forms.Padding(4);
+            this.acceptedButton.Location = new System.Drawing.Point(12, 134);
             this.acceptedButton.Name = "acceptedButton";
-            this.acceptedButton.Size = new System.Drawing.Size(218, 52);
+            this.acceptedButton.Size = new System.Drawing.Size(145, 35);
             this.acceptedButton.TabIndex = 0;
             this.acceptedButton.Text = "Építés";
             this.acceptedButton.UseVisualStyleBackColor = true;
@@ -56,10 +55,9 @@ namespace RctByTN.View
             // 
             this.notAcceptedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.notAcceptedButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.notAcceptedButton.Location = new System.Drawing.Point(370, 201);
-            this.notAcceptedButton.Margin = new System.Windows.Forms.Padding(4);
+            this.notAcceptedButton.Location = new System.Drawing.Point(247, 134);
             this.notAcceptedButton.Name = "notAcceptedButton";
-            this.notAcceptedButton.Size = new System.Drawing.Size(218, 52);
+            this.notAcceptedButton.Size = new System.Drawing.Size(145, 35);
             this.notAcceptedButton.TabIndex = 0;
             this.notAcceptedButton.Text = "Mégsem";
             this.notAcceptedButton.UseVisualStyleBackColor = true;
@@ -77,13 +75,12 @@ namespace RctByTN.View
             this.userInputTableLayout.Controls.Add(this.minCapacityLabel, 0, 1);
             this.userInputTableLayout.Controls.Add(this.ticketPriceTextBox, 1, 0);
             this.userInputTableLayout.Controls.Add(this.minCapacityTextBox, 1, 1);
-            this.userInputTableLayout.Location = new System.Drawing.Point(18, 18);
-            this.userInputTableLayout.Margin = new System.Windows.Forms.Padding(4);
+            this.userInputTableLayout.Location = new System.Drawing.Point(12, 12);
             this.userInputTableLayout.Name = "userInputTableLayout";
             this.userInputTableLayout.RowCount = 2;
             this.userInputTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.userInputTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.userInputTableLayout.Size = new System.Drawing.Size(570, 150);
+            this.userInputTableLayout.Size = new System.Drawing.Size(380, 100);
             this.userInputTableLayout.TabIndex = 1;
             // 
             // ticketPriceLabel
@@ -91,10 +88,9 @@ namespace RctByTN.View
             this.ticketPriceLabel.AutoSize = true;
             this.ticketPriceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ticketPriceLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ticketPriceLabel.Location = new System.Drawing.Point(4, 0);
-            this.ticketPriceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ticketPriceLabel.Location = new System.Drawing.Point(3, 0);
             this.ticketPriceLabel.Name = "ticketPriceLabel";
-            this.ticketPriceLabel.Size = new System.Drawing.Size(277, 75);
+            this.ticketPriceLabel.Size = new System.Drawing.Size(184, 50);
             this.ticketPriceLabel.TabIndex = 0;
             this.ticketPriceLabel.Text = "Jegyár:";
             this.ticketPriceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -104,10 +100,9 @@ namespace RctByTN.View
             this.minCapacityLabel.AutoSize = true;
             this.minCapacityLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.minCapacityLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minCapacityLabel.Location = new System.Drawing.Point(4, 75);
-            this.minCapacityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.minCapacityLabel.Location = new System.Drawing.Point(3, 50);
             this.minCapacityLabel.Name = "minCapacityLabel";
-            this.minCapacityLabel.Size = new System.Drawing.Size(277, 75);
+            this.minCapacityLabel.Size = new System.Drawing.Size(184, 50);
             this.minCapacityLabel.TabIndex = 1;
             this.minCapacityLabel.Text = "Minimum kapcitás:";
             this.minCapacityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -116,35 +111,35 @@ namespace RctByTN.View
             // 
             this.ticketPriceTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ticketPriceTextBox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ticketPriceTextBox.Location = new System.Drawing.Point(289, 4);
-            this.ticketPriceTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ticketPriceTextBox.Location = new System.Drawing.Point(193, 3);
             this.ticketPriceTextBox.Name = "ticketPriceTextBox";
-            this.ticketPriceTextBox.Size = new System.Drawing.Size(277, 47);
+            this.ticketPriceTextBox.Size = new System.Drawing.Size(184, 34);
             this.ticketPriceTextBox.TabIndex = 2;
+            this.ticketPriceTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ticketPriceTextBox_KeyPress);
             // 
             // minCapacityTextBox
             // 
             this.minCapacityTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.minCapacityTextBox.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.minCapacityTextBox.Location = new System.Drawing.Point(289, 79);
-            this.minCapacityTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.minCapacityTextBox.Location = new System.Drawing.Point(193, 53);
             this.minCapacityTextBox.Name = "minCapacityTextBox";
-            this.minCapacityTextBox.Size = new System.Drawing.Size(277, 47);
+            this.minCapacityTextBox.Size = new System.Drawing.Size(184, 34);
             this.minCapacityTextBox.TabIndex = 3;
+            this.minCapacityTextBox.TextChanged += new System.EventHandler(this.minCapacityTextBox_TextChanged);
             // 
             // CreateGameView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(606, 272);
+            this.ClientSize = new System.Drawing.Size(404, 181);
             this.Controls.Add(this.userInputTableLayout);
             this.Controls.Add(this.notAcceptedButton);
             this.Controls.Add(this.acceptedButton);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "CreateGameView";
             this.Text = "Játék építése";
+            this.Load += new System.EventHandler(this.CreateGameView_Load);
             this.userInputTableLayout.ResumeLayout(false);
             this.userInputTableLayout.PerformLayout();
             this.ResumeLayout(false);
