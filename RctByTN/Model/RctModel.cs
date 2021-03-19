@@ -123,5 +123,35 @@ namespace RctByTN.Model
                 action();
             });
         }
+
+        public bool IsFreeArea(int x, int y,int selectedTab)
+        {
+            bool returnValue = IsFreeArea(x,y);
+
+            if(selectedTab < 6)
+            {
+                returnValue = returnValue ||
+                    IsFreeArea(x-1, y) ||
+                    IsFreeArea(x, y-1) ||
+                    IsFreeArea(x-1, y-1);
+            }
+
+            return returnValue;
+        }
+
+        private bool IsFreeArea(int x,int y)
+        {
+            return parkElementList.Exists(item => {
+                bool withArea = false;
+                if (item.AreaSize == 4)
+                {
+                    withArea = item.X - 1 == x && item.Y == y ||
+                               item.X - 1 == x && item.Y - 1 == y ||
+                               item.X == x && item.Y - 1 == y;
+                }
+                return (item.X == x && item.Y == y) || withArea;
+            });
+        }
+
     }
 }

@@ -10,12 +10,13 @@ namespace RctByTN.Model
         protected Int32 maxCapacity;
         protected Int32 ticketCost;
         //protected Int32 maintainCost;
-        
+
         public Game(int x, int y, int minCapacity, int maxCapacity, int buildcost, int ticketCost, int maintainCost) : base(x, y, buildcost, maintainCost)
         {
             this.minCapacity = minCapacity;
             this.maxCapacity = maxCapacity;
             this.ticketCost = ticketCost;
+            this.AreaSize = 4;
             //this.maintainCost = maintainCost;
         }
 

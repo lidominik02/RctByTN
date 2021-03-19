@@ -48,14 +48,34 @@ namespace RctByTN.View
             switch (element.Status)
             {
                 case ElementStatus.Operate:
-                    _buttonGrid[element.X, element.Y].BackColor = Color.Green;
+                    BuildParkElement(element,(button) => button.BackColor = Color.Green);
+                    //_buttonGrid[element.X, element.Y].BackColor = Color.Green;
                     break;
                 case ElementStatus.InWaiting:
-                    _buttonGrid[element.X, element.Y].BackColor = Color.Orange;
+                    BuildParkElement(element, (button) => button.BackColor = Color.Orange);
+                    //_buttonGrid[element.X, element.Y].BackColor = Color.Orange;
                     break;
                 case ElementStatus.InBuild:
-                    _buttonGrid[element.X, element.Y].BackColor = Color.Red;
+                    BuildParkElement(element, (button) => button.BackColor = Color.Red);
+                    //_buttonGrid[element.X, element.Y].BackColor = Color.Red;
                     break;
+            }
+        }
+
+        private void BuildParkElement(ParkElement element,Action<Button> action)
+        {
+            int x = element.X;
+            int y = element.Y;
+            if (element.AreaSize == 1)
+            {
+                action(_buttonGrid[x,y]);
+            }
+            else if(element.AreaSize == 4)
+            {
+                action(_buttonGrid[x, y]);
+                action(_buttonGrid[x-1, y]);
+                action(_buttonGrid[x, y-1]);
+                action(_buttonGrid[x-1, y-1]);
             }
         }
 
@@ -111,6 +131,13 @@ namespace RctByTN.View
 
             Int32 x = (sender as Button).TabIndex / ParkWidth;
             Int32 y = (sender as Button).TabIndex % ParkWidth;
+
+            if(_model.IsFreeArea(x,y,_selectedTab))
+            {
+                MessageBox.Show("A kiválasztott terület foglalt, az építéshez válaszon ki a választott vidámpark elemnek megfelelő szabad területet"
+                    , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (_selectedTab >= 0 && _selectedTab <= 2) 
             {

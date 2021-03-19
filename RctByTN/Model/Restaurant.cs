@@ -16,6 +16,7 @@ namespace RctByTN.Model
             //this.maintainCost = maintainCost;
             this.serviceTime = serviceTime;
             this.foodCost = foodCost;
+            this.AreaSize = 4;
         }
 
         public override void ModifyGuest(Guest guest)
