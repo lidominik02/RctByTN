@@ -6,7 +6,7 @@ namespace RctByTN.Model
 {
     abstract class Plant : ParkElement
     {
-        public Plant(int x, int y, int buildcost) : base(x, y, buildcost)
+        public Plant(int x, int y, int buildcost, int maintainCost) : base(x, y, buildcost, maintainCost)
         {
         }
 

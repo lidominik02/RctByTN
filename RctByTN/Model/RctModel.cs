@@ -14,18 +14,19 @@ namespace RctByTN.Model
         private List<Guest> guestList;
         private List<ParkElement> parkElementList;
 
-        private const Int32 GameBuildCost = 500;
+        private const Int32 GameBuildCost = 250;
         private const Int32 GameTicketCost = 50;
-        private const Int32 GameMaintainCost = 25;
-        private const Int32 RestaurantBuildCost = 500;
-        private const Int32 RestaurantMaintainCost = 30;
+        private const Int32 GameMaintainCost = 50;
+        private const Int32 RestaurantBuildCost = 200;
+        private const Int32 RestaurantMaintainCost = 50;
         private const Int32 RestaurantTicketServiceTime = 10;
         private const Int32 RestaurantFoodCost = 20;
-        private const Int32 RoadBuildCost = 500;
-        private const Int32 PlantBuildCost = 500;
+        private const Int32 RoadBuildCost = 20;
+        private const Int32 PlantBuildCost = 100;
         private const Int32 BuildTime = 3000;
 
         public event EventHandler<ParkElementEventArgs> ElementChanged;
+        public event EventHandler CashChanged;
 
         public bool IsParkOpen { get => isParkOpen; set => isParkOpen = value; }
         public int Cash { get => cash; set => cash = value; }
@@ -40,8 +41,7 @@ namespace RctByTN.Model
             ParkElementList = new List<ParkElement>();
             IsParkOpen = false;
             income = outcome = 0;
-            //TODO: to find out the amount of starting cash
-            //cash = ???
+            cash = 1000;
         }
 
         public void Build(Int32 x, Int32 y,Int32 selectedTab,Int32 cost,Int32 minCapacity)
@@ -50,13 +50,13 @@ namespace RctByTN.Model
             switch (selectedTab)
             {
                 case 0:
-                    newElement = new RollerCoaster(x,y,minCapacity,10,cost,GameMaintainCost,GameBuildCost);
+                    newElement = new RollerCoaster(x,y,minCapacity,10,cost, GameBuildCost,GameMaintainCost);
                     break;
                 case 1:
-                    newElement = new GiantWheel(x, y, minCapacity, 10,cost, GameMaintainCost, GameBuildCost);
+                    newElement = new GiantWheel(x, y, minCapacity, 10,cost, GameBuildCost, GameMaintainCost);
                     break;
                 case 2:
-                    newElement = new Carousel(x, y, minCapacity, 10, cost, GameMaintainCost, GameBuildCost);
+                    newElement = new Carousel(x, y, minCapacity, 10, cost, GameBuildCost, GameMaintainCost);
                     break;
                 case 3:
                     newElement = new HotDogVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
@@ -68,21 +68,25 @@ namespace RctByTN.Model
                     newElement = new CottonCandyVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
                     break;
                 case 6:
-                    newElement = new Road(x, y, RoadBuildCost);
+                    newElement = new Road(x, y, RoadBuildCost,0);
                     break;
                 case 7:
-                    newElement = new Tree(x, y, PlantBuildCost);
+                    newElement = new Tree(x, y, PlantBuildCost,0);
                     break;
                 case 8:
-                    newElement = new Grass(x, y, PlantBuildCost);
+                    newElement = new Grass(x, y, PlantBuildCost,0);
                     break;
                 case 9:
-                    newElement = new Bush(x, y, PlantBuildCost);
+                    newElement = new Bush(x, y, PlantBuildCost,0);
                     break;
             }
 
             if(newElement != null)
             {
+                cash -= newElement.BuildCost;
+                outcome += newElement.MaintainCost;
+                OnCashChanged();
+
                 SetInterval(BuildTime, () =>
                  {
                      newElement.Status = ElementStatus.InWaiting;
@@ -98,6 +102,14 @@ namespace RctByTN.Model
             if (ElementChanged != null)
             {
                 ElementChanged(this, new ParkElementEventArgs(newElement));
+            }
+        }
+
+        private void OnCashChanged()
+        {
+            if(CashChanged != null)
+            {
+                CashChanged(this, EventArgs.Empty);
             }
         }
 

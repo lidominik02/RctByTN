@@ -6,7 +6,7 @@ namespace RctByTN.Model
 {
     class Grass : Plant
     {
-        public Grass(int x, int y, int buildcost) : base(x, y, buildcost)
+        public Grass(int x, int y, int buildcost, int maintainCost) : base(x, y, buildcost, maintainCost)
         {
         }
     }

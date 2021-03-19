@@ -6,7 +6,7 @@ namespace RctByTN.Model
 {
     class Tree : Plant
     {
-        public Tree(int x, int y, int buildcost) : base(x, y, buildcost)
+        public Tree(int x, int y, int buildcost, int maintainCost) : base(x, y, buildcost, maintainCost)
         {
         }
     }

@@ -9,14 +9,14 @@ namespace RctByTN.Model
         protected Int32 minCapacity;
         protected Int32 maxCapacity;
         protected Int32 ticketCost;
-        protected Int32 maintainCost;
+        //protected Int32 maintainCost;
         
-        public Game(int x, int y, int minCapacity, int maxCapacity, int buildcost, int ticketCost, int maintainCost) : base(x, y, buildcost)
+        public Game(int x, int y, int minCapacity, int maxCapacity, int buildcost, int ticketCost, int maintainCost) : base(x, y, buildcost, maintainCost)
         {
             this.minCapacity = minCapacity;
             this.maxCapacity = maxCapacity;
             this.ticketCost = ticketCost;
-            this.maintainCost = maintainCost;
+            //this.maintainCost = maintainCost;
         }
 
         public override void ModifyGuest(Guest guest)
