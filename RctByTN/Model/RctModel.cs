@@ -46,6 +46,9 @@ namespace RctByTN.Model
 
         public void Build(Int32 x, Int32 y,Int32 selectedTab,Int32 cost,Int32 minCapacity)
         {
+            if (isParkOpen)
+                return;
+
             ParkElement newElement = null;
             switch (selectedTab)
             {

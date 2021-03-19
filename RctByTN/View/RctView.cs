@@ -100,6 +100,9 @@ namespace RctByTN.View
 
         private void buttonGrid_Click(object sender, EventArgs e)
         {
+            if (_model.IsParkOpen)
+                return;
+
             if (_selectedTab == -1)
             {
                 MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
@@ -145,14 +148,10 @@ namespace RctByTN.View
         private void openEditButton_Click(object sender, EventArgs e)
         {
             _model.IsParkOpen = !_model.IsParkOpen;
-            if (_model.IsParkOpen)
-            {
-                openEditButton.Text = "Park szerkesztése";
-            }
-            else
-            {
-                openEditButton.Text = "Park megnyitása";
-            }
+            openEditButton.Text = _model.IsParkOpen ?
+                                    "Park szerkesztése"
+                                    : "Park megnyitása";
+            campaignButton.Enabled = _model.IsParkOpen;
         }
 
         private void cancelPictureBox_Click(object sender, EventArgs e)
