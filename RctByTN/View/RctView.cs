@@ -175,6 +175,37 @@ namespace RctByTN.View
         private void parkElementPanel_Click(object sender, EventArgs e)
         {
             _selectedTab = ((Button)sender).TabIndex;
+            foreach (Button button in parkElementPanel1.Controls)
+            {
+                
+                if (_selectedTab == button.TabIndex)
+                {
+                    button.FlatStyle = FlatStyle.Flat;
+                    button.FlatAppearance.BorderSize = 1;
+                    button.FlatAppearance.BorderColor = Color.FromArgb(121, 96, 76);
+                }
+                else
+                {
+                    button.FlatAppearance.BorderSize = 0;
+                    button.FlatAppearance.BorderColor = Color.Empty;
+                    button.FlatStyle = FlatStyle.Standard;
+                }
+            }
+            foreach (Button button in parkElementPanel2.Controls)
+            {
+                if (_selectedTab == button.TabIndex)
+                {
+                    button.FlatStyle = FlatStyle.Flat;
+                    button.FlatAppearance.BorderSize = 1;
+                    button.FlatAppearance.BorderColor = Color.FromArgb(121, 96, 76);
+                }
+                else
+                {
+                    button.FlatAppearance.BorderSize = 0;
+                    button.FlatAppearance.BorderColor = Color.Empty;
+                    button.FlatStyle = FlatStyle.Standard;
+                }
+            }
         }
 
         private void nextPictureBox_Click(object sender, EventArgs e)
@@ -204,6 +235,18 @@ namespace RctByTN.View
         private void cancelPictureBox_Click(object sender, EventArgs e)
         {
             _selectedTab = -1;
+            foreach (Button button in parkElementPanel1.Controls)
+            {
+                button.FlatAppearance.BorderSize = 0;
+                button.FlatAppearance.BorderColor = Color.Empty;
+                button.FlatStyle = FlatStyle.Standard;
+            }
+            foreach (Button button in parkElementPanel2.Controls)
+            {
+                button.FlatAppearance.BorderSize = 0;
+                button.FlatAppearance.BorderColor = Color.Empty;
+                button.FlatStyle = FlatStyle.Standard;
+            }
         }
     }
 }
