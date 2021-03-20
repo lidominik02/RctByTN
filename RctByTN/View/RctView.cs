@@ -112,6 +112,7 @@ namespace RctByTN.View
                 {
                     _buttonGrid[i, j] = new Button();
                     _buttonGrid[i, j].Size = new Size(50, 50);
+                    _buttonGrid[i,j].BackgroundImageLayout = ImageLayout.Stretch;
                     _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
                     _buttonGrid[i, j].Margin = new Padding(0);
                     _buttonGrid[i, j].TabIndex = i * ParkWidth + j;
