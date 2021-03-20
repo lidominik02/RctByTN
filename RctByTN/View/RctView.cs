@@ -61,6 +61,10 @@ namespace RctByTN.View
                     {
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.grass;
                     }
+                    else if(element.GetType() == typeof(Bush))
+                    {
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.bush;
+                    }
                     //_buttonGrid[element.X, element.Y].BackColor = Color.Orange;
                     break;
                 case ElementStatus.InBuild:
