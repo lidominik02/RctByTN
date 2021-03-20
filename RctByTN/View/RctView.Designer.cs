@@ -70,82 +70,89 @@ namespace RctByTN.View
             this.parkElementPanel1.Controls.Add(this.hotDogButton);
             this.parkElementPanel1.Controls.Add(this.iceCreamButton);
             this.parkElementPanel1.Controls.Add(this.candyButton);
-            this.parkElementPanel1.Location = new System.Drawing.Point(0, 794);
+            this.parkElementPanel1.Location = new System.Drawing.Point(0, 787);
             this.parkElementPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel1.Name = "parkElementPanel1";
-            this.parkElementPanel1.Size = new System.Drawing.Size(1080, 50);
+            this.parkElementPanel1.Padding = new System.Windows.Forms.Padding(5, 3, 0, 0);
+            this.parkElementPanel1.Size = new System.Drawing.Size(1205, 57);
             this.parkElementPanel1.TabIndex = 0;
             // 
             // rollerCoasterButton
             // 
+            this.rollerCoasterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.rollerCoasterButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rollerCoasterButton.Location = new System.Drawing.Point(0, 0);
+            this.rollerCoasterButton.Location = new System.Drawing.Point(5, 3);
             this.rollerCoasterButton.Margin = new System.Windows.Forms.Padding(0);
             this.rollerCoasterButton.Name = "rollerCoasterButton";
             this.rollerCoasterButton.Size = new System.Drawing.Size(160, 50);
             this.rollerCoasterButton.TabIndex = 0;
             this.rollerCoasterButton.Text = "Hullámvasút";
-            this.rollerCoasterButton.UseVisualStyleBackColor = true;
+            this.rollerCoasterButton.UseVisualStyleBackColor = false;
             this.rollerCoasterButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // giantWheelButton
             // 
+            this.giantWheelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.giantWheelButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.giantWheelButton.Location = new System.Drawing.Point(160, 0);
+            this.giantWheelButton.Location = new System.Drawing.Point(165, 3);
             this.giantWheelButton.Margin = new System.Windows.Forms.Padding(0);
             this.giantWheelButton.Name = "giantWheelButton";
             this.giantWheelButton.Size = new System.Drawing.Size(160, 50);
             this.giantWheelButton.TabIndex = 1;
             this.giantWheelButton.Text = "Óriáskerék";
-            this.giantWheelButton.UseVisualStyleBackColor = true;
+            this.giantWheelButton.UseVisualStyleBackColor = false;
             this.giantWheelButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // carouselButton
             // 
+            this.carouselButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.carouselButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.carouselButton.Location = new System.Drawing.Point(320, 0);
+            this.carouselButton.Location = new System.Drawing.Point(325, 3);
             this.carouselButton.Margin = new System.Windows.Forms.Padding(0);
             this.carouselButton.Name = "carouselButton";
             this.carouselButton.Size = new System.Drawing.Size(160, 50);
             this.carouselButton.TabIndex = 2;
             this.carouselButton.Text = "Körhinta";
-            this.carouselButton.UseVisualStyleBackColor = true;
+            this.carouselButton.UseVisualStyleBackColor = false;
             this.carouselButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // hotDogButton
             // 
+            this.hotDogButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.hotDogButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.hotDogButton.Location = new System.Drawing.Point(480, 0);
+            this.hotDogButton.Location = new System.Drawing.Point(485, 3);
             this.hotDogButton.Margin = new System.Windows.Forms.Padding(0);
             this.hotDogButton.Name = "hotDogButton";
             this.hotDogButton.Size = new System.Drawing.Size(160, 50);
             this.hotDogButton.TabIndex = 3;
             this.hotDogButton.Text = "Hot-dog árus";
-            this.hotDogButton.UseVisualStyleBackColor = true;
+            this.hotDogButton.UseVisualStyleBackColor = false;
             this.hotDogButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // iceCreamButton
             // 
+            this.iceCreamButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.iceCreamButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.iceCreamButton.Location = new System.Drawing.Point(640, 0);
+            this.iceCreamButton.Location = new System.Drawing.Point(645, 3);
             this.iceCreamButton.Margin = new System.Windows.Forms.Padding(0);
             this.iceCreamButton.Name = "iceCreamButton";
             this.iceCreamButton.Size = new System.Drawing.Size(160, 50);
             this.iceCreamButton.TabIndex = 4;
             this.iceCreamButton.Text = "Fagylaltos";
-            this.iceCreamButton.UseVisualStyleBackColor = true;
+            this.iceCreamButton.UseVisualStyleBackColor = false;
             this.iceCreamButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // candyButton
             // 
+            this.candyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.candyButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.candyButton.Location = new System.Drawing.Point(800, 0);
+            this.candyButton.Location = new System.Drawing.Point(805, 3);
             this.candyButton.Margin = new System.Windows.Forms.Padding(0);
             this.candyButton.Name = "candyButton";
             this.candyButton.Size = new System.Drawing.Size(160, 50);
             this.candyButton.TabIndex = 5;
             this.candyButton.Text = "Vattacukor árus";
-            this.candyButton.UseVisualStyleBackColor = true;
+            this.candyButton.UseVisualStyleBackColor = false;
             this.candyButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // parkElementPanel2
@@ -155,59 +162,64 @@ namespace RctByTN.View
             this.parkElementPanel2.Controls.Add(this.grassButton);
             this.parkElementPanel2.Controls.Add(this.treeButton);
             this.parkElementPanel2.Controls.Add(this.bushButton);
-            this.parkElementPanel2.Location = new System.Drawing.Point(0, 794);
+            this.parkElementPanel2.Location = new System.Drawing.Point(0, 787);
             this.parkElementPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel2.Name = "parkElementPanel2";
-            this.parkElementPanel2.Size = new System.Drawing.Size(1205, 50);
+            this.parkElementPanel2.Padding = new System.Windows.Forms.Padding(5, 3, 0, 0);
+            this.parkElementPanel2.Size = new System.Drawing.Size(1205, 57);
             this.parkElementPanel2.TabIndex = 1;
             this.parkElementPanel2.Visible = false;
             // 
             // roadButton
             // 
+            this.roadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.roadButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.roadButton.Location = new System.Drawing.Point(0, 0);
+            this.roadButton.Location = new System.Drawing.Point(5, 3);
             this.roadButton.Margin = new System.Windows.Forms.Padding(0);
             this.roadButton.Name = "roadButton";
             this.roadButton.Size = new System.Drawing.Size(160, 50);
             this.roadButton.TabIndex = 6;
             this.roadButton.Text = "Út";
-            this.roadButton.UseVisualStyleBackColor = true;
+            this.roadButton.UseVisualStyleBackColor = false;
             this.roadButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // grassButton
             // 
+            this.grassButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.grassButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.grassButton.Location = new System.Drawing.Point(160, 0);
+            this.grassButton.Location = new System.Drawing.Point(165, 3);
             this.grassButton.Margin = new System.Windows.Forms.Padding(0);
             this.grassButton.Name = "grassButton";
             this.grassButton.Size = new System.Drawing.Size(160, 50);
             this.grassButton.TabIndex = 7;
             this.grassButton.Text = "Fű";
-            this.grassButton.UseVisualStyleBackColor = true;
+            this.grassButton.UseVisualStyleBackColor = false;
             this.grassButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // treeButton
             // 
+            this.treeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.treeButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.treeButton.Location = new System.Drawing.Point(320, 0);
+            this.treeButton.Location = new System.Drawing.Point(325, 3);
             this.treeButton.Margin = new System.Windows.Forms.Padding(0);
             this.treeButton.Name = "treeButton";
             this.treeButton.Size = new System.Drawing.Size(160, 50);
             this.treeButton.TabIndex = 8;
             this.treeButton.Text = "Fa";
-            this.treeButton.UseVisualStyleBackColor = true;
+            this.treeButton.UseVisualStyleBackColor = false;
             this.treeButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // bushButton
             // 
+            this.bushButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.bushButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bushButton.Location = new System.Drawing.Point(480, 0);
+            this.bushButton.Location = new System.Drawing.Point(485, 3);
             this.bushButton.Margin = new System.Windows.Forms.Padding(0);
             this.bushButton.Name = "bushButton";
             this.bushButton.Size = new System.Drawing.Size(160, 50);
             this.bushButton.TabIndex = 9;
             this.bushButton.Text = "Bokor";
-            this.bushButton.UseVisualStyleBackColor = true;
+            this.bushButton.UseVisualStyleBackColor = false;
             this.bushButton.Click += new System.EventHandler(this.parkElementPanel_Click);
             // 
             // incomeLabel
@@ -243,6 +255,8 @@ namespace RctByTN.View
             // cashCampaignPanel
             // 
             this.cashCampaignPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cashCampaignPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.cashCampaignPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cashCampaignPanel.Controls.Add(this.cashLabel);
             this.cashCampaignPanel.Controls.Add(this.incomeLabel);
             this.cashCampaignPanel.Controls.Add(this.outcomeLabel);
@@ -255,13 +269,14 @@ namespace RctByTN.View
             // 
             // campaignButton
             // 
+            this.campaignButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.campaignButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.campaignButton.Location = new System.Drawing.Point(3, 75);
             this.campaignButton.Name = "campaignButton";
             this.campaignButton.Size = new System.Drawing.Size(297, 42);
             this.campaignButton.TabIndex = 5;
             this.campaignButton.Text = "Kampány indítása";
-            this.campaignButton.UseVisualStyleBackColor = true;
+            this.campaignButton.UseVisualStyleBackColor = false;
             // 
             // parkEditLayoutPanel
             // 
@@ -282,13 +297,14 @@ namespace RctByTN.View
             // 
             // openEditButton
             // 
+            this.openEditButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
             this.openEditButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.openEditButton.Location = new System.Drawing.Point(3, 84);
             this.openEditButton.Name = "openEditButton";
             this.openEditButton.Size = new System.Drawing.Size(805, 33);
             this.openEditButton.TabIndex = 1;
             this.openEditButton.Text = "Park megnyitása";
-            this.openEditButton.UseVisualStyleBackColor = true;
+            this.openEditButton.UseVisualStyleBackColor = false;
             this.openEditButton.Click += new System.EventHandler(this.openEditButton_Click);
             // 
             // nextPictureBox
@@ -335,6 +351,7 @@ namespace RctByTN.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(196)))), ((int)(((byte)(161)))));
             this.ClientSize = new System.Drawing.Size(1205, 844);
             this.Controls.Add(this.buttonGridPanel);
             this.Controls.Add(this.cancelPictureBox);
