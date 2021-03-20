@@ -113,6 +113,8 @@ namespace RctByTN.View
                     _buttonGrid[i, j] = new Button();
                     _buttonGrid[i, j].Size = new Size(50, 50);
                     _buttonGrid[i,j].BackgroundImageLayout = ImageLayout.Stretch;
+                    _buttonGrid[i, j].BackColor = Color.FromArgb(37, 211, 102);
+                    _buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(82, 255, 164);
                     _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
                     _buttonGrid[i, j].Margin = new Padding(0);
                     _buttonGrid[i, j].TabIndex = i * ParkWidth + j;
@@ -183,7 +185,16 @@ namespace RctByTN.View
 
         private void openEditButton_Click(object sender, EventArgs e)
         {
-            _model.IsParkOpen = !_model.IsParkOpen;
+            //_model.IsParkOpen = !_model.IsParkOpen;
+            if (_model.IsParkOpen) {
+                _model.IsParkOpen = false;
+                foreach(Button button in _buttonGrid) button.FlatAppearance.BorderSize = 1; 
+            }
+            else
+            {
+                _model.IsParkOpen = true;
+                foreach (Button button in _buttonGrid) button.FlatAppearance.BorderSize = 0;
+            }
             openEditButton.Text = _model.IsParkOpen ?
                                     "Park szerkesztése"
                                     : "Park megnyitása";
