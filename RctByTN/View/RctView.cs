@@ -53,6 +53,14 @@ namespace RctByTN.View
                     break;
                 case ElementStatus.InWaiting:
                     BuildParkElement(element, (button) => button.BackColor = Color.Orange);
+                    if (element.GetType() == typeof(Road))
+                    {
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.road;
+                    }
+                    else if(element.GetType() == typeof(Grass))
+                    {
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.grass;
+                    }
                     //_buttonGrid[element.X, element.Y].BackColor = Color.Orange;
                     break;
                 case ElementStatus.InBuild:

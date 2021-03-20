@@ -74,10 +74,10 @@ namespace RctByTN.Model
                     newElement = new Road(x, y, RoadBuildCost,0);
                     break;
                 case 7:
-                    newElement = new Tree(x, y, PlantBuildCost,0);
+                    newElement = new Grass(x, y, PlantBuildCost,0);
                     break;
                 case 8:
-                    newElement = new Grass(x, y, PlantBuildCost,0);
+                    newElement = new Tree(x, y, PlantBuildCost,0);
                     break;
                 case 9:
                     newElement = new Bush(x, y, PlantBuildCost,0);
