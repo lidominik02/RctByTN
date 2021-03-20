@@ -70,21 +70,22 @@ namespace RctByTN.View
             this.parkElementPanel1.Controls.Add(this.hotDogButton);
             this.parkElementPanel1.Controls.Add(this.iceCreamButton);
             this.parkElementPanel1.Controls.Add(this.candyButton);
-            this.parkElementPanel1.Location = new System.Drawing.Point(0, 525);
+            this.parkElementPanel1.Location = new System.Drawing.Point(0, 788);
             this.parkElementPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel1.Name = "parkElementPanel1";
-            this.parkElementPanel1.Padding = new System.Windows.Forms.Padding(3, 2, 0, 0);
-            this.parkElementPanel1.Size = new System.Drawing.Size(803, 38);
+            this.parkElementPanel1.Padding = new System.Windows.Forms.Padding(4, 3, 0, 0);
+            this.parkElementPanel1.Size = new System.Drawing.Size(1204, 57);
             this.parkElementPanel1.TabIndex = 0;
             // 
             // rollerCoasterButton
             // 
-            this.rollerCoasterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.rollerCoasterButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.rollerCoasterButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rollerCoasterButton.Location = new System.Drawing.Point(3, 2);
+            this.rollerCoasterButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.rollerCoasterButton.Location = new System.Drawing.Point(4, 3);
             this.rollerCoasterButton.Margin = new System.Windows.Forms.Padding(0);
             this.rollerCoasterButton.Name = "rollerCoasterButton";
-            this.rollerCoasterButton.Size = new System.Drawing.Size(107, 33);
+            this.rollerCoasterButton.Size = new System.Drawing.Size(160, 50);
             this.rollerCoasterButton.TabIndex = 0;
             this.rollerCoasterButton.Text = "Hullámvasút";
             this.rollerCoasterButton.UseVisualStyleBackColor = false;
@@ -92,12 +93,13 @@ namespace RctByTN.View
             // 
             // giantWheelButton
             // 
-            this.giantWheelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.giantWheelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.giantWheelButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.giantWheelButton.Location = new System.Drawing.Point(110, 2);
+            this.giantWheelButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.giantWheelButton.Location = new System.Drawing.Point(164, 3);
             this.giantWheelButton.Margin = new System.Windows.Forms.Padding(0);
             this.giantWheelButton.Name = "giantWheelButton";
-            this.giantWheelButton.Size = new System.Drawing.Size(107, 33);
+            this.giantWheelButton.Size = new System.Drawing.Size(160, 50);
             this.giantWheelButton.TabIndex = 1;
             this.giantWheelButton.Text = "Óriáskerék";
             this.giantWheelButton.UseVisualStyleBackColor = false;
@@ -105,12 +107,13 @@ namespace RctByTN.View
             // 
             // carouselButton
             // 
-            this.carouselButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.carouselButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.carouselButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.carouselButton.Location = new System.Drawing.Point(217, 2);
+            this.carouselButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.carouselButton.Location = new System.Drawing.Point(324, 3);
             this.carouselButton.Margin = new System.Windows.Forms.Padding(0);
             this.carouselButton.Name = "carouselButton";
-            this.carouselButton.Size = new System.Drawing.Size(107, 33);
+            this.carouselButton.Size = new System.Drawing.Size(160, 50);
             this.carouselButton.TabIndex = 2;
             this.carouselButton.Text = "Körhinta";
             this.carouselButton.UseVisualStyleBackColor = false;
@@ -118,12 +121,13 @@ namespace RctByTN.View
             // 
             // hotDogButton
             // 
-            this.hotDogButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.hotDogButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.hotDogButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.hotDogButton.Location = new System.Drawing.Point(324, 2);
+            this.hotDogButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.hotDogButton.Location = new System.Drawing.Point(484, 3);
             this.hotDogButton.Margin = new System.Windows.Forms.Padding(0);
             this.hotDogButton.Name = "hotDogButton";
-            this.hotDogButton.Size = new System.Drawing.Size(107, 33);
+            this.hotDogButton.Size = new System.Drawing.Size(160, 50);
             this.hotDogButton.TabIndex = 3;
             this.hotDogButton.Text = "Hot-dog árus";
             this.hotDogButton.UseVisualStyleBackColor = false;
@@ -131,12 +135,13 @@ namespace RctByTN.View
             // 
             // iceCreamButton
             // 
-            this.iceCreamButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.iceCreamButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.iceCreamButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.iceCreamButton.Location = new System.Drawing.Point(431, 2);
+            this.iceCreamButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.iceCreamButton.Location = new System.Drawing.Point(644, 3);
             this.iceCreamButton.Margin = new System.Windows.Forms.Padding(0);
             this.iceCreamButton.Name = "iceCreamButton";
-            this.iceCreamButton.Size = new System.Drawing.Size(107, 33);
+            this.iceCreamButton.Size = new System.Drawing.Size(160, 50);
             this.iceCreamButton.TabIndex = 4;
             this.iceCreamButton.Text = "Fagylaltos";
             this.iceCreamButton.UseVisualStyleBackColor = false;
@@ -144,12 +149,13 @@ namespace RctByTN.View
             // 
             // candyButton
             // 
-            this.candyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.candyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.candyButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.candyButton.Location = new System.Drawing.Point(538, 2);
+            this.candyButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.candyButton.Location = new System.Drawing.Point(804, 3);
             this.candyButton.Margin = new System.Windows.Forms.Padding(0);
             this.candyButton.Name = "candyButton";
-            this.candyButton.Size = new System.Drawing.Size(107, 33);
+            this.candyButton.Size = new System.Drawing.Size(160, 50);
             this.candyButton.TabIndex = 5;
             this.candyButton.Text = "Vattacukor árus";
             this.candyButton.UseVisualStyleBackColor = false;
@@ -162,22 +168,23 @@ namespace RctByTN.View
             this.parkElementPanel2.Controls.Add(this.grassButton);
             this.parkElementPanel2.Controls.Add(this.treeButton);
             this.parkElementPanel2.Controls.Add(this.bushButton);
-            this.parkElementPanel2.Location = new System.Drawing.Point(0, 525);
+            this.parkElementPanel2.Location = new System.Drawing.Point(0, 788);
             this.parkElementPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.parkElementPanel2.Name = "parkElementPanel2";
-            this.parkElementPanel2.Padding = new System.Windows.Forms.Padding(3, 2, 0, 0);
-            this.parkElementPanel2.Size = new System.Drawing.Size(803, 38);
+            this.parkElementPanel2.Padding = new System.Windows.Forms.Padding(4, 3, 0, 0);
+            this.parkElementPanel2.Size = new System.Drawing.Size(1204, 57);
             this.parkElementPanel2.TabIndex = 1;
             this.parkElementPanel2.Visible = false;
             // 
             // roadButton
             // 
-            this.roadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.roadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.roadButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.roadButton.Location = new System.Drawing.Point(3, 2);
+            this.roadButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.roadButton.Location = new System.Drawing.Point(4, 3);
             this.roadButton.Margin = new System.Windows.Forms.Padding(0);
             this.roadButton.Name = "roadButton";
-            this.roadButton.Size = new System.Drawing.Size(107, 33);
+            this.roadButton.Size = new System.Drawing.Size(160, 50);
             this.roadButton.TabIndex = 6;
             this.roadButton.Text = "Út";
             this.roadButton.UseVisualStyleBackColor = false;
@@ -185,12 +192,13 @@ namespace RctByTN.View
             // 
             // grassButton
             // 
-            this.grassButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.grassButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.grassButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.grassButton.Location = new System.Drawing.Point(110, 2);
+            this.grassButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.grassButton.Location = new System.Drawing.Point(164, 3);
             this.grassButton.Margin = new System.Windows.Forms.Padding(0);
             this.grassButton.Name = "grassButton";
-            this.grassButton.Size = new System.Drawing.Size(107, 33);
+            this.grassButton.Size = new System.Drawing.Size(160, 50);
             this.grassButton.TabIndex = 7;
             this.grassButton.Text = "Fű";
             this.grassButton.UseVisualStyleBackColor = false;
@@ -198,12 +206,13 @@ namespace RctByTN.View
             // 
             // treeButton
             // 
-            this.treeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.treeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.treeButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.treeButton.Location = new System.Drawing.Point(217, 2);
+            this.treeButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.treeButton.Location = new System.Drawing.Point(324, 3);
             this.treeButton.Margin = new System.Windows.Forms.Padding(0);
             this.treeButton.Name = "treeButton";
-            this.treeButton.Size = new System.Drawing.Size(107, 33);
+            this.treeButton.Size = new System.Drawing.Size(160, 50);
             this.treeButton.TabIndex = 8;
             this.treeButton.Text = "Fa";
             this.treeButton.UseVisualStyleBackColor = false;
@@ -211,12 +220,13 @@ namespace RctByTN.View
             // 
             // bushButton
             // 
-            this.bushButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.bushButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.bushButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bushButton.Location = new System.Drawing.Point(324, 2);
+            this.bushButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.bushButton.Location = new System.Drawing.Point(484, 3);
             this.bushButton.Margin = new System.Windows.Forms.Padding(0);
             this.bushButton.Name = "bushButton";
-            this.bushButton.Size = new System.Drawing.Size(107, 33);
+            this.bushButton.Size = new System.Drawing.Size(160, 50);
             this.bushButton.TabIndex = 9;
             this.bushButton.Text = "Bokor";
             this.bushButton.UseVisualStyleBackColor = false;
@@ -226,10 +236,9 @@ namespace RctByTN.View
             // 
             this.incomeLabel.AutoSize = true;
             this.incomeLabel.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.incomeLabel.Location = new System.Drawing.Point(2, 17);
-            this.incomeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.incomeLabel.Location = new System.Drawing.Point(3, 24);
             this.incomeLabel.Name = "incomeLabel";
-            this.incomeLabel.Size = new System.Drawing.Size(62, 17);
+            this.incomeLabel.Size = new System.Drawing.Size(92, 24);
             this.incomeLabel.TabIndex = 3;
             this.incomeLabel.Text = "Income: 0";
             // 
@@ -237,10 +246,9 @@ namespace RctByTN.View
             // 
             this.outcomeLabel.AutoSize = true;
             this.outcomeLabel.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.outcomeLabel.Location = new System.Drawing.Point(2, 34);
-            this.outcomeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.outcomeLabel.Location = new System.Drawing.Point(3, 48);
             this.outcomeLabel.Name = "outcomeLabel";
-            this.outcomeLabel.Size = new System.Drawing.Size(71, 17);
+            this.outcomeLabel.Size = new System.Drawing.Size(104, 24);
             this.outcomeLabel.TabIndex = 4;
             this.outcomeLabel.Text = "Outcome: 0";
             // 
@@ -248,37 +256,36 @@ namespace RctByTN.View
             // 
             this.cashLabel.AutoSize = true;
             this.cashLabel.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cashLabel.Location = new System.Drawing.Point(2, 0);
-            this.cashLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cashLabel.Location = new System.Drawing.Point(3, 0);
             this.cashLabel.Name = "cashLabel";
-            this.cashLabel.Size = new System.Drawing.Size(67, 17);
+            this.cashLabel.Size = new System.Drawing.Size(99, 24);
             this.cashLabel.TabIndex = 2;
             this.cashLabel.Text = "Cash: 1000";
             // 
             // cashCampaignPanel
             // 
             this.cashCampaignPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cashCampaignPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.cashCampaignPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.cashCampaignPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cashCampaignPanel.Controls.Add(this.cashLabel);
             this.cashCampaignPanel.Controls.Add(this.incomeLabel);
             this.cashCampaignPanel.Controls.Add(this.outcomeLabel);
             this.cashCampaignPanel.Controls.Add(this.campaignButton);
             this.cashCampaignPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.cashCampaignPanel.Location = new System.Drawing.Point(595, 1);
-            this.cashCampaignPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.cashCampaignPanel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.cashCampaignPanel.Location = new System.Drawing.Point(892, 2);
             this.cashCampaignPanel.Name = "cashCampaignPanel";
-            this.cashCampaignPanel.Size = new System.Drawing.Size(201, 86);
+            this.cashCampaignPanel.Size = new System.Drawing.Size(300, 128);
             this.cashCampaignPanel.TabIndex = 5;
             // 
             // campaignButton
             // 
-            this.campaignButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.campaignButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.campaignButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.campaignButton.Location = new System.Drawing.Point(2, 53);
-            this.campaignButton.Margin = new System.Windows.Forms.Padding(2);
+            this.campaignButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.campaignButton.Location = new System.Drawing.Point(3, 75);
             this.campaignButton.Name = "campaignButton";
-            this.campaignButton.Size = new System.Drawing.Size(198, 28);
+            this.campaignButton.Size = new System.Drawing.Size(297, 42);
             this.campaignButton.TabIndex = 5;
             this.campaignButton.Text = "Kampány indítása";
             this.campaignButton.UseVisualStyleBackColor = false;
@@ -287,29 +294,27 @@ namespace RctByTN.View
             // 
             this.parkEditLayoutPanel.Controls.Add(this.logoPictureBox);
             this.parkEditLayoutPanel.Controls.Add(this.openEditButton);
-            this.parkEditLayoutPanel.Location = new System.Drawing.Point(19, 1);
-            this.parkEditLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.parkEditLayoutPanel.Location = new System.Drawing.Point(28, 2);
             this.parkEditLayoutPanel.Name = "parkEditLayoutPanel";
-            this.parkEditLayoutPanel.Size = new System.Drawing.Size(550, 85);
+            this.parkEditLayoutPanel.Size = new System.Drawing.Size(825, 128);
             this.parkEditLayoutPanel.TabIndex = 6;
             // 
             // logoPictureBox
             // 
-            this.logoPictureBox.Location = new System.Drawing.Point(2, 2);
-            this.logoPictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(537, 50);
+            this.logoPictureBox.Size = new System.Drawing.Size(806, 75);
             this.logoPictureBox.TabIndex = 0;
             this.logoPictureBox.TabStop = false;
             // 
             // openEditButton
             // 
-            this.openEditButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(225)))), ((int)(((byte)(168)))));
+            this.openEditButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(116)))));
             this.openEditButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.openEditButton.Location = new System.Drawing.Point(2, 56);
-            this.openEditButton.Margin = new System.Windows.Forms.Padding(2);
+            this.openEditButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.openEditButton.Location = new System.Drawing.Point(3, 84);
             this.openEditButton.Name = "openEditButton";
-            this.openEditButton.Size = new System.Drawing.Size(537, 22);
+            this.openEditButton.Size = new System.Drawing.Size(806, 33);
             this.openEditButton.TabIndex = 1;
             this.openEditButton.Text = "Park megnyitása";
             this.openEditButton.UseVisualStyleBackColor = false;
@@ -319,10 +324,9 @@ namespace RctByTN.View
             // 
             this.nextPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.nextPictureBox.Image = global::RctByTN.Properties.Resources.next;
-            this.nextPictureBox.Location = new System.Drawing.Point(718, 529);
-            this.nextPictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.nextPictureBox.Location = new System.Drawing.Point(1077, 794);
             this.nextPictureBox.Name = "nextPictureBox";
-            this.nextPictureBox.Size = new System.Drawing.Size(33, 33);
+            this.nextPictureBox.Size = new System.Drawing.Size(50, 50);
             this.nextPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.nextPictureBox.TabIndex = 7;
             this.nextPictureBox.TabStop = false;
@@ -332,10 +336,9 @@ namespace RctByTN.View
             // 
             this.cancelPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelPictureBox.Image = global::RctByTN.Properties.Resources.bin;
-            this.cancelPictureBox.Location = new System.Drawing.Point(766, 529);
-            this.cancelPictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.cancelPictureBox.Location = new System.Drawing.Point(1149, 794);
             this.cancelPictureBox.Name = "cancelPictureBox";
-            this.cancelPictureBox.Size = new System.Drawing.Size(33, 33);
+            this.cancelPictureBox.Size = new System.Drawing.Size(50, 50);
             this.cancelPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.cancelPictureBox.TabIndex = 8;
             this.cancelPictureBox.TabStop = false;
@@ -348,22 +351,21 @@ namespace RctByTN.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGridPanel.ColumnCount = 1;
             this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 13F));
-            this.buttonGridPanel.Location = new System.Drawing.Point(19, 89);
-            this.buttonGridPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonGridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.buttonGridPanel.Location = new System.Drawing.Point(28, 134);
             this.buttonGridPanel.Name = "buttonGridPanel";
             this.buttonGridPanel.RowCount = 1;
             this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 433F));
-            this.buttonGridPanel.Size = new System.Drawing.Size(767, 433);
+            this.buttonGridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 650F));
+            this.buttonGridPanel.Size = new System.Drawing.Size(1150, 650);
             this.buttonGridPanel.TabIndex = 9;
             // 
             // RctView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(196)))), ((int)(((byte)(161)))));
-            this.ClientSize = new System.Drawing.Size(803, 563);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(36)))));
+            this.ClientSize = new System.Drawing.Size(1204, 844);
             this.Controls.Add(this.buttonGridPanel);
             this.Controls.Add(this.cancelPictureBox);
             this.Controls.Add(this.nextPictureBox);
@@ -372,6 +374,7 @@ namespace RctByTN.View
             this.Controls.Add(this.parkElementPanel1);
             this.Controls.Add(this.parkElementPanel2);
             this.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RctView";
             this.Text = "Roller Coaster Tycoon by TN";
             this.Load += new System.EventHandler(this.RctView_Load);

@@ -52,7 +52,7 @@ namespace RctByTN.View
                     //_buttonGrid[element.X, element.Y].BackColor = Color.Green;
                     break;
                 case ElementStatus.InWaiting:
-                    BuildParkElement(element, (button) => button.BackColor = Color.Orange);
+                    BuildParkElement(element, (button) => button.BackColor = Color.Gray);
                     if (element.GetType() == typeof(Road))
                     {
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.road;
@@ -88,6 +88,11 @@ namespace RctByTN.View
                 action(_buttonGrid[x-1, y]);
                 action(_buttonGrid[x, y-1]);
                 action(_buttonGrid[x-1, y-1]);
+
+                _buttonGrid[x - 1, y - 1].BackgroundImage = Properties.Resources.giantwheel1;
+                _buttonGrid[x, y - 1].BackgroundImage = Properties.Resources.giantwheel3;
+                _buttonGrid[x - 1, y].BackgroundImage = Properties.Resources.giantwheel2;
+                _buttonGrid[x, y].BackgroundImage = Properties.Resources.giantwheel4;
             }
         }
 
@@ -117,8 +122,12 @@ namespace RctByTN.View
                     _buttonGrid[i, j] = new Button();
                     _buttonGrid[i, j].Size = new Size(50, 50);
                     _buttonGrid[i,j].BackgroundImageLayout = ImageLayout.Stretch;
-                    _buttonGrid[i, j].BackColor = Color.FromArgb(37, 211, 102);
-                    _buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(82, 255, 164);
+                    //_buttonGrid[i, j].BackColor = Color.FromArgb(37, 211, 102);
+                    //_buttonGrid[i, j].BackColor = Color.FromArgb(120, 146, 74);
+                    _buttonGrid[i, j].BackColor = Color.FromArgb(117,185,67);
+                    //_buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(82, 255, 164);
+                    //_buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(157, 182, 113);
+                    _buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(140,189,105);
                     _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
                     _buttonGrid[i, j].Margin = new Padding(0);
                     _buttonGrid[i, j].TabIndex = i * ParkWidth + j;
