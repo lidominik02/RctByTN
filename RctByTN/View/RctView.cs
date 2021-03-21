@@ -52,7 +52,6 @@ namespace RctByTN.View
                     //_buttonGrid[element.X, element.Y].BackColor = Color.Green;
                     break;
                 case ElementStatus.InWaiting:
-                    BuildParkElement(element, (button) => button.BackColor = Color.Gray);
                     if (element.GetType() == typeof(Road))
                     {
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.road;
@@ -65,11 +64,21 @@ namespace RctByTN.View
                     {
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.bush;
                     }
+                    else
+                    {
+                        _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.giantwheel1;
+                        _buttonGrid[element.X, element.Y - 1].BackgroundImage = Properties.Resources.giantwheel3;
+                        _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.giantwheel2;
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.giantwheel4;
+                        BuildParkElement(element, (button) => button.BackColor = Color.Gray);
+                        BuildParkElement(element, (button) => button.Image = null);
+                    }
+                    _buttonGrid[element.X, element.Y].Image = null;
                     //_buttonGrid[element.X, element.Y].BackColor = Color.Orange;
                     break;
                 case ElementStatus.InBuild:
-                    BuildParkElement(element, (button) => button.BackColor = Color.Red);
-                    //_buttonGrid[element.X, element.Y].BackColor = Color.Red;
+                    BuildParkElement(element, (button) => button.Image = Properties.Resources.buildsmall);
+                    //_buttonGrid[element.X, element.Y].Image = Properties.Resources.buildsmall;
                     break;
             }
         }
@@ -88,11 +97,6 @@ namespace RctByTN.View
                 action(_buttonGrid[x-1, y]);
                 action(_buttonGrid[x, y-1]);
                 action(_buttonGrid[x-1, y-1]);
-
-                _buttonGrid[x - 1, y - 1].BackgroundImage = Properties.Resources.giantwheel1;
-                _buttonGrid[x, y - 1].BackgroundImage = Properties.Resources.giantwheel3;
-                _buttonGrid[x - 1, y].BackgroundImage = Properties.Resources.giantwheel2;
-                _buttonGrid[x, y].BackgroundImage = Properties.Resources.giantwheel4;
             }
         }
 
