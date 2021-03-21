@@ -64,6 +64,10 @@ namespace RctByTN.View
                     {
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.bush;
                     }
+                    else if(element.GetType() == typeof(Tree))
+                    {
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.tree;
+                    }
                     else
                     {
                         _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.giantwheel1;
@@ -199,7 +203,7 @@ namespace RctByTN.View
                 {
                     button.FlatStyle = FlatStyle.Flat;
                     button.FlatAppearance.BorderSize = 1;
-                    button.FlatAppearance.BorderColor = Color.FromArgb(121, 96, 76);
+                    button.FlatAppearance.BorderColor = Color.FromArgb(177, 156, 217);
                 }
                 else
                 {
