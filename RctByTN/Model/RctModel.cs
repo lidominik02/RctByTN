@@ -25,6 +25,8 @@ namespace RctByTN.Model
         private const Int32 PlantBuildCost = 100;
         private const Int32 BuildTime = 3000;
 
+        public static Int32 MaintainCostInterval = 5000;
+
         public event EventHandler<ParkElementEventArgs> ElementChanged;
         public event EventHandler CashChanged;
 
@@ -53,13 +55,13 @@ namespace RctByTN.Model
             switch (selectedTab)
             {
                 case 0:
-                    newElement = new RollerCoaster(x,y,minCapacity,10,cost, GameBuildCost,GameMaintainCost);
+                    newElement = new RollerCoaster(x,y,minCapacity,10,GameBuildCost,cost,GameMaintainCost);
                     break;
                 case 1:
-                    newElement = new GiantWheel(x, y, minCapacity, 10,cost, GameBuildCost, GameMaintainCost);
+                    newElement = new GiantWheel(x, y, minCapacity, 10, GameBuildCost, cost, GameMaintainCost);
                     break;
                 case 2:
-                    newElement = new Carousel(x, y, minCapacity, 10, cost, GameBuildCost, GameMaintainCost);
+                    newElement = new Carousel(x, y, minCapacity, 10, GameBuildCost, cost, GameMaintainCost);
                     break;
                 case 3:
                     newElement = new HotDogVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
@@ -87,7 +89,7 @@ namespace RctByTN.Model
             if(newElement != null)
             {
                 cash -= newElement.BuildCost;
-                outcome += newElement.MaintainCost;
+                outcome += newElement.MaintainCost + newElement.BuildCost;
                 OnCashChanged();
 
                 SetInterval(BuildTime, () =>
@@ -151,6 +153,16 @@ namespace RctByTN.Model
                 }
                 return (item.X == x && item.Y == y) || withArea;
             });
+        }
+
+        public void MaintainCostPay()
+        {
+            parkElementList
+                .ForEach(item =>{
+                    Cash -= item.MaintainCost;
+                    outcome += item.MaintainCost;
+                });
+            OnCashChanged();
         }
 
     }

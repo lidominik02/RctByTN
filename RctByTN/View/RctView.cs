@@ -30,16 +30,17 @@ namespace RctByTN.View
             _model = new RctModel();
             _model.ElementChanged += new EventHandler<ParkElementEventArgs>(Game_ElementChanged);
             _model.CashChanged += new EventHandler(Game_CashChanged);
-            parkElementPanel1.Visible = true;
-            parkElementPanel2.Visible = false;
+            //parkElementPanel1.Visible = true;
+            //parkElementPanel2.Visible = false;
+            //campaignButton.Enabled = false;
             GenerateTable();
         }
 
         private void Game_CashChanged(object sender, EventArgs e)
         {
-            cashLabel.Text = "Cash: "+_model.Cash.ToString();
-            incomeLabel.Text = "Income: "+_model.Income.ToString();
-            outcomeLabel.Text = "Outcome: "+_model.Outcome.ToString();
+            cashLabel.Text = "Egyenleg: "+_model.Cash.ToString();
+            incomeLabel.Text = "Bevétel: "+_model.Income.ToString();
+            outcomeLabel.Text = "Kiadás: "+_model.Outcome.ToString();
         }
 
         private void Game_ElementChanged(Object sender, ParkElementEventArgs e)
