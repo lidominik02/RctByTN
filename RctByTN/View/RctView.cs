@@ -19,10 +19,19 @@ namespace RctByTN.View
         private RctModel _model;
         private Button[,] _buttonGrid;
         private Int32 _selectedTab;
+        Timer _timer;
         public RctView()
         {
             InitializeComponent();
             _selectedTab = -1;
+            _timer = new Timer();
+            _timer.Interval = 1000;
+        }
+
+        private void TimeElapsed(object sender, EventArgs e)
+        {
+            _model.TimeElapsed();
+            RefreshTable();
         }
 
         private void RctView_Load(object sender, EventArgs e)
@@ -30,6 +39,7 @@ namespace RctByTN.View
             _model = new RctModel();
             _model.ElementChanged += new EventHandler<ParkElementEventArgs>(Game_ElementChanged);
             _model.CashChanged += new EventHandler(Game_CashChanged);
+            _timer.Tick += new EventHandler(TimeElapsed);
             //parkElementPanel1.Visible = true;
             //parkElementPanel2.Visible = false;
             //campaignButton.Enabled = false;

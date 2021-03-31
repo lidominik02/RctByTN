@@ -11,6 +11,7 @@ namespace RctByTN.Model
         private Int32 cash;
         private Int32 income;
         private Int32 outcome;
+        private Int32 gameTime;
         private List<Guest> guestList;
         private List<ParkElement> parkElementList;
 
@@ -34,6 +35,7 @@ namespace RctByTN.Model
         public int Cash { get => cash; set => cash = value; }
         public int Income { get => income; set => income = value; }
         public int Outcome { get => outcome; set => outcome = value; }
+        public int GameTime { get => gameTime; set => gameTime = value; }
         public List<Guest> GuestList { get => guestList; set => guestList = value; }
         public List<ParkElement> ParkElementList { get => parkElementList; set => parkElementList = value; }
 
@@ -44,6 +46,16 @@ namespace RctByTN.Model
             IsParkOpen = false;
             income = outcome = 0;
             cash = 1000;
+            gameTime = 0;
+        }
+
+        public void TimeElapsed()
+        {
+            gameTime++;
+            //TODO
+            //AddGuest();
+            //FindDestination();
+            //MoveGuests();
         }
 
         public void Build(Int32 x, Int32 y,Int32 selectedTab,Int32 cost,Int32 minCapacity)
