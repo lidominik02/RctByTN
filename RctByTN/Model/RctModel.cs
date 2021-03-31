@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace RctByTN.Model
 {
@@ -14,6 +15,7 @@ namespace RctByTN.Model
         private Int32 gameTime;
         private List<Guest> guestList;
         private List<ParkElement> parkElementList;
+        private Random rnd;
 
         private const Int32 GameBuildCost = 250;
         private const Int32 GameTicketCost = 50;
@@ -47,15 +49,48 @@ namespace RctByTN.Model
             income = outcome = 0;
             cash = 1000;
             gameTime = 0;
+            rnd = new Random();
         }
 
         public void TimeElapsed()
         {
             gameTime++;
-            //TODO
-            //AddGuest();
-            //FindDestination();
-            //MoveGuests();
+            if (gameTime % 5 == 0)
+            {
+                AddGuest();
+            }
+            FindDestination();
+            MoveGuests();
+        }
+
+        private void FindDestination()
+        {
+            foreach (Guest guest in GuestList)
+            {
+                //if guest is hungry
+                if (guest.Hunger < guest.Mood)
+                {
+                    var restaurants = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
+                    var rndRest = restaurants[rnd.Next(restaurants.Count)];
+                    guest.Destination = (rndRest.X, rndRest.Y);
+                }
+                //TODO
+                //if guest is bored
+            }
+        }
+
+        private void MoveGuests()
+        {
+            foreach(Guest guest in guestList)
+            {
+                //TODO move logics
+            }
+        }
+
+        private void AddGuest()
+        {
+            Guest newGuest = new Guest(12,11,false);
+            guestList.Add(newGuest);
         }
 
         public void Build(Int32 x, Int32 y,Int32 selectedTab,Int32 cost,Int32 minCapacity)

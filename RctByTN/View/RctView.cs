@@ -24,14 +24,6 @@ namespace RctByTN.View
         {
             InitializeComponent();
             _selectedTab = -1;
-            _timer = new Timer();
-            _timer.Interval = 1000;
-        }
-
-        private void TimeElapsed(object sender, EventArgs e)
-        {
-            _model.TimeElapsed();
-            RefreshTable();
         }
 
         private void RctView_Load(object sender, EventArgs e)
@@ -39,11 +31,20 @@ namespace RctByTN.View
             _model = new RctModel();
             _model.ElementChanged += new EventHandler<ParkElementEventArgs>(Game_ElementChanged);
             _model.CashChanged += new EventHandler(Game_CashChanged);
+            _timer = new Timer();
+            _timer.Interval = 1000;
             _timer.Tick += new EventHandler(TimeElapsed);
+            _timer.Start();
             //parkElementPanel1.Visible = true;
             //parkElementPanel2.Visible = false;
             //campaignButton.Enabled = false;
             GenerateTable();
+        }
+
+        private void TimeElapsed(object sender, EventArgs e)
+        {
+            _model.TimeElapsed();
+            RefreshTable();
         }
 
         private void Game_CashChanged(object sender, EventArgs e)
@@ -158,7 +159,10 @@ namespace RctByTN.View
 
         private void RefreshTable()
         {
-            //for the guest 
+            foreach (Guest guest in _model.GuestList)
+            {
+                _buttonGrid[guest.X, guest.Y].BackColor = Color.Black;
+            }
         }
 
         private void buttonGrid_Click(object sender, EventArgs e)
