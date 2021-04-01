@@ -34,10 +34,7 @@ namespace RctByTN.View
             _timer = new Timer();
             _timer.Interval = 1000;
             _timer.Tick += new EventHandler(TimeElapsed);
-            _timer.Start();
-            //parkElementPanel1.Visible = true;
-            //parkElementPanel2.Visible = false;
-            //campaignButton.Enabled = false;
+            //_timer.Start();
             GenerateTable();
         }
 
@@ -159,7 +156,14 @@ namespace RctByTN.View
 
         private void RefreshTable()
         {
-            foreach (Guest guest in _model.GuestList)
+            for (int i = 0; i < _buttonGrid.GetLength(0); i++)
+            {
+                for (int j = 0; j < _buttonGrid.GetLength(1); j++)
+                {
+                    _buttonGrid[i,j].BackColor = Color.FromArgb(117, 185, 67);
+                }
+            }
+            foreach(Guest guest in _model.GuestList)
             {
                 _buttonGrid[guest.X, guest.Y].BackColor = Color.Black;
             }
@@ -255,12 +259,14 @@ namespace RctByTN.View
             //_model.IsParkOpen = !_model.IsParkOpen;
             if (_model.IsParkOpen) {
                 _model.IsParkOpen = false;
-                foreach(Button button in _buttonGrid) button.FlatAppearance.BorderSize = 1; 
+                foreach(Button button in _buttonGrid) button.FlatAppearance.BorderSize = 1;
+                _timer.Stop();
             }
             else
             {
                 _model.IsParkOpen = true;
                 foreach (Button button in _buttonGrid) button.FlatAppearance.BorderSize = 0;
+                _timer.Start();
             }
             openEditButton.Text = _model.IsParkOpen ?
                                     "Park szerkesztése"

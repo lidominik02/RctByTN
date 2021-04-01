@@ -65,17 +65,30 @@ namespace RctByTN.Model
 
         private void FindDestination()
         {
+            //TODO
+            //add priorities for cheaper games/restaurants
             foreach (Guest guest in GuestList)
             {
                 //if guest is hungry
                 if (guest.Hunger < guest.Mood)
                 {
                     var restaurants = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
-                    var rndRest = restaurants[rnd.Next(restaurants.Count)];
-                    guest.Destination = (rndRest.X, rndRest.Y);
+                    if (restaurants.Any())
+                    {
+                        var rndRest = restaurants[rnd.Next(restaurants.Count)];
+                        guest.Destination = (rndRest.X, rndRest.Y);
+                        guest.Status = GuestStatus.Searching;
+                        return;
+                    }
                 }
-                //TODO
                 //if guest is bored
+                var games = ParkElementList.Where(p => p.GetType() == typeof(Game)).ToList();
+                if (games.Any())
+                {
+                    var rndGame = games[rnd.Next(games.Count)];
+                    guest.Destination = (rndGame.X, rndGame.Y);
+                    guest.Status = GuestStatus.Searching;
+                }
             }
         }
 
@@ -83,13 +96,13 @@ namespace RctByTN.Model
         {
             foreach(Guest guest in guestList)
             {
-                //TODO move logics
+
             }
         }
 
         private void AddGuest()
         {
-            Guest newGuest = new Guest(12,11,false);
+            Guest newGuest = new Guest(13,11,false);
             guestList.Add(newGuest);
         }
 
