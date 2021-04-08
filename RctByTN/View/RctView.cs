@@ -80,7 +80,7 @@ namespace RctByTN.View
                     }
                     else if(element.GetType() == typeof(Entrance))
                     {
-                        _buttonGrid[element.X, element.Y].BackColor = Color.Red;
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.gate;
                     }
                     else
                     {
@@ -92,11 +92,9 @@ namespace RctByTN.View
                         BuildParkElement(element, (button) => button.Image = null);
                     }
                     _buttonGrid[element.X, element.Y].Image = null;
-                    //_buttonGrid[element.X, element.Y].BackColor = Color.Orange;
                     break;
                 case ElementStatus.InBuild:
                     BuildParkElement(element, (button) => button.Image = Properties.Resources.buildsmall);
-                    //_buttonGrid[element.X, element.Y].Image = Properties.Resources.buildsmall;
                     break;
             }
         }
@@ -144,11 +142,7 @@ namespace RctByTN.View
                     _buttonGrid[i, j] = new Button();
                     _buttonGrid[i, j].Size = new Size(50, 50);
                     _buttonGrid[i,j].BackgroundImageLayout = ImageLayout.Stretch;
-                    //_buttonGrid[i, j].BackColor = Color.FromArgb(37, 211, 102);
-                    //_buttonGrid[i, j].BackColor = Color.FromArgb(120, 146, 74);
                     _buttonGrid[i, j].BackColor = Color.FromArgb(117,185,67);
-                    //_buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(82, 255, 164);
-                    //_buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(157, 182, 113);
                     _buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(140,189,105);
                     _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
                     _buttonGrid[i, j].Margin = new Padding(0);

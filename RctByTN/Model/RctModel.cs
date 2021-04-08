@@ -98,7 +98,7 @@ namespace RctByTN.Model
             {
                 if(guest.Status == GuestStatus.Aimless)
                 {
-                    if (parkElementList.Exists(item => item.X == guest.X - 1 && item.Y == guest.Y))
+                    if (parkElementList.Exists(item => item.X == guest.X - 1 && item.Y == guest.Y && item.GetType()==typeof(Road)))
                     {
                         if (guest.X > 0)
                         {

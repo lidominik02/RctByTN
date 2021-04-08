@@ -93,6 +93,16 @@ namespace RctByTN.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap gate {
+            get {
+                object obj = ResourceManager.GetObject("gate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap giantwheel1 {
             get {
                 object obj = ResourceManager.GetObject("giantwheel1", resourceCulture);
