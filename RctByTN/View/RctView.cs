@@ -36,6 +36,7 @@ namespace RctByTN.View
             _timer.Tick += new EventHandler(TimeElapsed);
             //_timer.Start();
             GenerateTable();
+            _model.Build(12, 11, 10, 0, 0);
         }
 
         private void TimeElapsed(object sender, EventArgs e)
@@ -76,6 +77,10 @@ namespace RctByTN.View
                     else if(element.GetType() == typeof(Tree))
                     {
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.tree;
+                    }
+                    else if(element.GetType() == typeof(Entrance))
+                    {
+                        _buttonGrid[element.X, element.Y].BackColor = Color.Red;
                     }
                     else
                     {
@@ -160,7 +165,8 @@ namespace RctByTN.View
             {
                 for (int j = 0; j < _buttonGrid.GetLength(1); j++)
                 {
-                    _buttonGrid[i,j].BackColor = Color.FromArgb(117, 185, 67);
+                    if(!_model.ParkElementList.Exists(item => item.X == i && item.Y == j))
+                        _buttonGrid[i,j].BackColor = Color.FromArgb(117, 185, 67);
                 }
             }
             foreach(Guest guest in _model.GuestList)

@@ -55,12 +55,12 @@ namespace RctByTN.Model
         public void TimeElapsed()
         {
             gameTime++;
+            FindDestination();
+            MoveGuests();
             if (gameTime % 5 == 0)
             {
                 AddGuest();
             }
-            FindDestination();
-            MoveGuests();
         }
 
         private void FindDestination()
@@ -102,7 +102,8 @@ namespace RctByTN.Model
 
         private void AddGuest()
         {
-            Guest newGuest = new Guest(13,11,false);
+            var entrance = parkElementList.Find(item => item.GetType() == typeof(Entrance));
+            Guest newGuest = new Guest(entrance.X, entrance.Y, false);
             guestList.Add(newGuest);
         }
 
@@ -143,6 +144,9 @@ namespace RctByTN.Model
                     break;
                 case 9:
                     newElement = new Bush(x, y, PlantBuildCost,0);
+                    break;
+                case 10:
+                    newElement = new Entrance(x,y);
                     break;
             }
 
