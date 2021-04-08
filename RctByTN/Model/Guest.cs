@@ -33,6 +33,7 @@ namespace RctByTN.Model
             Hunger = 10; // 10/10 not hungry
             Mood = 5;// 10/10 happy
             Status = GuestStatus.Aimless;
+            Destination = (-1, -1);
         }
     }
 }

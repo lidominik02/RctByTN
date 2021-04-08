@@ -96,15 +96,30 @@ namespace RctByTN.Model
         {
             foreach(Guest guest in guestList)
             {
-
+                if(guest.Status == GuestStatus.Aimless)
+                {
+                    if (parkElementList.Exists(item => item.X == guest.X - 1 && item.Y == guest.Y))
+                    {
+                        if (guest.X > 0)
+                        {
+                            guest.X--;
+                        }
+                    }
+                } 
             }
         }
 
         private void AddGuest()
         {
             var entrance = parkElementList.Find(item => item.GetType() == typeof(Entrance));
-            Guest newGuest = new Guest(entrance.X, entrance.Y, false);
-            guestList.Add(newGuest);
+            if (ParkElementList.Exists(item => item.GetType() == typeof(Road)))
+            {
+                if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
+                {
+                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, false);
+                    guestList.Add(newGuest);
+                }
+            }
         }
 
         public void Build(Int32 x, Int32 y,Int32 selectedTab,Int32 cost,Int32 minCapacity)

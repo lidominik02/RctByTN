@@ -161,17 +161,29 @@ namespace RctByTN.View
 
         private void RefreshTable()
         {
+            /*
             for (int i = 0; i < _buttonGrid.GetLength(0); i++)
             {
                 for (int j = 0; j < _buttonGrid.GetLength(1); j++)
                 {
-                    if(!_model.ParkElementList.Exists(item => item.X == i && item.Y == j))
-                        _buttonGrid[i,j].BackColor = Color.FromArgb(117, 185, 67);
+                    if (!_model.ParkElementList.Exists(item => item.X == i && item.Y == j))
+                    {
+                        //_buttonGrid[i, j].BackColor = Color.FromArgb(117, 185, 67);
+                        _buttonGrid[i, j].BackgroundImage = null;
+                    }
+                }
+            }*/
+            foreach(ParkElement element in _model.ParkElementList)
+            {
+                if (element.GetType() == typeof(Road))
+                {
+                    _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.road;
                 }
             }
+
             foreach(Guest guest in _model.GuestList)
             {
-                _buttonGrid[guest.X, guest.Y].BackColor = Color.Black;
+                _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest;
             }
         }
 
