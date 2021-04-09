@@ -69,8 +69,9 @@ namespace RctByTN.Model
             //add priorities for cheaper games/restaurants
             foreach (Guest guest in GuestList)
             {
+                var games = ParkElementList.Where(p => p.GetType() == typeof(Game)).ToList();
                 //if guest is hungry
-                if (guest.Hunger < guest.Mood)
+                if (guest.Hunger < guest.Mood && guest.Destination.Item1 == -1)
                 {
                     var restaurants = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
                     if (restaurants.Any())
@@ -82,8 +83,7 @@ namespace RctByTN.Model
                     }
                 }
                 //if guest is bored
-                var games = ParkElementList.Where(p => p.GetType() == typeof(Game)).ToList();
-                if (games.Any())
+                else if (games.Any() && guest.Destination.Item1 == -1)
                 {
                     var rndGame = games[rnd.Next(games.Count)];
                     guest.Destination = (rndGame.X, rndGame.Y);
@@ -96,7 +96,7 @@ namespace RctByTN.Model
         {
             foreach(Guest guest in guestList)
             {
-                if(guest.Status == GuestStatus.Aimless)
+                /*if(guest.Status == GuestStatus.Aimless)
                 {
                     if (parkElementList.Exists(item => item.X == guest.X - 1 && item.Y == guest.Y && item.GetType()==typeof(Road)))
                     {
@@ -105,14 +105,35 @@ namespace RctByTN.Model
                             guest.X--;
                         }
                     }
-                } 
+                }*/
+                if(guest.Status == GuestStatus.Searching)
+                {
+                    var desVectorX = guest.Destination.Item1 - guest.X;
+                    var desVectorY = guest.Destination.Item2 - guest.Y;
+
+                    if(desVectorX != 0 && desVectorY != 0)
+                    {
+                        var roadsAround = parkElementList.Where(item =>
+                        {
+                            return item.GetType() == typeof(Road)
+                            && Distance(item.X, item.Y, desVectorX, desVectorY) == 1;
+                        });
+                    }
+
+                }
+                if(guest.Status == GuestStatus.Waiting)
+                {
+                    //Guest enter the game/restaurant
+                }
             }
         }
 
         private void AddGuest()
         {
             var entrance = parkElementList.Find(item => item.GetType() == typeof(Entrance));
-            if (ParkElementList.Exists(item => item.GetType() == typeof(Road)))
+            bool hasGame = ParkElementList.Exists(item => item.GetType().IsSubclassOf(typeof(Game)));
+            bool hasRoad = ParkElementList.Exists(item => item.GetType() == typeof(Road));
+            if (hasRoad && hasGame)
             {
                 if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
                 {
@@ -203,6 +224,11 @@ namespace RctByTN.Model
                 await Task.Delay(millisecond);
                 action();
             });
+        }
+
+        private double Distance(double x1, double y1, double x2, double y2)
+        {
+            return Math.Sqrt(Math.Pow(Math.Abs(x1 - x2), 2) + Math.Pow(Math.Abs(y1 - y2), 2)); ;
         }
 
         public bool IsFreeArea(int x, int y,int selectedTab)
