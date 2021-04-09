@@ -9,6 +9,7 @@ namespace RctByTN.Model
             Searching,
             Waiting,
             Busy,
-            Aimless
+            Aimless,
+            Stuck
         }
 }

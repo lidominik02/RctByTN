@@ -24,6 +24,7 @@ namespace RctByTN.Model
         public bool HasCoupon { get; set; }
         public (int,int) Destination { get; set; }
         public (int, int) PrevCoords { get; set; }
+        public (int,int) LastCrossRoad { get; set; }
 
         public Guest(int x, int y, bool hasCoupon)
         {
@@ -35,6 +36,7 @@ namespace RctByTN.Model
             Mood = 5;// 10/10 happy
             Status = GuestStatus.Aimless;
             Destination = (-1, -1);
+            LastCrossRoad = (-1, -1);
         }
     }
 }
