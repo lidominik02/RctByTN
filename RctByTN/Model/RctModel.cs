@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Diagnostics;
 
 namespace RctByTN.Model
 {
@@ -71,7 +72,9 @@ namespace RctByTN.Model
             //add priorities for cheaper games/restaurants
             foreach (Guest guest in GuestList)
             {
-                var games = ParkElementList.Where(p => p.GetType() == typeof(Game)).ToList();
+                if (guest.Status == GuestStatus.Searching)
+                    continue;
+                var games = ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(Game))).ToList();
                 //if guest is hungry
                 if (guest.Hunger < guest.Mood && guest.Destination.Item1 == -1)
                 {
@@ -79,7 +82,7 @@ namespace RctByTN.Model
                     if (restaurants.Any())
                     {
                         var rndRest = restaurants[rnd.Next(restaurants.Count)];
-                        guest.Destination = (rndRest.X, rndRest.Y);
+                        guest.Destination = (rndRest.X, rndRest.Y+1);
                         guest.Status = GuestStatus.Searching;
                         return;
                     }
@@ -88,7 +91,9 @@ namespace RctByTN.Model
                 else if (games.Any() && guest.Destination.Item1 == -1)
                 {
                     var rndGame = games[rnd.Next(games.Count)];
-                    guest.Destination = (rndGame.X, rndGame.Y);
+                    guest.Destination = (rndGame.X, rndGame.Y+1);
+                    Debug.WriteLine("des: x:{0} y:{1}", guest.Destination.Item1, guest.Destination.Item2);
+                    Debug.WriteLine("g: x:{0} y:{1}", guest.X, guest.Y);
                     guest.Status = GuestStatus.Searching;
                 }
             }
@@ -98,6 +103,7 @@ namespace RctByTN.Model
         {
             foreach(Guest guest in guestList)
             {
+                Debug.WriteLine("gMOVE: x:{0} y:{1}", guest.X, guest.Y);
                 /*if(guest.Status == GuestStatus.Aimless)
                 {
                     if (parkElementList.Exists(item => item.X == guest.X - 1 && item.Y == guest.Y && item.GetType()==typeof(Road)))
@@ -108,18 +114,132 @@ namespace RctByTN.Model
                         }
                     }
                 }*/
-                if(guest.Status == GuestStatus.Searching)
+                if (guest.Status == GuestStatus.Searching)
                 {
-                    var desVectorX = guest.Destination.Item1 - guest.X;
-                    var desVectorY = guest.Destination.Item2 - guest.Y;
+                    //des(8,11) g(11,11)
+                    var desVectorX = guest.X - guest.Destination.Item1; //2
+                    var desVectorY = guest.Y - guest.Destination.Item2; //0
 
-                    if(desVectorX != 0 && desVectorY != 0)
+                    Debug.WriteLine("desVector: ({0},{1})",desVectorX,desVectorY);
+
+                    if(!(desVectorX == 0 && desVectorY == 0))
                     {
+                        Debug.WriteLine("desVectorX != 0 && desVectorY != 0");
                         var roadsAround = parkElementList.Where(item =>
                         {
                             return item.GetType() == typeof(Road)
-                            && Distance(item.X, item.Y, desVectorX, desVectorY) == 1;
-                        });
+                            && Distance(item.X, item.Y, guest.X, guest.Y) == 1;
+                        }).ToList();
+
+                        roadsAround.ForEach(item => Debug.WriteLine("roads: {0} {1}", item.X, item.Y));
+                        if(roadsAround.Count > 1)
+                            roadsAround.Remove(roadsAround.Find(item => item.X == guest.PrevCoords.Item1 && item.Y == guest.PrevCoords.Item2));
+
+                        bool isGoHorizontal = Math.Abs(desVectorY) <= Math.Abs(desVectorX);
+                        
+                        if(isGoHorizontal)
+                        {
+                            Debug.WriteLine("isGoHorizontal");
+                            bool isGoUp = desVectorX > 0;
+                            if (isGoUp)
+                            {
+                                Debug.WriteLine("isGoUp");
+                                //go up
+                                if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X-1)))
+                                {
+                                    Debug.WriteLine("x--");
+                                    guest.PrevCoords = (guest.X,guest.Y);
+                                    guest.X--;
+                                }
+                                else
+                                {
+                                    bool goRightThanLeft = desVectorY <= 0;
+                                    if(goRightThanLeft)
+                                    {
+                                        if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
+                                        {
+                                            Debug.WriteLine("y++");
+                                            guest.PrevCoords = (guest.X, guest.Y);
+                                            guest.Y++;
+                                        }
+                                        else if (roadsAround.Exists(item => item.Y == (guest.Y - 1) && item.X == guest.X))
+                                        {
+                                            Debug.WriteLine("y--");
+                                            guest.PrevCoords = (guest.X, guest.Y);
+                                            guest.Y--;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (roadsAround.Exists(item => item.Y == (guest.Y - 1) && item.X == guest.X))
+                                        {
+                                            Debug.WriteLine("y--");
+                                            guest.PrevCoords = (guest.X, guest.Y);
+                                            guest.Y--;
+                                        }
+                                        else if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
+                                        {
+                                            Debug.WriteLine("y++");
+                                            guest.PrevCoords = (guest.X, guest.Y);
+                                            guest.Y++;
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                            }
+                            else
+                            {
+                                //go down
+                                if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X + 1)))
+                                {
+                                    Debug.WriteLine("x++");
+                                    guest.PrevCoords = (guest.X, guest.Y);
+                                    guest.X++;
+                                }
+                            }
+                        }
+                        else //isGoVertical
+                        {
+                            Debug.WriteLine("isGoVertical");
+                            bool isGoLeft = desVectorY > 0;
+                            if (isGoLeft)
+                            {
+                                Debug.WriteLine("isGoLeft");
+                                //go up
+                                if (roadsAround.Exists(item => item.Y == guest.Y-1 && item.X == guest.X))
+                                {
+                                    Debug.WriteLine("y--");
+                                    guest.PrevCoords = (guest.X, guest.Y);
+                                    guest.Y--;
+                                }
+                                else
+                                {
+                                    if (roadsAround.Exists(item => item.Y == guest.Y && item.X == guest.X-1))
+                                    {
+                                        Debug.WriteLine("x--");
+                                        guest.PrevCoords = (guest.X, guest.Y);
+                                        guest.X--;
+                                    }
+                                    else if (roadsAround.Exists(item => item.Y == guest.Y && item.X == guest.X+1))
+                                    {
+                                        Debug.WriteLine("x++");
+                                        guest.PrevCoords = (guest.X, guest.Y);
+                                        guest.X++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                //go down
+                                if (roadsAround.Exists(item => item.Y == guest.Y+1 && item.X == guest.X))
+                                {
+                                    Debug.WriteLine("y++");
+                                    guest.PrevCoords = (guest.X, guest.Y);
+                                    guest.Y++;
+                                }
+                            }
+                        }
                     }
 
                 }
@@ -150,6 +270,7 @@ namespace RctByTN.Model
                 if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
                 {
                     Guest newGuest = new Guest(entrance.X - 1, entrance.Y, false);
+                    newGuest.PrevCoords = (entrance.X - 1, entrance.Y);
                     guestList.Add(newGuest);
                 }
             }
@@ -240,7 +361,7 @@ namespace RctByTN.Model
 
         private double Distance(double x1, double y1, double x2, double y2)
         {
-            return Math.Sqrt(Math.Pow(Math.Abs(x1 - x2), 2) + Math.Pow(Math.Abs(y1 - y2), 2)); ;
+            return Math.Sqrt(Math.Pow(Math.Abs(x1 - x2), 2) + Math.Pow(Math.Abs(y1 - y2), 2));
         }
 
         public bool IsFreeArea(int x, int y,int selectedTab)

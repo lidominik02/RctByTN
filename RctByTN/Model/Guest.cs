@@ -23,6 +23,7 @@ namespace RctByTN.Model
         public GuestStatus Status { get; set; }
         public bool HasCoupon { get; set; }
         public (int,int) Destination { get; set; }
+        public (int, int) PrevCoords { get; set; }
 
         public Guest(int x, int y, bool hasCoupon)
         {
