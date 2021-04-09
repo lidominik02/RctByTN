@@ -27,6 +27,8 @@ namespace RctByTN.Model
         private const Int32 RoadBuildCost = 20;
         private const Int32 PlantBuildCost = 100;
         private const Int32 BuildTime = 3000;
+        private const Int32 GameUseTime = 10000;
+        private const Int32 RestaurantUseTime = 15000;
 
         public static Int32 MaintainCostInterval = 5000;
 
@@ -128,6 +130,16 @@ namespace RctByTN.Model
             }
         }
 
+        private void EnterElement(Guest guest, Building building)
+        {
+            guest.Status = GuestStatus.Waiting;
+            building.WaitingList.Add(guest);
+            if (building.GetType()==typeof(Game) && building.WaitingList.Count >= building.MinCapacity)
+            {
+                //StartGame();
+            }
+        }
+
         private void AddGuest()
         {
             var entrance = parkElementList.Find(item => item.GetType() == typeof(Entrance));
@@ -152,13 +164,13 @@ namespace RctByTN.Model
             switch (selectedTab)
             {
                 case 0:
-                    newElement = new RollerCoaster(x,y,minCapacity,10,GameBuildCost,cost,GameMaintainCost);
+                    newElement = new RollerCoaster(x,y,minCapacity,10,GameBuildCost,cost,GameUseTime,GameMaintainCost);
                     break;
                 case 1:
-                    newElement = new GiantWheel(x, y, minCapacity, 10, GameBuildCost, cost, GameMaintainCost);
+                    newElement = new GiantWheel(x, y, minCapacity, 10, GameBuildCost, cost, GameUseTime, GameMaintainCost);
                     break;
                 case 2:
-                    newElement = new Carousel(x, y, minCapacity, 10, GameBuildCost, cost, GameMaintainCost);
+                    newElement = new Carousel(x, y, minCapacity, 10, GameBuildCost, cost, GameUseTime, GameMaintainCost);
                     break;
                 case 3:
                     newElement = new HotDogVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);

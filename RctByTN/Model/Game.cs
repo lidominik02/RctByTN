@@ -4,20 +4,11 @@ using System.Text;
 
 namespace RctByTN.Model
 {
-    abstract class Game : ParkElement
+    abstract class Game : Building
     {
-        protected Int32 minCapacity;
-        protected Int32 maxCapacity;
-        protected Int32 ticketCost;
-        //protected Int32 maintainCost;
-
-        public Game(int x, int y, int minCapacity, int maxCapacity, int buildcost, int ticketCost, int maintainCost) : base(x, y, buildcost, maintainCost)
+        public Game(int x, int y, int minCapacity, int maxCapacity, int buildcost, int usecost, int usetime, int maintainCost) : base(x, y,minCapacity,maxCapacity, buildcost, usecost, usetime, maintainCost)
         {
-            this.minCapacity = minCapacity;
-            this.maxCapacity = maxCapacity;
-            this.ticketCost = ticketCost;
             this.AreaSize = 4;
-            //this.maintainCost = maintainCost;
         }
 
         public override void ModifyGuest(Guest guest)
