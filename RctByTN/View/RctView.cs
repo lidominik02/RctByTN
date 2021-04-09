@@ -82,13 +82,22 @@ namespace RctByTN.View
                     {
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.gate;
                     }
-                    else
+                    else if(element.GetType() == typeof(GiantWheel))
                     {
                         _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.giantwheel1;
                         _buttonGrid[element.X, element.Y - 1].BackgroundImage = Properties.Resources.giantwheel3;
                         _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.giantwheel2;
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.giantwheel4;
                         BuildParkElement(element, (button) => button.BackColor = Color.Gray);
+                        BuildParkElement(element, (button) => button.Image = null);
+                    }
+                    else if (element.GetType() == typeof(HotDogVendor))
+                    {
+                        _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.hotdog1;
+                        _buttonGrid[element.X, element.Y - 1].BackgroundImage = Properties.Resources.hotdog3;
+                        _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.hotdog2;
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.hotdog4;
+                        BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
                         BuildParkElement(element, (button) => button.Image = null);
                     }
                     _buttonGrid[element.X, element.Y].Image = null;
@@ -172,6 +181,11 @@ namespace RctByTN.View
                 if (element.GetType() == typeof(Road))
                 {
                     _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.road;
+                }
+                if(element.GetType().IsSubclassOf(typeof(Building)))
+                {
+                    _buttonGrid[element.X,element.Y].Text = (element as Building).WaitingList.Count.ToString();
+                    _buttonGrid[element.X, element.Y].TextAlign = ContentAlignment.BottomRight;
                 }
             }
 

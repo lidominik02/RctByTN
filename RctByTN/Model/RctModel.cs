@@ -60,7 +60,7 @@ namespace RctByTN.Model
             gameTime++;
             FindDestination();
             MoveGuests();
-            if (gameTime % 20 == 0)
+            if (gameTime % 5 == 0)
             {
                 AddGuest();
             }
