@@ -99,6 +99,51 @@ namespace RctByTN.Model
             }
         }
 
+        private bool GoUp(List<ParkElement> roadsAround, Guest guest)
+        {
+            if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X - 1)))
+            {
+                Debug.WriteLine("x--");
+                guest.PrevCoords = (guest.X, guest.Y);
+                guest.X--;
+                return true;
+            }
+            return false;
+        }
+
+        private bool GoDown(List<ParkElement> roadsAround, Guest guest)
+        {
+            if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X + 1)))
+            {
+                Debug.WriteLine("x++");
+                guest.PrevCoords = (guest.X, guest.Y);
+                guest.X++;
+                return true;
+            }
+            return false;
+        }
+        private bool GoRight(List<ParkElement> roadsAround, Guest guest)
+        {
+            if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
+            {
+                Debug.WriteLine("y++");
+                guest.PrevCoords = (guest.X, guest.Y);
+                guest.Y++;
+                return true;
+            }
+            return false;
+        }
+        private bool GoLeft(List<ParkElement> roadsAround, Guest guest)
+        {
+            if (roadsAround.Exists(item => item.Y == guest.Y - 1 && item.X == guest.X))
+            {
+                guest.PrevCoords = (guest.X, guest.Y);
+                guest.Y--;
+                return true;
+            }
+            return false;
+        }
+
         private void MoveGuests()
         {
             foreach(Guest guest in guestList.ToList())
@@ -162,183 +207,90 @@ namespace RctByTN.Model
                         if(isGoHorizontal)
                         {
                             Debug.WriteLine("isGoHorizontal");
-                            bool isGoUp = desVectorX > 0;
-                            if (isGoUp)
+                            if (goUpThanDown)
                             {
                                 Debug.WriteLine("isGoUp");
-                                //go up
-                                if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X-1)))
-                                {
-                                    Debug.WriteLine("x--");
-                                    guest.PrevCoords = (guest.X,guest.Y);
-                                    guest.X--;
-                                }
+                                if (GoUp(roadsAround, guest)) { }
                                 else
                                 {
-                                    
                                     if(goRightThanLeft)
                                     {
-                                        if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
-                                        {
-                                            Debug.WriteLine("y++");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y++;
-                                        }
-                                        else if (roadsAround.Exists(item => item.Y == (guest.Y - 1) && item.X == guest.X))
-                                        {
-                                            Debug.WriteLine("y--");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y--;
-                                        }
+                                        if (GoRight(roadsAround, guest)) { }
+                                        else if (GoLeft(roadsAround, guest)) { }
+                                        else if(GoDown(roadsAround,guest)) { }
                                     }
                                     else
                                     {
-                                        if (roadsAround.Exists(item => item.Y == (guest.Y - 1) && item.X == guest.X))
-                                        {
-                                            Debug.WriteLine("y--");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y--;
-                                        }
-                                        else if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
-                                        {
-                                            Debug.WriteLine("y++");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y++;
-                                        }
-                                        
+                                        if (GoLeft(roadsAround, guest)) { }
+                                        else if (GoRight(roadsAround, guest)) { }
+                                        else if (GoDown(roadsAround, guest)) { }
                                     }
-                                    
                                 }
                             }
                             else
                             {
-                                //go down
-                                if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X + 1)))
-                                {
-                                    Debug.WriteLine("x++");
-                                    guest.PrevCoords = (guest.X, guest.Y);
-                                    guest.X++;
-                                }
+                                if (GoDown(roadsAround, guest)) { }
                                 else
                                 {
-                                    
                                     if (goRightThanLeft)
                                     {
-                                        if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
-                                        {
-                                            Debug.WriteLine("y++");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y++;
-                                        }
-                                        else if (roadsAround.Exists(item => item.Y == (guest.Y - 1) && item.X == guest.X))
-                                        {
-                                            Debug.WriteLine("y--");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y--;
-                                        }
+                                        if (GoRight(roadsAround, guest)){ }
+                                        else if (GoLeft(roadsAround, guest)) { }
+                                        else if(GoUp(roadsAround, guest)) { }
                                     }
                                     else
                                     {
-                                        if (roadsAround.Exists(item => item.Y == (guest.Y - 1) && item.X == guest.X))
-                                        {
-                                            Debug.WriteLine("y--");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y--;
-                                        }
-                                        else if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
-                                        {
-                                            Debug.WriteLine("y++");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y++;
-                                        }
-
+                                        if (GoLeft(roadsAround, guest)) { }
+                                        else if (GoRight(roadsAround, guest)) { }
+                                        else if (GoUp(roadsAround, guest)) { }
                                     }
-
                                 }
                             }
                         }
                         else //isGoVertical
                         {
                             Debug.WriteLine("isGoVertical");
-                            bool isGoLeft = desVectorY > 0;
-                            if (isGoLeft)
+                            if (goRightThanLeft)
                             {
-                                Debug.WriteLine("isGoLeft");
-                                //go left
-                                if (roadsAround.Exists(item => item.Y == guest.Y-1 && item.X == guest.X))
-                                {
-                                    Debug.WriteLine("y--");
-                                    guest.PrevCoords = (guest.X, guest.Y);
-                                    guest.Y--;
-                                }
+                                if (GoRight(roadsAround, guest)) { }
                                 else
                                 {
                                     if (goUpThanDown)
                                     {
-                                        //go up
-                                        if (roadsAround.Exists(item => item.Y == guest.Y && item.X == guest.X - 1))
-                                        {
-                                            Debug.WriteLine("x--");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.X--;
-                                        }
+                                        if (GoUp(roadsAround, guest)) { }
+                                        else if (GoDown(roadsAround, guest)) { }
+                                        else if (GoLeft(roadsAround, guest)) { }
                                     }
-                                    //go down
-                                    else if (roadsAround.Exists(item => item.Y == guest.Y && item.X == guest.X + 1))
+                                    else
                                     {
-                                        Debug.WriteLine("x++");
-                                        guest.PrevCoords = (guest.X, guest.Y);
-                                        guest.X++;
-                                    }
-                                    //go right
-                                    else if (roadsAround.Exists(item => item.Y == guest.Y + 1 && item.X == guest.X))
-                                    {
-                                        guest.PrevCoords = (guest.X, guest.Y);
-                                        guest.Y++;
-                                    }
-                                    //go up
-                                    else if(roadsAround.Exists(item => item.Y == guest.Y && item.X == guest.X - 1))
-                                    {
-                                        guest.PrevCoords = (guest.X, guest.Y);
-                                        guest.X--;
+                                        if (GoDown(roadsAround, guest)) { }
+                                        else if (GoUp(roadsAround, guest)) { }
+                                        else if (GoLeft(roadsAround, guest)) { }
+
                                     }
                                 }
                             }
                             else
                             {
-                                //go right
-                                if (roadsAround.Exists(item => item.Y == guest.Y+1 && item.X == guest.X))
-                                {
-                                    Debug.WriteLine("y++");
-                                    guest.PrevCoords = (guest.X, guest.Y);
-                                    guest.Y++;
-                                }
+                                Debug.WriteLine("isGoLeft");
+                                //go left
+                                if (GoLeft(roadsAround, guest)) { }
                                 else
                                 {
                                     if (goUpThanDown)
                                     {
-                                        //go up
-                                        if (roadsAround.Exists(item => item.Y == guest.Y && item.X == guest.X + 1))
-                                        {
-                                            Debug.WriteLine("x++");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.X++;
-                                        }
+                                        if (GoUp(roadsAround, guest)) { }
+                                        else if (GoDown(roadsAround, guest)) { }
+                                        else if (GoRight(roadsAround, guest)) { }
                                     }
-                                        //go down
-                                        if (roadsAround.Exists(item => item.Y == guest.Y && item.X == guest.X - 1))
-                                        {
-                                            Debug.WriteLine("x--");
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.X--;
-                                        }
-                                        //go left
-                                        else if (roadsAround.Exists(item => item.Y == guest.Y - 1 && item.X == guest.X))
-                                        {
-                                            guest.PrevCoords = (guest.X, guest.Y);
-                                            guest.Y--;
-                                        }
-                                  }
+                                    else
+                                    {
+                                        if (GoDown(roadsAround, guest)) { }
+                                        else if (GoUp(roadsAround, guest)) { }
+                                        else if (GoRight(roadsAround, guest)) { }
+                                    }
+                                }
+                                
                             }
                         }
                     }
