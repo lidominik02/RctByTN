@@ -19,22 +19,20 @@ namespace RctByTN.Model
         private Random rnd;
 
         private const Int32 GameBuildCost = 250;
-        private const Int32 GameTicketCost = 50;
         private const Int32 GameMaintainCost = 50;
         private const Int32 RestaurantBuildCost = 200;
         private const Int32 RestaurantMaintainCost = 50;
-        private const Int32 RestaurantTicketServiceTime = 10;
-        private const Int32 RestaurantFoodCost = 20;
         private const Int32 RoadBuildCost = 20;
         private const Int32 PlantBuildCost = 100;
         private const Int32 BuildTime = 3000;
-        private const Int32 GameUseTime = 10000;
+        private const Int32 GameUseTime = 5000;
         private const Int32 RestaurantUseTime = 15000;
-
+        private const Int32 RestaurantTicketServiceTime = 10;
         public static Int32 MaintainCostInterval = 5000;
 
         public event EventHandler<ParkElementEventArgs> ElementChanged;
         public event EventHandler CashChanged;
+        public event EventHandler NotEnoughCash;
 
         public bool IsParkOpen { get => isParkOpen; set => isParkOpen = value; }
         public int Cash { get => cash; set => cash = value; }
@@ -70,13 +68,14 @@ namespace RctByTN.Model
         {
             //TODO
             //add priorities for cheaper games/restaurants
+            //games without path can't be destiantion
             foreach (Guest guest in GuestList)
             {
                 if (guest.Status == GuestStatus.Searching)
                     continue;
                 var games = ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(Game))).ToList();
                 //if guest is hungry
-                if (guest.Hunger < guest.Mood && guest.Destination.Item1 == -1)
+                if (guest.Hunger < guest.Mood)
                 {
                     var restaurants = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
                     if (restaurants.Any())
@@ -88,7 +87,7 @@ namespace RctByTN.Model
                     }
                 }
                 //if guest is bored
-                else if (games.Any() && guest.Destination.Item1 == -1)
+                else if (games.Any())
                 {
                     var rndGame = games[rnd.Next(games.Count)];
                     guest.Destination = (rndGame.X, rndGame.Y+1);
@@ -303,10 +302,38 @@ namespace RctByTN.Model
             guestList.Remove(guest);
             guest.Status = GuestStatus.Waiting;
             building.WaitingList.Add(guest);
-            if (building.GetType()==typeof(Game) && building.WaitingList.Count >= building.MinCapacity)
+            if (building.WaitingList.Count >= building.MinCapacity)
             {
-                //StartGame();
+                StartElement(building);
             }
+        }
+
+        private void StartElement(Building building)
+        {
+            building.Status = ElementStatus.Operate;
+            building.UserList = building.WaitingList.ToList();
+            building.UserList.ForEach(item => item.Status = GuestStatus.Busy);
+            building.WaitingList.Clear();
+            OnElementChanged(building);
+
+            SetInterval(GameUseTime, () =>
+            {
+                building.Status = ElementStatus.InWaiting;
+                OnElementChanged(building);
+            });
+
+            /*
+            foreach(Guest guest in building.UserList)
+            {
+                guest.X = guest.Destination.Item1;
+                guest.Y = guest.Destination.Item2;
+                guest.Status = GuestStatus.Aimless;
+                guest.Money -= building.UseCost;
+                guest.Mood += building.Modifier;
+                guestList.Add(guest);
+            }
+            building.UserList.Clear();
+            FindDestination(); */
         }
 
         private void AddGuest()
@@ -370,17 +397,32 @@ namespace RctByTN.Model
 
             if(newElement != null)
             {
-                cash -= newElement.BuildCost;
-                outcome += newElement.MaintainCost + newElement.BuildCost;
-                OnCashChanged();
+                if(cash - newElement.BuildCost >= 0)
+                {
+                    cash -= newElement.BuildCost;
+                    outcome += newElement.MaintainCost + newElement.BuildCost;
+                    OnCashChanged();
 
-                SetInterval(BuildTime, () =>
-                 {
-                     newElement.Status = ElementStatus.InWaiting;
-                     OnElementChanged(newElement);
-                 });
-                parkElementList.Add(newElement);
-                OnElementChanged(newElement);
+                    SetInterval(BuildTime, () =>
+                    {
+                        newElement.Status = ElementStatus.InWaiting;
+                        OnElementChanged(newElement);
+                    });
+                    parkElementList.Add(newElement);
+                    OnElementChanged(newElement);
+                }
+                else
+                {
+                    OnNotEnoughCash();
+                }
+            }
+        }
+
+        private void OnNotEnoughCash()
+        {
+            if(NotEnoughCash != null)
+            {
+                NotEnoughCash(this, EventArgs.Empty);
             }
         }
 

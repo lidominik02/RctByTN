@@ -31,6 +31,7 @@ namespace RctByTN.View
             _model = new RctModel();
             _model.ElementChanged += new EventHandler<ParkElementEventArgs>(Game_ElementChanged);
             _model.CashChanged += new EventHandler(Game_CashChanged);
+            _model.NotEnoughCash += new EventHandler(Game_NotEnoughCash);
             _timer = new Timer();
             _timer.Interval = 1000;
             _timer.Tick += new EventHandler(TimeElapsed);
@@ -43,6 +44,12 @@ namespace RctByTN.View
         {
             _model.TimeElapsed();
             RefreshTable();
+        }
+
+        private void Game_NotEnoughCash(object sender, EventArgs e)
+        {
+            MessageBox.Show("A kiválasztott építkezéshez nincs elég pénzed!"
+                    , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void Game_CashChanged(object sender, EventArgs e)
@@ -58,8 +65,10 @@ namespace RctByTN.View
             switch (element.Status)
             {
                 case ElementStatus.Operate:
-                    BuildParkElement(element,(button) => button.BackColor = Color.Green);
-                    //_buttonGrid[element.X, element.Y].BackColor = Color.Green;
+                    _buttonGrid[element.X - 1, element.Y - 1].Image = Properties.Resources.operate1;
+                    _buttonGrid[element.X, element.Y - 1].Image = Properties.Resources.operate3;
+                    _buttonGrid[element.X - 1, element.Y].Image = Properties.Resources.operate2;
+                    _buttonGrid[element.X, element.Y].Image = Properties.Resources.operate4;
                     break;
                 case ElementStatus.InWaiting:
                     if (element.GetType() == typeof(Road))
@@ -100,6 +109,10 @@ namespace RctByTN.View
                         BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
                         BuildParkElement(element, (button) => button.Image = null);
                     }
+                    _buttonGrid[element.X, element.Y].Image = null;
+                    _buttonGrid[element.X - 1, element.Y - 1].Image = null;
+                    _buttonGrid[element.X, element.Y - 1].Image = null;
+                    _buttonGrid[element.X - 1, element.Y].Image = null;
                     _buttonGrid[element.X, element.Y].Image = null;
                     break;
                 case ElementStatus.InBuild:
@@ -164,18 +177,6 @@ namespace RctByTN.View
 
         private void RefreshTable()
         {
-            /*
-            for (int i = 0; i < _buttonGrid.GetLength(0); i++)
-            {
-                for (int j = 0; j < _buttonGrid.GetLength(1); j++)
-                {
-                    if (!_model.ParkElementList.Exists(item => item.X == i && item.Y == j))
-                    {
-                        //_buttonGrid[i, j].BackColor = Color.FromArgb(117, 185, 67);
-                        _buttonGrid[i, j].BackgroundImage = null;
-                    }
-                }
-            }*/
             foreach(ParkElement element in _model.ParkElementList)
             {
                 if (element.GetType() == typeof(Road))
