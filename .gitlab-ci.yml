@@ -16,4 +16,4 @@ build_view:
   stage: build
   tags: [windows]
   script:
-    - dotnet build TicTacToeGame.sln
+    - dotnet build RctByTN.sln
