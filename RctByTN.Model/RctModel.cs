@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace RctByTN.Model
 {
-    class RctModel
+    public class RctModel
     {
         private bool isParkOpen;
         private Int32 cash;

@@ -4,15 +4,15 @@ using System.Text;
 
 namespace RctByTN.Model
 {
-    class Entrance : Road
+    public class Road : ParkElement
     {
-        public Entrance(int x, int y) : base(x, y, 0, 0)
+        public Road(int x, int y, int buildcost, int maintainCost) : base(x, y, buildcost, maintainCost)
         {
         }
 
         public override void ModifyGuest(Guest guest)
         {
-            base.ModifyGuest(guest);
+            throw new NotImplementedException();
         }
     }
 }

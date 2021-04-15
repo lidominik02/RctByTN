@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RctByTN.Model
 {
-    abstract class Building : ParkElement
+    public abstract class Building : ParkElement
     {
         protected List<Guest> _waitingList;
         protected List<Guest> _userList;

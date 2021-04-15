@@ -4,9 +4,9 @@ using System.Text;
 
 namespace RctByTN.Model
 {
-    abstract class Game : Building
+    public abstract class Restaurant : Building
     {
-        public Game(int x, int y, int minCapacity, int maxCapacity, int buildcost, int usecost, int usetime, int maintainCost) : base(x, y,minCapacity,maxCapacity, buildcost, usecost, usetime, maintainCost)
+        public Restaurant(int x, int y, int buildcost, int maxCapacity, int maintainCost, int serviceTime, int foodCost) : base(x,y,0,maxCapacity,buildcost,foodCost,serviceTime,maintainCost)
         {
             this.AreaSize = 4;
         }
