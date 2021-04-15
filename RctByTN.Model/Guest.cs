@@ -11,6 +11,7 @@ namespace RctByTN.Model
         private int hunger;
         private int mood;
         private int money;
+        private int intolerance;
         private GuestStatus status;
         private bool hasCoupon;
         private (int,int) destination;
@@ -25,6 +26,7 @@ namespace RctByTN.Model
         public (int,int) Destination { get; set; }
         public (int, int) PrevCoords { get; set; }
         public (int,int) LastCrossRoad { get; set; }
+        public int Intolerance { get => intolerance; set => intolerance = value; }
 
         public Guest(int x, int y, bool hasCoupon)
         {
@@ -37,6 +39,7 @@ namespace RctByTN.Model
             Status = GuestStatus.Aimless;
             Destination = (-1, -1);
             LastCrossRoad = (-1, -1);
+            Intolerance = 0;
         }
     }
 }

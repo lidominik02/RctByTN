@@ -9,6 +9,8 @@ namespace RctByTN.Model
 {
     public class RctModel
     {
+
+        #region Data members
         private bool isParkOpen;
         private Int32 cash;
         private Int32 income;
@@ -17,7 +19,9 @@ namespace RctByTN.Model
         private List<Guest> guestList;
         private List<ParkElement> parkElementList;
         private Random rnd;
+        #endregion
 
+        #region Constants
         private const Int32 GameBuildCost = 250;
         private const Int32 GameMaintainCost = 50;
         private const Int32 RestaurantBuildCost = 200;
@@ -29,11 +33,15 @@ namespace RctByTN.Model
         private const Int32 RestaurantUseTime = 15000;
         private const Int32 RestaurantTicketServiceTime = 10;
         public static Int32 MaintainCostInterval = 5000;
+        #endregion
 
+        #region Events
         public event EventHandler<ParkElementEventArgs> ElementChanged;
         public event EventHandler CashChanged;
         public event EventHandler NotEnoughCash;
+        #endregion
 
+        #region Properties
         public bool IsParkOpen { get => isParkOpen; set => isParkOpen = value; }
         public int Cash { get => cash; set => cash = value; }
         public int Income { get => income; set => income = value; }
@@ -41,6 +49,7 @@ namespace RctByTN.Model
         public int GameTime { get => gameTime; set => gameTime = value; }
         public List<Guest> GuestList { get => guestList; set => guestList = value; }
         public List<ParkElement> ParkElementList { get => parkElementList; set => parkElementList = value; }
+        #endregion
 
         public RctModel()
         {
@@ -58,7 +67,20 @@ namespace RctByTN.Model
             gameTime++;
             FindDestination();
             MoveGuests();
-            if (gameTime % 5 == 0)
+            parkElementList.ForEach(item =>
+            {
+                if (item.GetType().IsSubclassOf(typeof(Building)))
+                {
+                    EnterWaitingGuestsToBuilding(item as Building);
+                    if (gameTime % 7 == 0)
+                        IncreaseWaitingGuestIntolerance((item as Building).WaitingList);
+                    if(gameTime % 3 == 0)
+                    {
+                        ModifyWaitingGuestMood((item as Building).WaitingList);
+                    }
+                }
+            });
+            if (gameTime % 3 == 0)
             {
                 AddGuest();
             }
@@ -98,62 +120,18 @@ namespace RctByTN.Model
             }
         }
 
-        private bool GoUp(List<ParkElement> roadsAround, Guest guest)
-        {
-            if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X - 1)))
-            {
-                Debug.WriteLine("x--");
-                guest.PrevCoords = (guest.X, guest.Y);
-                guest.X--;
-                return true;
-            }
-            return false;
-        }
-
-        private bool GoDown(List<ParkElement> roadsAround, Guest guest)
-        {
-            if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X + 1)))
-            {
-                Debug.WriteLine("x++");
-                guest.PrevCoords = (guest.X, guest.Y);
-                guest.X++;
-                return true;
-            }
-            return false;
-        }
-        private bool GoRight(List<ParkElement> roadsAround, Guest guest)
-        {
-            if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
-            {
-                Debug.WriteLine("y++");
-                guest.PrevCoords = (guest.X, guest.Y);
-                guest.Y++;
-                return true;
-            }
-            return false;
-        }
-        private bool GoLeft(List<ParkElement> roadsAround, Guest guest)
-        {
-            if (roadsAround.Exists(item => item.Y == guest.Y - 1 && item.X == guest.X))
-            {
-                guest.PrevCoords = (guest.X, guest.Y);
-                guest.Y--;
-                return true;
-            }
-            return false;
-        }
-
+        #region Guest Moving functions
         private void MoveGuests()
         {
-            foreach(Guest guest in guestList.ToList())
+            foreach (Guest guest in guestList.ToList())
             {
                 var desVectorX = guest.X - guest.Destination.Item1;
                 var desVectorY = guest.Y - guest.Destination.Item2;
 
-                if ((guest.X,guest.Y)==guest.Destination)
+                if ((guest.X, guest.Y) == guest.Destination)
                 {
-                    var foundBuilding = ParkElementList.Find(item => item.X == guest.Destination.Item1 && item.Y == (guest.Destination.Item2 - 1));
-                    EnterElement(guest, foundBuilding as Building);
+                    var destinationBuilding = ParkElementList.Find(item => item.X == guest.Destination.Item1 && item.Y == (guest.Destination.Item2 - 1));
+                    EnterGuestToBuilding(guest, destinationBuilding as Building);
                 }
                 Debug.WriteLine("gMOVE: x:{0} y:{1}", guest.X, guest.Y);
                 if (guest.Status == GuestStatus.Searching || guest.Status == GuestStatus.Stuck)
@@ -169,11 +147,11 @@ namespace RctByTN.Model
                             desVectorY = guest.Y - guest.Destination.Item2;
                             guest.Status = GuestStatus.Searching;
                         }
-                    } 
+                    }
 
-                    Debug.WriteLine("desVector: ({0},{1})",desVectorX,desVectorY);
+                    Debug.WriteLine("desVector: ({0},{1})", desVectorX, desVectorY);
 
-                    if(!(desVectorX == 0 && desVectorY == 0))
+                    if (!(desVectorX == 0 && desVectorY == 0))
                     {
                         Debug.WriteLine("desVectorX != 0 && desVectorY != 0");
                         var roadsAround = parkElementList.Where(item =>
@@ -182,17 +160,17 @@ namespace RctByTN.Model
                             && Distance(item.X, item.Y, guest.X, guest.Y) == 1;
                         }).ToList();
 
-                        if(roadsAround.Count >= 3)
+                        if (roadsAround.Count >= 3)
                         {
                             guest.LastCrossRoad = (guest.X, guest.Y);
                         }
 
                         roadsAround.ForEach(item => Debug.WriteLine("roads: {0} {1}", item.X, item.Y));
-                        if(roadsAround.Count > 1)
+                        if (roadsAround.Count > 1)
                         {
                             roadsAround.Remove(roadsAround.Find(item => item.X == guest.PrevCoords.Item1 && item.Y == guest.PrevCoords.Item2));
                         }
-                        else if(roadsAround.Count==1 && roadsAround[0].X == guest.PrevCoords.Item1 && roadsAround[0].Y == guest.PrevCoords.Item2)
+                        else if (roadsAround.Count == 1 && roadsAround[0].X == guest.PrevCoords.Item1 && roadsAround[0].Y == guest.PrevCoords.Item2)
                         {
                             desVectorX = guest.X - guest.LastCrossRoad.Item1;
                             desVectorY = guest.Y - guest.LastCrossRoad.Item2;
@@ -202,8 +180,8 @@ namespace RctByTN.Model
                         bool goRightThanLeft = desVectorY <= 0;
                         bool goUpThanDown = desVectorX >= 0;
                         bool isGoHorizontal = Math.Abs(desVectorY) <= Math.Abs(desVectorX);
-                        
-                        if(isGoHorizontal)
+
+                        if (isGoHorizontal)
                         {
                             Debug.WriteLine("isGoHorizontal");
                             if (goUpThanDown)
@@ -212,11 +190,11 @@ namespace RctByTN.Model
                                 if (GoUp(roadsAround, guest)) { }
                                 else
                                 {
-                                    if(goRightThanLeft)
+                                    if (goRightThanLeft)
                                     {
                                         if (GoRight(roadsAround, guest)) { }
                                         else if (GoLeft(roadsAround, guest)) { }
-                                        else if(GoDown(roadsAround,guest)) { }
+                                        else if (GoDown(roadsAround, guest)) { }
                                     }
                                     else
                                     {
@@ -233,9 +211,9 @@ namespace RctByTN.Model
                                 {
                                     if (goRightThanLeft)
                                     {
-                                        if (GoRight(roadsAround, guest)){ }
+                                        if (GoRight(roadsAround, guest)) { }
                                         else if (GoLeft(roadsAround, guest)) { }
-                                        else if(GoUp(roadsAround, guest)) { }
+                                        else if (GoUp(roadsAround, guest)) { }
                                     }
                                     else
                                     {
@@ -289,38 +267,64 @@ namespace RctByTN.Model
                                         else if (GoRight(roadsAround, guest)) { }
                                     }
                                 }
-                                
+
                             }
                         }
                     }
                 }
             }
         }
+        private bool GoUp(List<ParkElement> roadsAround, Guest guest)
+        {
+            if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X - 1)))
+            {
+                Debug.WriteLine("x--");
+                guest.PrevCoords = (guest.X, guest.Y);
+                guest.X--;
+                return true;
+            }
+            return false;
+        }
+        private bool GoDown(List<ParkElement> roadsAround, Guest guest)
+        {
+            if (roadsAround.Exists(item => item.Y == guest.Y && item.X == (guest.X + 1)))
+            {
+                Debug.WriteLine("x++");
+                guest.PrevCoords = (guest.X, guest.Y);
+                guest.X++;
+                return true;
+            }
+            return false;
+        }
+        private bool GoRight(List<ParkElement> roadsAround, Guest guest)
+        {
+            if (roadsAround.Exists(item => item.Y == (guest.Y + 1) && item.X == guest.X))
+            {
+                Debug.WriteLine("y++");
+                guest.PrevCoords = (guest.X, guest.Y);
+                guest.Y++;
+                return true;
+            }
+            return false;
+        }
+        private bool GoLeft(List<ParkElement> roadsAround, Guest guest)
+        {
+            if (roadsAround.Exists(item => item.Y == guest.Y - 1 && item.X == guest.X))
+            {
+                guest.PrevCoords = (guest.X, guest.Y);
+                guest.Y--;
+                return true;
+            }
+            return false;
+        }
+        #endregion
 
-        private void EnterElement(Guest guest, Building building)
+        private void EnterGuestToBuilding(Guest guest, Building building)
         {
             guestList.Remove(guest);
             guest.Status = GuestStatus.Waiting;
             building.WaitingList.Add(guest);
-            if (building.WaitingList.Count >= building.MinCapacity)
-            {
-                StartElement(building);
-            }
-        }
-
-        private void StartElement(Building building)
-        {
-            building.Status = ElementStatus.Operate;
-            building.UserList = building.WaitingList.ToList();
-            building.UserList.ForEach(item => item.Status = GuestStatus.Busy);
-            building.WaitingList.Clear();
-            OnElementChanged(building);
-
-            SetInterval(GameUseTime, () =>
-            {
-                building.Status = ElementStatus.InWaiting;
-                OnElementChanged(building);
-            });
+            EnterWaitingGuestsToBuilding(building);
 
             /*
             foreach(Guest guest in building.UserList)
@@ -334,6 +338,48 @@ namespace RctByTN.Model
             }
             building.UserList.Clear();
             FindDestination(); */
+        }
+
+        private void EnterWaitingGuestsToBuilding(Building building)
+        {
+            int numberOfTheEnteringGuest = -1;
+
+            if (building.WaitingList.Count >= building.MaxCapacity)
+                numberOfTheEnteringGuest = building.MaxCapacity;
+            else if (building.WaitingList.Count >= building.MinCapacity)
+                numberOfTheEnteringGuest = building.WaitingList.Count;
+
+            if (building.Status == ElementStatus.InWaiting && numberOfTheEnteringGuest != -1)
+            {
+                building.Status = ElementStatus.Operate;
+                building.UserList = building.WaitingList.Take(numberOfTheEnteringGuest).ToList();
+                building.WaitingList = building.WaitingList.Except(building.UserList).ToList();
+                building.UserList.ForEach(item => item.Status = GuestStatus.Busy);
+                OnElementChanged(building);
+
+                SetInterval(GameUseTime + 5000, () =>
+                {
+                    building.Status = ElementStatus.InWaiting;
+                    building.UserList.Clear();
+                    OnElementChanged(building);
+                });
+            }
+        }
+
+        private void IncreaseWaitingGuestIntolerance(List<Guest> waitingGuest)
+        {
+            waitingGuest.ForEach(guest => 
+            {
+                guest.Intolerance++;
+            });
+        }
+
+        private void ModifyWaitingGuestMood(List<Guest> waitingGuest)
+        {
+            waitingGuest.ForEach(guest =>
+            {
+                guest.Mood -= guest.Intolerance;
+            });
         }
 
         private void AddGuest()
@@ -418,30 +464,6 @@ namespace RctByTN.Model
             }
         }
 
-        private void OnNotEnoughCash()
-        {
-            if(NotEnoughCash != null)
-            {
-                NotEnoughCash(this, EventArgs.Empty);
-            }
-        }
-
-        private void OnElementChanged(ParkElement newElement)
-        {
-            if (ElementChanged != null)
-            {
-                ElementChanged(this, new ParkElementEventArgs(newElement));
-            }
-        }
-
-        private void OnCashChanged()
-        {
-            if(CashChanged != null)
-            {
-                CashChanged(this, EventArgs.Empty);
-            }
-        }
-
         private async void SetInterval(Int32 millisecond, Action action)
         {
             await Task.Run(async () =>{
@@ -493,6 +515,33 @@ namespace RctByTN.Model
                 });
             OnCashChanged();
         }
+
+        #region Private event methods
+        private void OnNotEnoughCash()
+        {
+            if (NotEnoughCash != null)
+            {
+                NotEnoughCash(this, EventArgs.Empty);
+            }
+        }
+
+        private void OnElementChanged(ParkElement newElement)
+        {
+            if (ElementChanged != null)
+            {
+                ElementChanged(this, new ParkElementEventArgs(newElement));
+            }
+        }
+
+        private void OnCashChanged()
+        {
+            if (CashChanged != null)
+            {
+                CashChanged(this, EventArgs.Empty);
+            }
+        }
+
+        #endregion
 
     }
 }
