@@ -14,6 +14,7 @@ build_model:
 
 build_view:
   stage: build
+  image: mcr.microsoft.com/dotnet/framework/sdk:4.8
   tags: [windows]
   script:
     - dotnet build RctByTN.sln
