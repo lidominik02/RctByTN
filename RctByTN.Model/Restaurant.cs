@@ -13,7 +13,9 @@ namespace RctByTN.Model
 
         public override void ModifyGuest(Guest guest)
         {
-            throw new NotImplementedException();
+            guest.Hunger += 3;
+            guest.Mood++;
+            guest.Money -= UseCost;
         }
     }
 }

@@ -12,7 +12,9 @@ namespace RctByTN.Model
 
         public override void ModifyGuest(Guest guest)
         {
-            throw new NotImplementedException();
+            var rnd = new Random();
+            if(rnd.Next(5) == 3)
+                guest.Mood++;
         }
     }
 }
