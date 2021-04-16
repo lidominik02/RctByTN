@@ -191,7 +191,7 @@ namespace RctByTN.View
                 } 
             }
 
-            foreach(Guest guest in _model.GuestList)
+            foreach(Guest guest in _model.GuestList.ToList())
             {
                 _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest;
             }

@@ -65,7 +65,7 @@ namespace RctByTN.Model
         public void TimeElapsed()
         {
             gameTime++;
-            FindDestination();
+            //FindDestination();
             MoveGuests();
             parkElementList.ForEach(item =>
             {
@@ -107,39 +107,48 @@ namespace RctByTN.Model
                         var rndRest = restaurants[rnd.Next(restaurants.Count)];
                         guest.Destination = (rndRest.X, rndRest.Y+1);
                         guest.Status = GuestStatus.Searching;
+                        Debug.Write("Restaurant dest");
                         continue;
                     }
                 }
                 //if guest is bored
                 else if (games.Any())
                 {
-                    var cheaps = games.Where(game => game.UseCost <= guest.Money * 0.2).ToList();
-                    if (cheaps.Any())
+                    
+                    var exps = games.Where(game => game.UseCost >= guest.Money * 0.6 && game.UseCost <= guest.Money*0.9).ToList();
+                    if (exps.Any())
                     {
-                        var rndGame = cheaps[rnd.Next(cheaps.Count)];
+                        var rndGame = exps[rnd.Next(exps.Count)];
+                        Debug.WriteLine("g.money:{0} g.cost:{1} money*0.6:{2}", guest.Money, rndGame.UseCost, guest.Money * 0.6);
                         guest.Destination = (rndGame.X, rndGame.Y + 1);
                         guest.Status = GuestStatus.Searching;
+                        Debug.Write("expensive chosen");
                         continue;
                     }
-                    var meds = games.Where(game => game.UseCost <= guest.Money * 0.4).ToList();
+                    var meds = games.Where(game => game.UseCost >= guest.Money * 0.4 && game.UseCost < guest.Money*0.6).ToList();
                     if (meds.Any())
                     {
                         var rndGame = meds[rnd.Next(meds.Count)];
                         guest.Destination = (rndGame.X, rndGame.Y + 1);
                         guest.Status = GuestStatus.Searching;
+                        Debug.Write("mid chosen");
                         continue;
                     }
-                    var exps = games.Where(game => game.UseCost <= guest.Money * 0.6).ToList();
-                    if (exps.Any())
+                    var cheaps = games.Where(game => game.UseCost >= guest.Money * 0.2 && game.UseCost < guest.Money).ToList();
+                    if (cheaps.Any())
                     {
-                        var rndGame = exps[rnd.Next(exps.Count)];
+                        var rndGame = cheaps[rnd.Next(cheaps.Count)];
                         guest.Destination = (rndGame.X, rndGame.Y + 1);
                         guest.Status = GuestStatus.Searching;
+                        Debug.Write("Cheap chosen");
                         continue;
                     }
                     //Debug.WriteLine("des: x:{0} y:{1}", guest.Destination.Item1, guest.Destination.Item2);
                     //Debug.WriteLine("g: x:{0} y:{1}", guest.X, guest.Y);
                 }
+                Debug.WriteLine("-----leaving------");
+                guest.Destination = (12, 11);
+                guest.Status = GuestStatus.Searching;
             }
         }
 
@@ -391,11 +400,14 @@ namespace RctByTN.Model
                         guest.X = guest.Destination.Item1;
                         guest.Y = guest.Destination.Item2;
                         guest.Status = GuestStatus.Aimless;
+                        Debug.WriteLine("------Money before:{0}------", guest.Money);
                         guest.Money -= building.UseCost;
+                        Debug.WriteLine("------Money after:{0}------", guest.Money);
                         guest.Mood += building.Modifier;
                         guestList.Add(guest);
                     }
                     building.UserList.Clear();
+                    FindDestination();
                     OnElementChanged(building);  
                 }); 
             }
@@ -429,6 +441,7 @@ namespace RctByTN.Model
                     Guest newGuest = new Guest(entrance.X - 1, entrance.Y, false);
                     newGuest.PrevCoords = (entrance.X - 1, entrance.Y);
                     guestList.Add(newGuest);
+                    FindDestination();
                 }
             }
         }
