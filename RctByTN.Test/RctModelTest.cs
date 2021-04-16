@@ -20,7 +20,7 @@ namespace RctByTN.Test
             Assert.AreEqual(_model.IsParkOpen,false);
             Assert.AreEqual(_model.Income, 0);
             Assert.AreEqual(_model.Outcome, 0);
-            Assert.AreEqual(_model.Cash, 1000);
+            Assert.AreEqual(_model.Cash, 10000);
             Assert.AreEqual(_model.GameTime, 0);
             Assert.AreEqual(_model.GuestList.Count, 0);
             Assert.AreEqual(_model.ParkElementList.Count, 0);
