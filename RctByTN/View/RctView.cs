@@ -183,11 +183,12 @@ namespace RctByTN.View
                 {
                     _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.road;
                 }
+                
                 if(element.GetType().IsSubclassOf(typeof(Building)))
                 {
                     _buttonGrid[element.X,element.Y].Text = (element as Building).WaitingList.Count.ToString();
                     _buttonGrid[element.X, element.Y].TextAlign = ContentAlignment.BottomRight;
-                }
+                } 
             }
 
             foreach(Guest guest in _model.GuestList)

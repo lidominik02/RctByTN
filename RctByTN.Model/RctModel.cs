@@ -57,7 +57,7 @@ namespace RctByTN.Model
             ParkElementList = new List<ParkElement>();
             IsParkOpen = false;
             income = outcome = 0;
-            cash = 1000;
+            cash = 10000;
             gameTime = 0;
             rnd = new Random();
         }
@@ -80,7 +80,7 @@ namespace RctByTN.Model
                     }
                 }
             });
-            if (gameTime % 3 == 0)
+            if (gameTime % 5 == 0)
             {
                 AddGuest();
             }
@@ -95,27 +95,50 @@ namespace RctByTN.Model
             {
                 if (guest.Status == GuestStatus.Searching)
                     continue;
-                var games = ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(Game))).ToList();
+                var gms = ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(Game))).ToList();
+                List<Game> games = gms.Cast<Game>().ToList();
                 //if guest is hungry
                 if (guest.Hunger < guest.Mood)
                 {
-                    var restaurants = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
+                    var rests = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
+                    List<Restaurant> restaurants = rests.Cast<Restaurant>().ToList();
                     if (restaurants.Any())
                     {
                         var rndRest = restaurants[rnd.Next(restaurants.Count)];
                         guest.Destination = (rndRest.X, rndRest.Y+1);
                         guest.Status = GuestStatus.Searching;
-                        return;
+                        continue;
                     }
                 }
                 //if guest is bored
                 else if (games.Any())
                 {
-                    var rndGame = games[rnd.Next(games.Count)];
-                    guest.Destination = (rndGame.X, rndGame.Y+1);
-                    Debug.WriteLine("des: x:{0} y:{1}", guest.Destination.Item1, guest.Destination.Item2);
-                    Debug.WriteLine("g: x:{0} y:{1}", guest.X, guest.Y);
-                    guest.Status = GuestStatus.Searching;
+                    var cheaps = games.Where(game => game.UseCost <= guest.Money * 0.2).ToList();
+                    if (cheaps.Any())
+                    {
+                        var rndGame = cheaps[rnd.Next(cheaps.Count)];
+                        guest.Destination = (rndGame.X, rndGame.Y + 1);
+                        guest.Status = GuestStatus.Searching;
+                        continue;
+                    }
+                    var meds = games.Where(game => game.UseCost <= guest.Money * 0.4).ToList();
+                    if (meds.Any())
+                    {
+                        var rndGame = meds[rnd.Next(meds.Count)];
+                        guest.Destination = (rndGame.X, rndGame.Y + 1);
+                        guest.Status = GuestStatus.Searching;
+                        continue;
+                    }
+                    var exps = games.Where(game => game.UseCost <= guest.Money * 0.6).ToList();
+                    if (exps.Any())
+                    {
+                        var rndGame = exps[rnd.Next(exps.Count)];
+                        guest.Destination = (rndGame.X, rndGame.Y + 1);
+                        guest.Status = GuestStatus.Searching;
+                        continue;
+                    }
+                    //Debug.WriteLine("des: x:{0} y:{1}", guest.Destination.Item1, guest.Destination.Item2);
+                    //Debug.WriteLine("g: x:{0} y:{1}", guest.X, guest.Y);
                 }
             }
         }
@@ -357,12 +380,24 @@ namespace RctByTN.Model
                 building.UserList.ForEach(item => item.Status = GuestStatus.Busy);
                 OnElementChanged(building);
 
-                SetInterval(GameUseTime + 5000, () =>
+                SetInterval(GameUseTime , () =>
                 {
                     building.Status = ElementStatus.InWaiting;
-                    building.UserList.Clear();
+                    //building.UserList.Clear();
                     OnElementChanged(building);
-                });
+                    
+                    foreach (Guest guest in building.UserList)
+                    {
+                        guest.X = guest.Destination.Item1;
+                        guest.Y = guest.Destination.Item2;
+                        guest.Status = GuestStatus.Aimless;
+                        guest.Money -= building.UseCost;
+                        guest.Mood += building.Modifier;
+                        guestList.Add(guest);
+                    }
+                    building.UserList.Clear();
+                    OnElementChanged(building);  
+                }); 
             }
         }
 
@@ -540,7 +575,6 @@ namespace RctByTN.Model
                 CashChanged(this, EventArgs.Empty);
             }
         }
-
         #endregion
 
     }
