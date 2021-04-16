@@ -12,6 +12,7 @@ namespace RctByTN.Model
 
         #region Data members
         private bool isParkOpen;
+        private bool isCampaign;
         private Int32 cash;
         private Int32 income;
         private Int32 outcome;
@@ -32,6 +33,7 @@ namespace RctByTN.Model
         private const Int32 GameUseTime = 5000;
         private const Int32 RestaurantUseTime = 15000;
         private const Int32 RestaurantTicketServiceTime = 10;
+        private const Int32 CampaignTime = 10000;
         public static Int32 MaintainCostInterval = 5000;
         #endregion
 
@@ -44,12 +46,13 @@ namespace RctByTN.Model
 
         #region Properties
         public bool IsParkOpen { get => isParkOpen; set => isParkOpen = value; }
-        public int Cash { get => cash; set => cash = value; }
-        public int Income { get => income; set => income = value; }
-        public int Outcome { get => outcome; set => outcome = value; }
-        public int GameTime { get => gameTime; set => gameTime = value; }
-        public List<Guest> GuestList { get => guestList; set => guestList = value; }
-        public List<ParkElement> ParkElementList { get => parkElementList; set => parkElementList = value; }
+        public int Cash { get => cash; private set => cash = value; }
+        public int Income { get => income; private set => income = value; }
+        public int Outcome { get => outcome; private set => outcome = value; }
+        public int GameTime { get => gameTime; private set => gameTime = value; }
+        public List<Guest> GuestList { get => guestList; private set => guestList = value; }
+        public List<ParkElement> ParkElementList { get => parkElementList; private set => parkElementList = value; }
+        public bool IsCampaign { get => isCampaign; private set => isCampaign = value; }
         #endregion
 
         public RctModel()
@@ -57,6 +60,7 @@ namespace RctByTN.Model
             GuestList = new List<Guest>();
             ParkElementList = new List<ParkElement>();
             IsParkOpen = false;
+            isCampaign = false;
             income = outcome = 0;
             cash = 10000;
             gameTime = 0;
@@ -74,18 +78,40 @@ namespace RctByTN.Model
                 {
                     EnterWaitingGuestsToBuilding(item as Building);
                     if (gameTime % 7 == 0)
-                        IncreaseWaitingGuestIntolerance((item as Building).WaitingList);
+                        IncreaseWaitingGuestIntolerance(item as Building);
                     if(gameTime % 3 == 0)
                     {
-                        ModifyWaitingGuestMood((item as Building).WaitingList);
+                        ModifyWaitingGuestMood(item as Building);
                     }
+                }
+                else if(item.GetType().IsSubclassOf(typeof(Plant)))
+                {
+                    RoadsAround(item.X,item.Y).ForEach(road => 
+                    {
+                        guestList.Where(guest => guest.X == road.X && guest.Y == road.Y)
+                                 .ToList()
+                                 .ForEach(guest => item.ModifyGuest(guest));
+                    });
                 }
             });
             if (gameTime % 5 == 0)
             {
                 AddGuest();
             }
+            if(isCampaign)
+            {
+                AddGuest();
+            }
         }
+
+        public void StartCampaign()
+        {
+            isCampaign = true;
+            SetInterval(CampaignTime,() => isCampaign = false);
+        }
+
+        private List<T> GetSpecificTypesFromParkElementList<T>() where T : ParkElement =>
+            ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(T))).Cast<T>().ToList();
 
         private void FindDestination()
         {
@@ -96,12 +122,10 @@ namespace RctByTN.Model
             {
                 if (guest.Status == GuestStatus.Searching)
                     continue;
-                var gms = ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(Game))).ToList();
-                List<Game> games = gms.Cast<Game>().ToList();
-                var rests = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
-                List<Restaurant> restaurants = rests.Cast<Restaurant>().ToList();
+                List<Game> games = GetSpecificTypesFromParkElementList<Game>();
+                List<Restaurant> restaurants = GetSpecificTypesFromParkElementList<Restaurant>();
                 //if guest is hungry
-                if (guest.Hunger < guest.Mood && restaurants.Any())
+                if (guest.Hunger < 3 && restaurants.Any())
                 {
                         var rndRest = restaurants[rnd.Next(restaurants.Count)];
                         guest.Destination = (rndRest.X, rndRest.Y+1);
@@ -189,11 +213,7 @@ namespace RctByTN.Model
                     if (!(desVectorX == 0 && desVectorY == 0))
                     {
                         Debug.WriteLine("desVectorX != 0 && desVectorY != 0");
-                        var roadsAround = parkElementList.Where(item =>
-                        {
-                            return item.GetType() == typeof(Road)
-                            && Distance(item.X, item.Y, guest.X, guest.Y) == 1;
-                        }).ToList();
+                        var roadsAround = RoadsAround(guest.X, guest.Y);
 
                         if (roadsAround.Count >= 3)
                         {
@@ -368,7 +388,7 @@ namespace RctByTN.Model
 
             if (building.WaitingList.Count >= building.MaxCapacity)
                 numberOfTheEnteringGuest = building.MaxCapacity;
-            else if (building.WaitingList.Count >= building.MinCapacity)
+            else if (building.WaitingList.Count >= building.MinCapacity && building.WaitingList.Count > 0)
                 numberOfTheEnteringGuest = building.WaitingList.Count;
 
             if (building.Status == ElementStatus.InWaiting && numberOfTheEnteringGuest != -1)
@@ -391,9 +411,8 @@ namespace RctByTN.Model
                         guest.Y = guest.Destination.Item2;
                         guest.Status = GuestStatus.Aimless;
                         Debug.WriteLine("------Money before:{0}------", guest.Money);
-                        guest.Money -= building.UseCost;
+                        building.ModifyGuest(guest);
                         Debug.WriteLine("------Money after:{0}------", guest.Money);
-                        guest.Mood += building.Modifier;
                         guestList.Add(guest);
                     }
                     building.UserList.Clear();
@@ -403,17 +422,17 @@ namespace RctByTN.Model
             }
         }
 
-        private void IncreaseWaitingGuestIntolerance(List<Guest> waitingGuest)
+        private void IncreaseWaitingGuestIntolerance(Building building)
         {
-            waitingGuest.ForEach(guest => 
+            building.WaitingList.ForEach(guest => 
             {
                 guest.Intolerance++;
             });
         }
 
-        private void ModifyWaitingGuestMood(List<Guest> waitingGuest)
+        private void ModifyWaitingGuestMood(Building building)
         {
-            waitingGuest.ForEach(guest =>
+            building.WaitingList.ForEach(guest =>
             {
                 guest.Mood -= guest.Intolerance;
             });
@@ -428,7 +447,7 @@ namespace RctByTN.Model
             {
                 if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
                 {
-                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, false);
+                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, isCampaign);
                     newGuest.PrevCoords = (entrance.X - 1, entrance.Y);
                     guestList.Add(newGuest);
                     FindDestination();
@@ -517,6 +536,15 @@ namespace RctByTN.Model
         private double Distance(double x1, double y1, double x2, double y2)
         {
             return Math.Sqrt(Math.Pow(Math.Abs(x1 - x2), 2) + Math.Pow(Math.Abs(y1 - y2), 2));
+        }
+
+        private List<ParkElement> RoadsAround(double x,double y)
+        {
+            return parkElementList.Where(item =>
+            {
+                return item.GetType() == typeof(Road)
+                && Distance(item.X, item.Y, x, y) == 1;
+            }).ToList();
         }
 
         public bool IsFreeArea(int x, int y,int selectedTab)

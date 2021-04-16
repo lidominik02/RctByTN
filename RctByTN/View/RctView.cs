@@ -47,6 +47,8 @@ namespace RctByTN.View
             _model.TimeElapsed();
             RefreshTable();
             SpectateGuest();
+            if (!_model.IsCampaign)
+                campaignButton.Enabled = true;
         }
 
         private void Game_NotEnoughCash(object sender, EventArgs e)
@@ -350,6 +352,12 @@ namespace RctByTN.View
                 button.FlatAppearance.BorderColor = Color.Empty;
                 button.FlatStyle = FlatStyle.Standard;
             }
+        }
+
+        private void campaignButton_Click(object sender, EventArgs e)
+        {
+            _model.StartCampaign();
+            campaignButton.Enabled = false;
         }
     }
 }
