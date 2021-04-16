@@ -39,6 +39,7 @@ namespace RctByTN.Model
         public event EventHandler<ParkElementEventArgs> ElementChanged;
         public event EventHandler CashChanged;
         public event EventHandler NotEnoughCash;
+        public event EventHandler<GuestEventArgs> GuestClicked;
         #endregion
 
         #region Properties
@@ -91,25 +92,22 @@ namespace RctByTN.Model
             //TODO
             //add priorities for cheaper games/restaurants
             //games without path can't be destiantion
-            foreach (Guest guest in GuestList)
+            foreach (Guest guest in GuestList.ToList())
             {
                 if (guest.Status == GuestStatus.Searching)
                     continue;
                 var gms = ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(Game))).ToList();
                 List<Game> games = gms.Cast<Game>().ToList();
+                var rests = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
+                List<Restaurant> restaurants = rests.Cast<Restaurant>().ToList();
                 //if guest is hungry
-                if (guest.Hunger < guest.Mood)
+                if (guest.Hunger < guest.Mood && restaurants.Any())
                 {
-                    var rests = ParkElementList.Where(p => p.GetType() == typeof(Restaurant)).ToList();
-                    List<Restaurant> restaurants = rests.Cast<Restaurant>().ToList();
-                    if (restaurants.Any())
-                    {
                         var rndRest = restaurants[rnd.Next(restaurants.Count)];
                         guest.Destination = (rndRest.X, rndRest.Y+1);
                         guest.Status = GuestStatus.Searching;
                         Debug.Write("Restaurant dest");
                         continue;
-                    }
                 }
                 //if guest is bored
                 else if (games.Any())
@@ -134,7 +132,7 @@ namespace RctByTN.Model
                         Debug.Write("mid chosen");
                         continue;
                     }
-                    var cheaps = games.Where(game => game.UseCost >= guest.Money * 0.2 && game.UseCost < guest.Money).ToList();
+                    var cheaps = games.Where(game => game.UseCost < guest.Money).ToList();
                     if (cheaps.Any())
                     {
                         var rndGame = cheaps[rnd.Next(cheaps.Count)];
@@ -147,7 +145,7 @@ namespace RctByTN.Model
                     //Debug.WriteLine("g: x:{0} y:{1}", guest.X, guest.Y);
                 }
                 Debug.WriteLine("-----leaving------");
-                guest.Destination = (12, 11);
+                guest.Destination = (11, 11);
                 guest.Status = GuestStatus.Searching;
             }
         }
@@ -162,6 +160,11 @@ namespace RctByTN.Model
 
                 if ((guest.X, guest.Y) == guest.Destination)
                 {
+                    if(guest.Destination == (11, 11))
+                    {
+                        guestList.Remove(guest);
+                        continue;
+                    }
                     var destinationBuilding = ParkElementList.Find(item => item.X == guest.Destination.Item1 && item.Y == (guest.Destination.Item2 - 1));
                     EnterGuestToBuilding(guest, destinationBuilding as Building);
                 }
@@ -357,19 +360,6 @@ namespace RctByTN.Model
             guest.Status = GuestStatus.Waiting;
             building.WaitingList.Add(guest);
             EnterWaitingGuestsToBuilding(building);
-
-            /*
-            foreach(Guest guest in building.UserList)
-            {
-                guest.X = guest.Destination.Item1;
-                guest.Y = guest.Destination.Item2;
-                guest.Status = GuestStatus.Aimless;
-                guest.Money -= building.UseCost;
-                guest.Mood += building.Modifier;
-                guestList.Add(guest);
-            }
-            building.UserList.Clear();
-            FindDestination(); */
         }
 
         private void EnterWaitingGuestsToBuilding(Building building)
@@ -395,7 +385,7 @@ namespace RctByTN.Model
                     //building.UserList.Clear();
                     OnElementChanged(building);
                     
-                    foreach (Guest guest in building.UserList)
+                    foreach (Guest guest in building.UserList.ToList())
                     {
                         guest.X = guest.Destination.Item1;
                         guest.Y = guest.Destination.Item2;
@@ -448,6 +438,10 @@ namespace RctByTN.Model
 
         public void Build(Int32 x, Int32 y,Int32 selectedTab,Int32 cost,Int32 minCapacity)
         {
+            Guest result = guestList.Find(guest => guest.X == x && guest.Y == y);
+            if(result!=null)
+            OnGuestClicked(result);
+                
             if (isParkOpen)
                 return;
 
@@ -586,6 +580,14 @@ namespace RctByTN.Model
             if (CashChanged != null)
             {
                 CashChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void OnGuestClicked(Guest guest)
+        {
+            if (GuestClicked != null)
+            {
+                GuestClicked(this, new GuestEventArgs(guest));
             }
         }
         #endregion

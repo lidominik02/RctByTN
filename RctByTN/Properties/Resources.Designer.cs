@@ -163,6 +163,16 @@ namespace RctByTN.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap guestface {
+            get {
+                object obj = ResourceManager.GetObject("guestface", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap hotdog1 {
             get {
                 object obj = ResourceManager.GetObject("hotdog1", resourceCulture);

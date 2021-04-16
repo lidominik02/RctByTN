@@ -19,6 +19,7 @@ namespace RctByTN.View
         private RctModel _model;
         private Button[,] _buttonGrid;
         private Int32 _selectedTab;
+        private Guest _spectatedGuest;
         Timer _timer;
         public RctView()
         {
@@ -32,6 +33,7 @@ namespace RctByTN.View
             _model.ElementChanged += new EventHandler<ParkElementEventArgs>(Game_ElementChanged);
             _model.CashChanged += new EventHandler(Game_CashChanged);
             _model.NotEnoughCash += new EventHandler(Game_NotEnoughCash);
+            _model.GuestClicked += new EventHandler<GuestEventArgs>(Game_GuestClicked);
             _timer = new Timer();
             _timer.Interval = 1000;
             _timer.Tick += new EventHandler(TimeElapsed);
@@ -44,6 +46,7 @@ namespace RctByTN.View
         {
             _model.TimeElapsed();
             RefreshTable();
+            SpectateGuest();
         }
 
         private void Game_NotEnoughCash(object sender, EventArgs e)
@@ -57,6 +60,31 @@ namespace RctByTN.View
             cashLabel.Text = "Egyenleg: "+_model.Cash.ToString();
             incomeLabel.Text = "Bevétel: "+_model.Income.ToString();
             outcomeLabel.Text = "Kiadás: "+_model.Outcome.ToString();
+        }
+
+        private void Game_GuestClicked(object sender, GuestEventArgs e)
+        {
+            /*
+            var nl = Environment.NewLine;
+            guestData.Text = "Egyenleg: " + e.Guest.Money.ToString() + nl
+                            + "Hangulat: " + e.Guest.Mood.ToString() + nl
+                            + "Éhség: " + e.Guest.Hunger.ToString() + nl
+                            + "Cél: " + e.Guest.Destination.Item1.ToString()
+                            + "  " + e.Guest.Destination.Item2.ToString();  */
+            _spectatedGuest = e.Guest;
+            SpectateGuest();
+        }
+
+        private void SpectateGuest()
+        {
+            if (_spectatedGuest == null)
+                return;
+            var nl = Environment.NewLine;
+            guestData.Text = "Egyenleg: " + _spectatedGuest.Money.ToString() + nl
+                            + "Hangulat: " + _spectatedGuest.Mood.ToString() + nl
+                            + "Éhség: " + _spectatedGuest.Hunger.ToString() + nl
+                            + "Cél: " + _spectatedGuest.Destination.Item1.ToString()
+                            + "  " + _spectatedGuest.Destination.Item2.ToString();
         }
 
         private void Game_ElementChanged(Object sender, ParkElementEventArgs e)
@@ -109,11 +137,13 @@ namespace RctByTN.View
                         BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
                         BuildParkElement(element, (button) => button.Image = null);
                     }
+                    /*
                     _buttonGrid[element.X, element.Y].Image = null;
                     _buttonGrid[element.X - 1, element.Y - 1].Image = null;
                     _buttonGrid[element.X, element.Y - 1].Image = null;
                     _buttonGrid[element.X - 1, element.Y].Image = null;
-                    _buttonGrid[element.X, element.Y].Image = null;
+                    _buttonGrid[element.X, element.Y].Image = null; */
+                    BuildParkElement(element, (button) => button.Image = null);
                     break;
                 case ElementStatus.InBuild:
                     BuildParkElement(element, (button) => button.Image = Properties.Resources.buildsmall);
@@ -199,44 +229,48 @@ namespace RctByTN.View
 
         private void buttonGrid_Click(object sender, EventArgs e)
         {
-            if (_model.IsParkOpen)
-                return;
-
-            if (_selectedTab == -1)
-            {
-                MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
-                    , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
             Int32 x = (sender as Button).TabIndex / ParkWidth;
             Int32 y = (sender as Button).TabIndex % ParkWidth;
-
-            if(_model.IsFreeArea(x,y,_selectedTab))
+            if (!_model.IsParkOpen)
             {
-                MessageBox.Show("A kiválasztott terület foglalt, az építéshez válaszon ki a választott vidámpark elemnek megfelelő szabad területet"
-                    , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
-            if (_selectedTab >= 0 && _selectedTab <= 2) 
-            {
-                var cgv = new CreateGameView();
-                if (cgv.ShowDialog() == DialogResult.OK)
+                if (_selectedTab == -1)
                 {
-                    _model.Build(x, y, _selectedTab, cgv.TicketCost, cgv.MinCapacity);
+                    MessageBox.Show("Az építés megkezdése előtt válassza ki az építésre szánt park elemet!"
+                        , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            else if(_selectedTab>=3 && _selectedTab<=5)
-            {
-                var crv = new CreateRestaurantView();
-                if (crv.ShowDialog() == DialogResult.OK)
+
+                if (_model.IsFreeArea(x, y, _selectedTab))
                 {
-                    _model.Build(x, y, _selectedTab, crv.FoodCost, 0);
+                    MessageBox.Show("A kiválasztott terület foglalt, az építéshez válaszon ki a választott vidámpark elemnek megfelelő szabad területet"
+                        , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (_selectedTab >= 0 && _selectedTab <= 2)
+                {
+                    var cgv = new CreateGameView();
+                    if (cgv.ShowDialog() == DialogResult.OK)
+                    {
+                        _model.Build(x, y, _selectedTab, cgv.TicketCost, cgv.MinCapacity);
+                    }
+                }
+                else if (_selectedTab >= 3 && _selectedTab <= 5)
+                {
+                    var crv = new CreateRestaurantView();
+                    if (crv.ShowDialog() == DialogResult.OK)
+                    {
+                        _model.Build(x, y, _selectedTab, crv.FoodCost, 0);
+                    }
+                }
+                else
+                {
+                    _model.Build(x, y, _selectedTab, 0, 0);
                 }
             }
             else
             {
-                _model.Build(x, y, _selectedTab, 0, 0);
+                _model.Build(x, y, 0, 0, 0);
             }
         }
 
@@ -284,7 +318,6 @@ namespace RctByTN.View
 
         private void openEditButton_Click(object sender, EventArgs e)
         {
-            //_model.IsParkOpen = !_model.IsParkOpen;
             if (_model.IsParkOpen) {
                 _model.IsParkOpen = false;
                 foreach(Button button in _buttonGrid) button.FlatAppearance.BorderSize = 1;
