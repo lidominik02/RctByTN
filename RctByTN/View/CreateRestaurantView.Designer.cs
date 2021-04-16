@@ -113,6 +113,7 @@ namespace RctByTN.View
             this.Controls.Add(this.notAcceptedButton);
             this.Controls.Add(this.acceptedButton);
             this.Name = "CreateRestaurantView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Vendéglátóhely építése";
             this.Load += new System.EventHandler(this.CreateRestaurantView_Load);
             this.userInputTableLAyout.ResumeLayout(false);

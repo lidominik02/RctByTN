@@ -138,6 +138,7 @@ namespace RctByTN.View
             this.Controls.Add(this.acceptedButton);
             this.MaximizeBox = false;
             this.Name = "CreateGameView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Játék építése";
             this.Load += new System.EventHandler(this.CreateGameView_Load);
             this.userInputTableLayout.ResumeLayout(false);
