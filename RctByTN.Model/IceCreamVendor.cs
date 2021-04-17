@@ -6,7 +6,14 @@ namespace RctByTN.Model
 {
     public class IceCreamVendor : Restaurant
     {
-        public IceCreamVendor(int x, int y, int buildcost, int maxCapacity, int maintainCost, int serviceTime, int foodCost) : base(x, y, buildcost, maxCapacity, maintainCost, serviceTime, foodCost)
-        { }
+        public IceCreamVendor(int x, int y, int maxCapacity, int buildCost, int useCost, int serviceTime, int maintainCost, int foodCost) : base(x, y, maxCapacity, buildCost, useCost, serviceTime, maintainCost, foodCost)
+        {
+        }
+
+        public override void ModifyGuest(Guest guest)
+        {
+            base.ModifyGuest(guest);
+            guest.Hunger -= 15;
+        }
     }
 }

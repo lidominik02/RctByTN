@@ -25,14 +25,16 @@ namespace RctByTN.Model
         #region Constants
         private const Int32 GameBuildCost = 250;
         private const Int32 GameMaintainCost = 50;
+        private const Int32 GameUseTime = 5000;
+        private const Int32 GameUseCost = 100;
         private const Int32 RestaurantBuildCost = 200;
         private const Int32 RestaurantMaintainCost = 50;
+        private const Int32 RestaurantUseTime = 2000;
+        private const Int32 RestaurantUseCost = 100;
         private const Int32 RoadBuildCost = 20;
         private const Int32 PlantBuildCost = 100;
+        private const Int32 BuildingMaxCapacity = 10;
         private const Int32 BuildTime = 3000;
-        private const Int32 GameUseTime = 5000;
-        private const Int32 RestaurantUseTime = 15000;
-        private const Int32 RestaurantTicketServiceTime = 10;
         private const Int32 CampaignTime = 10000;
         public static Int32 MaintainCostInterval = 5000;
         #endregion
@@ -97,11 +99,17 @@ namespace RctByTN.Model
             if (gameTime % 5 == 0)
             {
                 AddGuest();
+                MaintainCostPay();
             }
             if(isCampaign)
             {
                 AddGuest();
             }
+
+            guestList.ForEach(guest => {
+                guest.Hunger--;
+                guest.Mood--;
+            });
         }
 
         public void StartCampaign()
@@ -399,9 +407,10 @@ namespace RctByTN.Model
                 building.UserList.ForEach(item => item.Status = GuestStatus.Busy);
                 OnElementChanged(building);
 
-                SetInterval(GameUseTime , () =>
+                SetInterval(building.UseTime , () =>
                 {
                     building.Status = ElementStatus.InWaiting;
+                    Cash -= building.UseCost;
                     //building.UserList.Clear();
                     OnElementChanged(building);
                     
@@ -447,7 +456,7 @@ namespace RctByTN.Model
             {
                 if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
                 {
-                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, isCampaign);
+                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, isCampaign ? gameTime % 2 == 0 : false);
                     newGuest.PrevCoords = (entrance.X - 1, entrance.Y);
                     guestList.Add(newGuest);
                     FindDestination();
@@ -468,22 +477,22 @@ namespace RctByTN.Model
             switch (selectedTab)
             {
                 case 0:
-                    newElement = new RollerCoaster(x,y,minCapacity,10,GameBuildCost,cost,GameUseTime,GameMaintainCost);
+                    newElement = new RollerCoaster(x,y,minCapacity,BuildingMaxCapacity,GameBuildCost,GameUseCost,GameUseTime,GameMaintainCost,cost);
                     break;
                 case 1:
-                    newElement = new GiantWheel(x, y, minCapacity, 10, GameBuildCost, cost, GameUseTime, GameMaintainCost);
+                    newElement = new GiantWheel(x, y, minCapacity, BuildingMaxCapacity, GameBuildCost, GameUseCost, GameUseTime, GameMaintainCost, cost);
                     break;
                 case 2:
-                    newElement = new Carousel(x, y, minCapacity, 10, GameBuildCost, cost, GameUseTime, GameMaintainCost);
+                    newElement = new Carousel(x, y, minCapacity, BuildingMaxCapacity, GameBuildCost, GameUseCost, GameUseTime, GameMaintainCost, cost);
                     break;
                 case 3:
-                    newElement = new HotDogVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
+                    newElement = new HotDogVendor(x, y, BuildingMaxCapacity,RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
                     break;
                 case 4:
-                    newElement = new IceCreamVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
+                    newElement = new IceCreamVendor(x, y, BuildingMaxCapacity, RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
                     break;
                 case 5:
-                    newElement = new CottonCandyVendor(x, y, RestaurantBuildCost, 10, RestaurantMaintainCost, RestaurantTicketServiceTime, cost);
+                    newElement = new CottonCandyVendor(x, y, BuildingMaxCapacity, RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
                     break;
                 case 6:
                     newElement = new Road(x, y, RoadBuildCost,0);

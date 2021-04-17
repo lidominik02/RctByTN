@@ -6,16 +6,16 @@ namespace RctByTN.Model
 {
     public abstract class Game : Building
     {
-        public Game(int x, int y, int minCapacity, int maxCapacity, int buildcost, int usecost, int usetime, int maintainCost) : base(x, y,minCapacity,maxCapacity, buildcost, usecost, usetime, maintainCost)
+        public Game(int x, int y, int minCapacity, int maxCapacity, int buildCost, int useCost, int useTime, int maintainCost, int ticketPrice) : base(x, y,minCapacity,maxCapacity, buildCost, useCost, useTime, maintainCost, ticketPrice)
         {
             this.AreaSize = 4;
         }
 
         public override void ModifyGuest(Guest guest)
         {
-            guest.Mood += 3;
-            guest.Hunger--;
-            guest.Money -= UseCost;
+            guest.Hunger -= 10;
+            if(!guest.HasCoupon)
+                guest.Money -= ServiceCost;
         }
     }
 }
