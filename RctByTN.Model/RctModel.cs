@@ -69,7 +69,7 @@ namespace RctByTN.Model
 
         public void TimeElapsed()
         {
-            gameTime++;
+            gameTime++; 
             //FindDestination();
             MoveGuests();
             parkElementList.ForEach(item =>
@@ -125,7 +125,7 @@ namespace RctByTN.Model
                 List<Game> games = GetSpecificTypesFromParkElementList<Game>();
                 List<Restaurant> restaurants = GetSpecificTypesFromParkElementList<Restaurant>();
                 //if guest is hungry
-                if (guest.Hunger < 3 && restaurants.Any())
+                if ((guest.Hunger < guest.Mood-30) && restaurants.Any())
                 {
                         var rndRest = restaurants[rnd.Next(restaurants.Count)];
                         guest.Destination = (rndRest.X, rndRest.Y+1);
@@ -379,6 +379,10 @@ namespace RctByTN.Model
             guestList.Remove(guest);
             guest.Status = GuestStatus.Waiting;
             building.WaitingList.Add(guest);
+            if (building.GetType().IsSubclassOf(typeof(Road)))
+            {
+                guestList.Remove(guest);
+            }
             EnterWaitingGuestsToBuilding(building);
         }
 
@@ -432,10 +436,31 @@ namespace RctByTN.Model
 
         private void ModifyWaitingGuestMood(Building building)
         {
+            /*
             building.WaitingList.ForEach(guest =>
             {
-                guest.Mood -= guest.Intolerance;
-            });
+                guest.Mood -= guest.Intolerance*10;
+                if(guest.Mood <= 0) 
+                {
+                    guest.X = guest.Destination.Item1;
+                    guest.Y = guest.Destination.Item2;
+                    building.WaitingList.Remove(guest);
+                    guestList.Add(guest);
+                }
+            }); */
+            foreach(Guest guest in building.WaitingList.ToList())
+            {
+                guest.Mood -= guest.Intolerance * 10;
+                if (guest.Mood <= 0)
+                {
+                    guest.X = guest.Destination.Item1;
+                    guest.Y = guest.Destination.Item2;
+                    guest.Destination = (11, 11);
+                    guest.Status = GuestStatus.Searching;
+                    building.WaitingList.Remove(guest);
+                    guestList.Add(guest);
+                }
+            }
         }
 
         private void AddGuest()

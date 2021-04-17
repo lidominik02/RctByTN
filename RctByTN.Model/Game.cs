@@ -13,8 +13,8 @@ namespace RctByTN.Model
 
         public override void ModifyGuest(Guest guest)
         {
-            guest.Mood += 3;
-            guest.Hunger--;
+            guest.Mood += 30;
+            guest.Hunger-=10;
             guest.Money -= UseCost;
         }
     }

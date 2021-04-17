@@ -12,9 +12,11 @@ namespace RctByTN.Model
 
         public override void ModifyGuest(Guest guest)
         {
+            /*
             var rnd = new Random();
             if(rnd.Next(5) == 3)
-                guest.Mood++;
+                guest.Mood++; */
+            guest.Mood += 5;
         }
     }
 }
