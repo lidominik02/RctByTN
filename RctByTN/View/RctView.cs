@@ -66,13 +66,6 @@ namespace RctByTN.View
 
         private void Game_GuestClicked(object sender, GuestEventArgs e)
         {
-            /*
-            var nl = Environment.NewLine;
-            guestData.Text = "Egyenleg: " + e.Guest.Money.ToString() + nl
-                            + "Hangulat: " + e.Guest.Mood.ToString() + nl
-                            + "Éhség: " + e.Guest.Hunger.ToString() + nl
-                            + "Cél: " + e.Guest.Destination.Item1.ToString()
-                            + "  " + e.Guest.Destination.Item2.ToString();  */
             _spectatedGuest = e.Guest;
             SpectateGuest();
         }
@@ -86,7 +79,8 @@ namespace RctByTN.View
                             + "Hangulat: " + _spectatedGuest.Mood.ToString() + nl
                             + "Éhség: " + _spectatedGuest.Hunger.ToString() + nl
                             + "Cél: " + _spectatedGuest.Destination.Item1.ToString()
-                            + "  " + _spectatedGuest.Destination.Item2.ToString();
+                            + "  " + _spectatedGuest.Destination.Item2.ToString() + nl
+                            + "Kupon: " + _spectatedGuest.HasCoupon;
         }
 
         private void Game_ElementChanged(Object sender, ParkElementEventArgs e)
@@ -139,12 +133,15 @@ namespace RctByTN.View
                         BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
                         BuildParkElement(element, (button) => button.Image = null);
                     }
-                    /*
-                    _buttonGrid[element.X, element.Y].Image = null;
-                    _buttonGrid[element.X - 1, element.Y - 1].Image = null;
-                    _buttonGrid[element.X, element.Y - 1].Image = null;
-                    _buttonGrid[element.X - 1, element.Y].Image = null;
-                    _buttonGrid[element.X, element.Y].Image = null; */
+                    else if(element.GetType() == typeof(CottonCandyVendor))
+                    {
+                        _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.cottoncandy1;
+                        _buttonGrid[element.X, element.Y - 1].BackgroundImage = Properties.Resources.cottoncandy3;
+                        _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.cottoncandy2;
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.cottoncandy4;
+                        BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
+                        BuildParkElement(element, (button) => button.Image = null);
+                    }
                     BuildParkElement(element, (button) => button.Image = null);
                     break;
                 case ElementStatus.InBuild:

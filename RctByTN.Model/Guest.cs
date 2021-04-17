@@ -20,8 +20,8 @@ namespace RctByTN.Model
 
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
-        public int Hunger { get => hunger; set { hunger = value > 0 ? (value > 10 ? 10 : value) : 0; } }
-        public int Mood { get => mood; set { mood = value > 0 ? (value > 10 ? 10 : value) : 0; } }
+        public int Hunger { get => hunger; set { hunger = value > 0 ? (value > 100 ? 100 : value) : 0; } }
+        public int Mood { get => mood; set { mood = value > 0 ? (value > 100 ? 100 : value) : 0; } }
         public int Money { get => money; set { money = value > 0 ? value : 0; } }
         public int Intolerance { get => intolerance; set { intolerance = value > 0 ? value : 0; } }
         public GuestStatus Status { get => status; set => status = value; }
@@ -37,8 +37,8 @@ namespace RctByTN.Model
             Y = y;
             HasCoupon = HasCoupon;
             Money = 500;
-            Hunger = 10; // 10/10 not hungry
-            Mood = 5;// 10/10 happy
+            Hunger = 100; // 100/100 hungry
+            Mood = 50;// 100/100 happy
             Status = GuestStatus.Aimless;
             Destination = (-1, -1);
             LastCrossRoad = (-1, -1);
