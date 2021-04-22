@@ -73,7 +73,11 @@ namespace RctByTN.View
         private void SpectateGuest()
         {
             if (_spectatedGuest == null)
+            {
+                guestPic.Image = Properties.Resources.no_guest;
                 return;
+            }
+            guestPic.Image = Properties.Resources.guestface;
             var nl = Environment.NewLine;
             guestData.Text = "Egyenleg: " + _spectatedGuest.Money.ToString() + nl
                             + "Hangulat: " + _spectatedGuest.Mood.ToString() + nl
@@ -89,10 +93,20 @@ namespace RctByTN.View
             switch (element.Status)
             {
                 case ElementStatus.Operate:
-                    _buttonGrid[element.X - 1, element.Y - 1].Image = Properties.Resources.operate1;
-                    _buttonGrid[element.X, element.Y - 1].Image = Properties.Resources.operate3;
-                    _buttonGrid[element.X - 1, element.Y].Image = Properties.Resources.operate2;
-                    _buttonGrid[element.X, element.Y].Image = Properties.Resources.operate4;
+                    if (element.GetType().IsSubclassOf(typeof(Game)))
+                    {
+                        _buttonGrid[element.X - 1, element.Y - 1].Image = Properties.Resources.operate1;
+                        _buttonGrid[element.X, element.Y - 1].Image = Properties.Resources.operate3;
+                        _buttonGrid[element.X - 1, element.Y].Image = Properties.Resources.operate2;
+                        _buttonGrid[element.X, element.Y].Image = Properties.Resources.operate4;
+                    }
+                    else
+                    {
+                        _buttonGrid[element.X - 1, element.Y - 1].Image = Properties.Resources.eat1;
+                        _buttonGrid[element.X, element.Y - 1].Image = Properties.Resources.eat3;
+                        _buttonGrid[element.X - 1, element.Y].Image = Properties.Resources.eat2;
+                        _buttonGrid[element.X, element.Y].Image = Properties.Resources.eat4;
+                    }
                     break;
                 case ElementStatus.InWaiting:
                     if (element.GetType() == typeof(Road))
@@ -141,6 +155,10 @@ namespace RctByTN.View
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.cottoncandy4;
                         BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
                         BuildParkElement(element, (button) => button.Image = null);
+                    }
+                    else
+                    {
+                        BuildParkElement(element, (button) => button.Image = Properties.Resources.placeholder);
                     }
                     BuildParkElement(element, (button) => button.Image = null);
                     break;
@@ -222,7 +240,14 @@ namespace RctByTN.View
 
             foreach(Guest guest in _model.GuestList.ToList())
             {
-                _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest;
+                if (_model.GuestList.Count(g => g.X == guest.X && g.Y == guest.Y) > 1)
+                {
+                    _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest2;
+                }
+                else 
+                {
+                    _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest;
+                }
             }
         }
 
