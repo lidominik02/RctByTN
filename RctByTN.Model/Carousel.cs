@@ -6,7 +6,14 @@ namespace RctByTN.Model
 {
     public class Carousel : Game
     {
-        public Carousel(int x, int y, int minCapacity, int maxCapacity, int buildcost, int ticketCost, int useTime, int maintainCost) : base(x, y, minCapacity, maxCapacity, buildcost, ticketCost, useTime, maintainCost)
-        { }
+        public Carousel(int x, int y, int minCapacity, int maxCapacity, int buildCost, int useCost, int useTime, int maintainCost, int ticketPrice) : base(x, y, minCapacity, maxCapacity, buildCost, useCost, useTime, maintainCost, ticketPrice)
+        {
+        }
+
+        public override void ModifyGuest(Guest guest)
+        {
+            base.ModifyGuest(guest);
+            guest.Mood += 10;
+        }
     }
 }
