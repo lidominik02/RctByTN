@@ -181,11 +181,16 @@ namespace RctByTN.Model
             {
                 var desVectorX = guest.X - guest.Destination.Item1;
                 var desVectorY = guest.Y - guest.Destination.Item2;
+                Debug.WriteLine("------Guest destination: x:{0} y:{1}", guest.Destination.Item1, guest.Destination.Item2);
+                Debug.WriteLine("------Guest current pos: x:{0} y:{1}", guest.X, guest.Y);
 
                 if ((guest.X, guest.Y) == guest.Destination)
                 {
-                    if(guest.Destination == (11, 11))
+                    //Debug.Write("----------dest reached----------");
+                    //Debug.WriteLine("guest dest: {0} {1}", guest.Destination.Item1, guest.Destination.Item2);
+                    if (guest.Destination == (11, 11))
                     {
+                        Debug.Write("----------entrance entered----------");
                         guestList.Remove(guest);
                         continue;
                     }
@@ -414,9 +419,8 @@ namespace RctByTN.Model
                         guest.X = guest.Destination.Item1;
                         guest.Y = guest.Destination.Item2;
                         guest.Status = GuestStatus.Aimless;
-                        Debug.WriteLine("------Money before:{0}------", guest.Money);
                         building.ModifyGuest(guest);
-                        Debug.WriteLine("------Money after:{0}------", guest.Money);
+                        Cash += building.UseCost;
                         guestList.Add(guest);
                     }
                     building.UserList.Clear();
@@ -436,18 +440,6 @@ namespace RctByTN.Model
 
         private void ModifyWaitingGuestMood(Building building)
         {
-            /*
-            building.WaitingList.ForEach(guest =>
-            {
-                guest.Mood -= guest.Intolerance*10;
-                if(guest.Mood <= 0) 
-                {
-                    guest.X = guest.Destination.Item1;
-                    guest.Y = guest.Destination.Item2;
-                    building.WaitingList.Remove(guest);
-                    guestList.Add(guest);
-                }
-            }); */
             foreach(Guest guest in building.WaitingList.ToList())
             {
                 guest.Mood -= guest.Intolerance * 10;
