@@ -427,6 +427,7 @@ namespace RctByTN.Model
                         building.ModifyGuest(guest);
                         Debug.WriteLine("------Money after:{0}------", guest.Money);
                         guestList.Add(guest);
+                        Cash += building.ServiceCost;
                     }
                     building.UserList.Clear();
                     FindDestination();
@@ -481,7 +482,7 @@ namespace RctByTN.Model
             {
                 if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
                 {
-                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, isCampaign ? gameTime % 2 == 0 : false);
+                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, rnd.Next(200,500),isCampaign ? gameTime % 2 == 0 : false);
                     newGuest.PrevCoords = (entrance.X - 1, entrance.Y);
                     guestList.Add(newGuest);
                     FindDestination();
