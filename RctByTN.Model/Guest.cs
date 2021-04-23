@@ -31,14 +31,14 @@ namespace RctByTN.Model
         public (int, int) PrevCoords { get => prevCoords; set => prevCoords = value; }
         
 
-        public Guest(int x, int y, int money,bool hasCoupon)
+        public Guest(int x, int y, int money,int mood,int hunger,bool hasCoupon)
         {
             X = x;
             Y = y;
             HasCoupon = hasCoupon;
             Money = money;
-            Hunger = 100; // 100/100 hungry
-            Mood = 100;// 100/100 happy
+            Hunger = hunger; // 100/100 hungry
+            Mood = mood;// 100/100 happy
             Status = GuestStatus.Aimless;
             Destination = (-1, -1);
             LastCrossRoad = (-1, -1);

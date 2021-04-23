@@ -430,6 +430,7 @@ namespace RctByTN.Model
                         guest.Status = GuestStatus.Aimless;
                         building.ModifyGuest(guest);
                         Cash += building.UseCost;
+                        Income += building.UseCost;
                         guestList.Add(guest);
                         Cash += building.ServiceCost;
                     }
@@ -474,7 +475,7 @@ namespace RctByTN.Model
             {
                 if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
                 {
-                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, rnd.Next(200,500),isCampaign ? gameTime % 2 == 0 : false);
+                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, rnd.Next(200,500),rnd.Next(50,100),rnd.Next(50,100),isCampaign ? gameTime % 2 == 0 : false);
                     newGuest.PrevCoords = (entrance.X - 1, entrance.Y);
                     guestList.Add(newGuest);
                     FindDestination();
@@ -611,6 +612,19 @@ namespace RctByTN.Model
                     outcome += item.MaintainCost;
                 });
             OnCashChanged();
+            if (Cash < 0)
+            {
+                NewGame();
+            }
+        }
+
+        private void NewGame()
+        {
+            ParkElementList.Clear();
+            Cash = 0;
+            Income = 0;
+            Outcome = 0;
+            GuestList.Clear();
         }
 
         #region Private event methods

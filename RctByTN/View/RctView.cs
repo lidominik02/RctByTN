@@ -82,9 +82,9 @@ namespace RctByTN.View
             guestData.Text = "Egyenleg: " + _spectatedGuest.Money.ToString() + nl
                             + "Hangulat: " + _spectatedGuest.Mood.ToString() + nl
                             + "Éhség: " + _spectatedGuest.Hunger.ToString() + nl
-                            + "Cél: " + _spectatedGuest.Destination.Item1.ToString()
-                            + "  " + _spectatedGuest.Destination.Item2.ToString() + nl
-                            + "Kupon: " + _spectatedGuest.HasCoupon;
+                            /* + "Cél: " + _spectatedGuest.Destination.Item1.ToString() 
+                            + "  " + _spectatedGuest.Destination.Item2.ToString() + nl */
+                            + "Kupon: " + (_spectatedGuest.HasCoupon?"van":"nincs");
         }
 
         private void Game_ElementChanged(Object sender, ParkElementEventArgs e)
@@ -158,7 +158,7 @@ namespace RctByTN.View
                     }
                     else
                     {
-                        BuildParkElement(element, (button) => button.Image = Properties.Resources.placeholder);
+                        BuildParkElement(element, (button) => button.BackgroundImage = Properties.Resources.placeholder);
                     }
                     BuildParkElement(element, (button) => button.Image = null);
                     break;
