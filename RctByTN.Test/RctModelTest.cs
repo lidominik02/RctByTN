@@ -15,7 +15,7 @@ namespace RctByTN.Test
         {
             _model = new RctModel();
         }
-
+        
         [TestMethod]
         public void RctModelConstructorTest()
         {
@@ -275,5 +275,159 @@ namespace RctByTN.Test
             Assert.AreEqual(bush.AreaSize, 1, "AreaSize test");
             Assert.AreEqual(bush.BuildCost, 100, "BuildCost test");
         }
+
+        [TestMethod]
+        public void RctModelIsFreeAreaTest_FreeAreaTest()
+        {
+            _model.ParkElementList.Clear();
+
+            for (int i = 0; i < 13; i++)
+            {
+                for (int j = 0; j < 23; j++)
+                {
+                    if (!(i == 12 && j == 11))
+                    {
+                        Assert.IsFalse(_model.IsNotFreeArea(i, j, 6), "index" + i.ToString() + " " + j.ToString());
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void RctModelIsFreeAreaTest_OneAreaSize1()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(10, 7, 7, 0, 0);
+            _model.Build(10, 8, 8, 0, 0);
+            _model.Build(10, 9, 9, 0, 0);
+
+            for (int i = 0; i < 13; i++)
+            {
+                for (int j = 0; j < 23; j++)
+                {
+                    if (i == 10 && j == 10)
+                    {
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j, 6));
+                    }
+                    else if (i == 10 && j == 9)
+                    {
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j, 6));
+                    }
+                    else if (i == 10 && j == 8)
+                    {
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j, 6));
+                    }
+                    else if (i == 10 && j == 7)
+                    {
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j, 6));
+                    }
+                    else
+                    {
+                        Assert.IsFalse(_model.IsNotFreeArea(i, j, 6));
+                    }
+                }
+            }
+
+        }
+
+        [TestMethod]
+        public void RctModelIsFreeAreaTest_OneAreaSize2()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(10, 7, 7, 0, 0);
+            _model.Build(10, 8, 8, 0, 0);
+            _model.Build(10, 9, 9, 0, 0);
+
+            for (int i = 0; i < 13; i++)
+            {
+                for (int j = 0; j < 23; j++)
+                {
+                    if (i == 10 && j == 10)
+                    {
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j + 1, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i + 1, j, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i + 1, j + 1, 0));
+                    }
+                    else if (i == 10 && j == 9)
+                    {
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j + 1, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i + 1, j, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i + 1, j + 1, 0));
+                    }
+                    else if (i == 10 && j == 8)
+                    {
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j + 1, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i + 1, j, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i + 1, j + 1, 0));
+                    }
+                    else if (i == 10 && j == 7)
+                    {
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i, j + 1, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i + 1, j, 0));
+                        Assert.IsTrue(_model.IsNotFreeArea(i + 1, j + 1, 0));
+                    }
+                    else
+                    {
+                        Assert.IsFalse(_model.IsNotFreeArea(i, j, 6));
+                    }
+                }
+            }
+
+        }
+
+        [TestMethod]
+        public void RctModelIsFreeAreaTest_FourAreaSize1()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(10, 10, 0, 0, 0);
+
+            Assert.IsTrue(_model.IsNotFreeArea(10, 10, 6));
+            Assert.IsTrue(_model.IsNotFreeArea(9, 10, 6));
+            Assert.IsTrue(_model.IsNotFreeArea(10, 9, 6));
+            Assert.IsTrue(_model.IsNotFreeArea(9, 9, 6));
+        }
+
+        [TestMethod]
+        public void RctModelIsFreeAreaTest_FourAreaSize2()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(10, 10, 0, 0, 0);
+
+            Assert.IsTrue(_model.IsNotFreeArea(10, 10, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(9, 10, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(10, 9, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(9, 9, 0));
+
+            Assert.IsTrue(_model.IsNotFreeArea(10, 11, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(10, 10, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(9, 11, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(9, 10, 0));
+
+            Assert.IsTrue(_model.IsNotFreeArea(11, 10, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(10, 10, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(11, 9, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(10, 9, 0));
+
+            Assert.IsTrue(_model.IsNotFreeArea(11, 11, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(10, 10, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(10, 11, 0));
+            Assert.IsTrue(_model.IsNotFreeArea(11, 10, 0));
+        }
+
+        [TestMethod]
+        public void RctModelCampaignTest1()
+        {
+            _model.StartCampaign();
+            Assert.IsTrue(_model.IsCampaign);
+            Thread.Sleep(11000);
+            Assert.IsFalse(_model.IsCampaign);
+        }
+
     }
 }
