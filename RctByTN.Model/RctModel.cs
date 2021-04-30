@@ -575,22 +575,27 @@ namespace RctByTN.Model
             }).ToList();
         }
 
-        public bool IsFreeArea(int x, int y,int selectedTab)
+        public bool IsNotFreeArea(int x, int y,int selectedTab)
         {
-            bool returnValue = IsFreeArea(x,y);
+            if (x < 0 || x >= 13)
+                return false;
+            if (y < 0 || y >= 23)
+                return false;
+
+            bool returnValue = IsNotFreeArea(x,y);
 
             if(selectedTab < 6)
             {
                 returnValue = returnValue ||
-                    IsFreeArea(x-1, y) ||
-                    IsFreeArea(x, y-1) ||
-                    IsFreeArea(x-1, y-1);
+                    IsNotFreeArea(x-1, y) ||
+                    IsNotFreeArea(x, y-1) ||
+                    IsNotFreeArea(x-1, y-1);
             }
 
             return returnValue;
         }
 
-        private bool IsFreeArea(int x,int y)
+        private bool IsNotFreeArea(int x,int y)
         {
             return parkElementList.Exists(item => {
                 bool withArea = false;

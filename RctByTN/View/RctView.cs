@@ -264,7 +264,7 @@ namespace RctByTN.View
                         , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                if (_model.IsFreeArea(x, y, _selectedTab))
+                if (_model.IsNotFreeArea(x, y, _selectedTab))
                 {
                     MessageBox.Show("A kiválasztott terület foglalt, az építéshez válaszon ki a választott vidámpark elemnek megfelelő szabad területet"
                         , "Az építés megkezdése sikertelen!", MessageBoxButtons.OK, MessageBoxIcon.Error);
