@@ -15,8 +15,8 @@ namespace RctByTN.Model
 
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
-        public int BuildCost { get => buildCost; set => buildCost = value; }
-        public int MaintainCost { get => maintainCost; set => maintainCost = value; }
+        public int BuildCost { get => buildCost; set => buildCost = value < 0 ? 0 : value; }
+        public int MaintainCost { get => maintainCost; set => maintainCost = value < 0 ? 0 : value; }
         public ElementStatus Status { get => status; set => status = value; }
         public int AreaSize { get => areaSize; set => areaSize = value; }
         public ParkElement(Int32 x, Int32 y, Int32 buildcost, Int32 maintainCost)
