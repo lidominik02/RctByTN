@@ -121,7 +121,7 @@ namespace RctByTN.Model
         private List<T> GetSpecificTypesFromParkElementList<T>() where T : ParkElement =>
             ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(T))).Cast<T>().ToList();
 
-        private void FindDestination()
+        public void FindDestination()
         {
             //TODO
             //add priorities for cheaper games/restaurants
@@ -183,7 +183,7 @@ namespace RctByTN.Model
         }
 
         #region Guest Moving functions
-        private void MoveGuests()
+        public void MoveGuests()
         {
             foreach (Guest guest in guestList.ToList())
             {
@@ -466,12 +466,12 @@ namespace RctByTN.Model
             }
         }
 
-        private void AddGuest()
+        public void AddGuest()
         {
             var entrance = parkElementList.Find(item => item.GetType() == typeof(Entrance));
             bool hasGame = ParkElementList.Exists(item => item.GetType().IsSubclassOf(typeof(Game)));
             bool hasRoad = ParkElementList.Exists(item => item.GetType() == typeof(Road));
-            if (hasRoad && hasGame)
+            if (hasRoad && hasGame && !(entrance is null))
             {
                 if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
                 {

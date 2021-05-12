@@ -277,7 +277,7 @@ namespace RctByTN.Test
         }
 
         [TestMethod]
-        public void RctModelIsFreeAreaTest_FreeAreaTest()
+        public void RctModel_IsFreeAreaTest_FreeAreaTest()
         {
             _model.ParkElementList.Clear();
 
@@ -294,7 +294,7 @@ namespace RctByTN.Test
         }
 
         [TestMethod]
-        public void RctModelIsFreeAreaTest_OneAreaSize1()
+        public void RctModel_IsFreeAreaTest_OneAreaSize1()
         {
             _model.ParkElementList.Clear();
             _model.Build(10, 10, 6, 0, 0);
@@ -332,7 +332,7 @@ namespace RctByTN.Test
         }
 
         [TestMethod]
-        public void RctModelIsFreeAreaTest_OneAreaSize2()
+        public void RctModel_IsFreeAreaTest_OneAreaSize2()
         {
             _model.ParkElementList.Clear();
             _model.Build(10, 10, 6, 0, 0);
@@ -382,7 +382,7 @@ namespace RctByTN.Test
         }
 
         [TestMethod]
-        public void RctModelIsFreeAreaTest_FourAreaSize1()
+        public void RctModel_IsFreeAreaTest_FourAreaSize1()
         {
             _model.ParkElementList.Clear();
             _model.Build(10, 10, 0, 0, 0);
@@ -427,6 +427,439 @@ namespace RctByTN.Test
             Assert.IsTrue(_model.IsCampaign);
             Thread.Sleep(11000);
             Assert.IsFalse(_model.IsCampaign);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Zero_Guest_Without_Road_Entrance_Or_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_One_Guest_Without_Road_Entrance_Or_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber,0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Two_Guest_Without_Road_Entrance_Or_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.AddGuest();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Multiple_Guest_Without_Road_Entrance_Or_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.AddGuest();
+            _model.AddGuest();
+            _model.AddGuest();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Zero_Guest_Without_Road_Or_Entrance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 1, 0, 0);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_One_Guest_Without_Road_Or_Entrance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 1, 0, 0);
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Two_Guest_Without_Road_Or_Entrance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 1, 0, 0);
+            _model.AddGuest();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Multiple_Guest_Without_Road_Or_Entrance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 1, 0, 0);
+            _model.AddGuest();
+            _model.AddGuest();
+            _model.AddGuest();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Zero_Guest_Without_Game_Or_Entrance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 6, 0, 0);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_One_Guest_Without_Game_Or_Entrance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 6, 0, 0);
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Two_Guest_Without_Game_Or_Entrance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 6, 0, 0);
+            _model.AddGuest();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Multiple_Guest_Without_Game_Or_Entrance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 6, 0, 0);
+            _model.AddGuest();
+            _model.AddGuest();
+            _model.AddGuest();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Zero_Guest_Without_Game_Or_Road_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_One_Guest_Without_Game_Or_Road_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Two_Guest_Without_Game_Or_Road_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.AddGuest();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Multiple_Guest_Without_Game_Or_Road_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.AddGuest();
+            _model.AddGuest();
+            _model.AddGuest();
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Zero_Guest_With_Entrance_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_One_Guest_With_Entrance_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Two_Guest_With_Enrtance_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Multiple_Guest_With_Enrtance_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Zero_Guest_With_Road_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_One_Guest_With_Road_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Two_Guest_With_Road_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Multiple_Guest_With_Road_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Zero_Guest_With_Road_And_Enrtance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_One_Guest_With_Road_And_Enrtance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Two_Guest_With_Road_And_Enrtance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Multiple_Guest_With_Road_And_Enrtance_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+
+        [TestMethod]
+        public void RctModel_Add_Zero_Guest_With_Road_Enrtance_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 0);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_One_Guest_With_Road_Enrtance_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 1);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Two_Guest_With_Road_Enrtance_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 2);
+        }
+
+        [TestMethod]
+        public void RctModel_Add_Multiple_Guest_With_Road_Enrtance_And_Game_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 1, 0, 0);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            _model.AddGuest();
+            _model.GuestList.ForEach(guest => guest.X--);
+            int guestNumber = _model.GuestList.Count;
+            Assert.AreEqual(guestNumber, 4);
         }
 
     }
