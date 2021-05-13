@@ -57,6 +57,8 @@ namespace RctByTN.Model
         public bool IsCampaign { get => isCampaign; private set => isCampaign = value; }
         #endregion
 
+        #region Public Functions
+
         public RctModel()
         {
             GuestList = new List<Guest>();
@@ -118,9 +120,6 @@ namespace RctByTN.Model
             SetInterval(CampaignTime,() => isCampaign = false);
         }
 
-        private List<T> GetSpecificTypesFromParkElementList<T>() where T : ParkElement =>
-            ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(T))).Cast<T>().ToList();
-
         public void FindDestination()
         {
             //TODO
@@ -181,6 +180,129 @@ namespace RctByTN.Model
                 guest.Status = GuestStatus.Searching;
             }
         }
+
+        public void AddGuest()
+        {
+            var entrance = parkElementList.Find(item => item.GetType() == typeof(Entrance));
+            bool hasGame = ParkElementList.Exists(item => item.GetType().IsSubclassOf(typeof(Game)));
+            bool hasRoad = ParkElementList.Exists(item => item.GetType() == typeof(Road));
+            if (hasRoad && hasGame && !(entrance is null))
+            {
+                if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
+                {
+                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, rnd.Next(200, 500), rnd.Next(50, 100), rnd.Next(50, 100), isCampaign ? gameTime % 2 == 0 : false);
+                    newGuest.PrevCoords = (entrance.X - 1, entrance.Y);
+                    guestList.Add(newGuest);
+                    FindDestination();
+                }
+            }
+        }
+
+        public void Build(Int32 x, Int32 y, Int32 selectedTab, Int32 cost, Int32 minCapacity)
+        {
+            Guest result = guestList.Find(guest => guest.X == x && guest.Y == y);
+            if (result != null)
+                OnGuestClicked(result);
+
+            if (isParkOpen)
+                return;
+
+            ParkElement newElement = null;
+            switch (selectedTab)
+            {
+                case 0:
+                    newElement = new RollerCoaster(x, y, minCapacity, BuildingMaxCapacity, GameBuildCost, GameUseCost, GameUseTime, GameMaintainCost, cost);
+                    break;
+                case 1:
+                    newElement = new GiantWheel(x, y, minCapacity, BuildingMaxCapacity, GameBuildCost, GameUseCost, GameUseTime, GameMaintainCost, cost);
+                    break;
+                case 2:
+                    newElement = new Carousel(x, y, minCapacity, BuildingMaxCapacity, GameBuildCost, GameUseCost, GameUseTime, GameMaintainCost, cost);
+                    break;
+                case 3:
+                    newElement = new HotDogVendor(x, y, BuildingMaxCapacity, RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
+                    break;
+                case 4:
+                    newElement = new IceCreamVendor(x, y, BuildingMaxCapacity, RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
+                    break;
+                case 5:
+                    newElement = new CottonCandyVendor(x, y, BuildingMaxCapacity, RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
+                    break;
+                case 6:
+                    newElement = new Road(x, y, RoadBuildCost, 0);
+                    break;
+                case 7:
+                    newElement = new Grass(x, y, PlantBuildCost, 0);
+                    break;
+                case 8:
+                    newElement = new Tree(x, y, PlantBuildCost, 0);
+                    break;
+                case 9:
+                    newElement = new Bush(x, y, PlantBuildCost, 0);
+                    break;
+                case 10:
+                    newElement = new Entrance(x, y);
+                    break;
+            }
+
+            if (newElement != null)
+            {
+                if (cash - newElement.BuildCost >= 0)
+                {
+                    cash -= newElement.BuildCost;
+                    outcome += newElement.MaintainCost + newElement.BuildCost;
+                    OnCashChanged();
+
+                    SetInterval(BuildTime, () =>
+                    {
+                        newElement.Status = ElementStatus.InWaiting;
+                        OnElementChanged(newElement);
+                    });
+                    parkElementList.Add(newElement);
+                    OnElementChanged(newElement);
+                }
+                else
+                {
+                    OnNotEnoughCash();
+                }
+            }
+        }
+
+        public void MaintainCostPay()
+        {
+            parkElementList
+                .ForEach(item => {
+                    Cash -= item.MaintainCost;
+                    outcome += item.MaintainCost;
+                });
+            OnCashChanged();
+            if (Cash < 0)
+            {
+                NewGame();
+            }
+        }
+
+        public bool IsNotFreeArea(int x, int y, int selectedTab)
+        {
+            if (x < 0 || x >= 13)
+                return false;
+            if (y < 0 || y >= 23)
+                return false;
+
+            bool returnValue = IsNotFreeArea(x, y);
+
+            if (selectedTab < 6)
+            {
+                returnValue = returnValue ||
+                    IsNotFreeArea(x - 1, y) ||
+                    IsNotFreeArea(x, y - 1) ||
+                    IsNotFreeArea(x - 1, y - 1);
+            }
+
+            return returnValue;
+        }
+
+        #endregion
 
         #region Guest Moving functions
         public void MoveGuests()
@@ -387,6 +509,7 @@ namespace RctByTN.Model
         }
         #endregion
 
+        #region Guest State Modifier Functions
         private void EnterGuestToBuilding(Guest guest, Building building)
         {
             guestList.Remove(guest);
@@ -466,92 +589,35 @@ namespace RctByTN.Model
             }
         }
 
-        public void AddGuest()
+        #endregion
+
+        #region Private Helper Functions
+
+        private void NewGame()
         {
-            var entrance = parkElementList.Find(item => item.GetType() == typeof(Entrance));
-            bool hasGame = ParkElementList.Exists(item => item.GetType().IsSubclassOf(typeof(Game)));
-            bool hasRoad = ParkElementList.Exists(item => item.GetType() == typeof(Road));
-            if (hasRoad && hasGame && !(entrance is null))
-            {
-                if (!GuestList.Exists(item => item.X == entrance.X - 1 && item.Y == entrance.Y))
-                {
-                    Guest newGuest = new Guest(entrance.X - 1, entrance.Y, rnd.Next(200,500),rnd.Next(50,100),rnd.Next(50,100),isCampaign ? gameTime % 2 == 0 : false);
-                    newGuest.PrevCoords = (entrance.X - 1, entrance.Y);
-                    guestList.Add(newGuest);
-                    FindDestination();
-                }
-            }
+            ParkElementList.Clear();
+            Cash = 0;
+            Income = 0;
+            Outcome = 0;
+            GuestList.Clear();
         }
 
-        public void Build(Int32 x, Int32 y,Int32 selectedTab,Int32 cost,Int32 minCapacity)
+        private bool IsNotFreeArea(int x, int y)
         {
-            Guest result = guestList.Find(guest => guest.X == x && guest.Y == y);
-            if(result!=null)
-            OnGuestClicked(result);
-                
-            if (isParkOpen)
-                return;
-
-            ParkElement newElement = null;
-            switch (selectedTab)
-            {
-                case 0:
-                    newElement = new RollerCoaster(x,y,minCapacity,BuildingMaxCapacity,GameBuildCost,GameUseCost,GameUseTime,GameMaintainCost,cost);
-                    break;
-                case 1:
-                    newElement = new GiantWheel(x, y, minCapacity, BuildingMaxCapacity, GameBuildCost, GameUseCost, GameUseTime, GameMaintainCost, cost);
-                    break;
-                case 2:
-                    newElement = new Carousel(x, y, minCapacity, BuildingMaxCapacity, GameBuildCost, GameUseCost, GameUseTime, GameMaintainCost, cost);
-                    break;
-                case 3:
-                    newElement = new HotDogVendor(x, y, BuildingMaxCapacity,RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
-                    break;
-                case 4:
-                    newElement = new IceCreamVendor(x, y, BuildingMaxCapacity, RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
-                    break;
-                case 5:
-                    newElement = new CottonCandyVendor(x, y, BuildingMaxCapacity, RestaurantBuildCost, RestaurantUseCost, RestaurantUseTime, RestaurantMaintainCost, cost);
-                    break;
-                case 6:
-                    newElement = new Road(x, y, RoadBuildCost,0);
-                    break;
-                case 7:
-                    newElement = new Grass(x, y, PlantBuildCost,0);
-                    break;
-                case 8:
-                    newElement = new Tree(x, y, PlantBuildCost,0);
-                    break;
-                case 9:
-                    newElement = new Bush(x, y, PlantBuildCost,0);
-                    break;
-                case 10:
-                    newElement = new Entrance(x,y);
-                    break;
-            }
-
-            if(newElement != null)
-            {
-                if(cash - newElement.BuildCost >= 0)
+            return parkElementList.Exists(item => {
+                bool withArea = false;
+                if (item.AreaSize == 4)
                 {
-                    cash -= newElement.BuildCost;
-                    outcome += newElement.MaintainCost + newElement.BuildCost;
-                    OnCashChanged();
-
-                    SetInterval(BuildTime, () =>
-                    {
-                        newElement.Status = ElementStatus.InWaiting;
-                        OnElementChanged(newElement);
-                    });
-                    parkElementList.Add(newElement);
-                    OnElementChanged(newElement);
+                    withArea = item.X - 1 == x && item.Y == y ||
+                               item.X - 1 == x && item.Y - 1 == y ||
+                               item.X == x && item.Y - 1 == y;
                 }
-                else
-                {
-                    OnNotEnoughCash();
-                }
-            }
+                return (item.X == x && item.Y == y) || withArea;
+            });
         }
+
+        private List<T> GetSpecificTypesFromParkElementList<T>() where T : ParkElement =>
+            ParkElementList.Where(p => p.GetType().IsSubclassOf(typeof(T))).Cast<T>().ToList();
 
         private async void SetInterval(Int32 millisecond, Action action)
         {
@@ -575,62 +641,7 @@ namespace RctByTN.Model
             }).ToList();
         }
 
-        public bool IsNotFreeArea(int x, int y,int selectedTab)
-        {
-            if (x < 0 || x >= 13)
-                return false;
-            if (y < 0 || y >= 23)
-                return false;
-
-            bool returnValue = IsNotFreeArea(x,y);
-
-            if(selectedTab < 6)
-            {
-                returnValue = returnValue ||
-                    IsNotFreeArea(x-1, y) ||
-                    IsNotFreeArea(x, y-1) ||
-                    IsNotFreeArea(x-1, y-1);
-            }
-
-            return returnValue;
-        }
-
-        private bool IsNotFreeArea(int x,int y)
-        {
-            return parkElementList.Exists(item => {
-                bool withArea = false;
-                if (item.AreaSize == 4)
-                {
-                    withArea = item.X - 1 == x && item.Y == y ||
-                               item.X - 1 == x && item.Y - 1 == y ||
-                               item.X == x && item.Y - 1 == y;
-                }
-                return (item.X == x && item.Y == y) || withArea;
-            });
-        }
-
-        public void MaintainCostPay()
-        {
-            parkElementList
-                .ForEach(item =>{
-                    Cash -= item.MaintainCost;
-                    outcome += item.MaintainCost;
-                });
-            OnCashChanged();
-            if (Cash < 0)
-            {
-                NewGame();
-            }
-        }
-
-        private void NewGame()
-        {
-            ParkElementList.Clear();
-            Cash = 0;
-            Income = 0;
-            Outcome = 0;
-            GuestList.Clear();
-        }
+        #endregion
 
         #region Private event methods
         private void OnNotEnoughCash()

@@ -1020,7 +1020,7 @@ namespace RctByTN.Test
             Assert.AreEqual(11, _model.GuestList.First().Destination.Item1);
             Assert.AreEqual(11, _model.GuestList.First().Destination.Item2);
         }
-            #endregion
+        #endregion
 
         #region FindDestination Test
 

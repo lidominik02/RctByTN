@@ -51,6 +51,106 @@ namespace RctByTN.View
                 campaignButton.Enabled = true;
         }
 
+        private void SpectateGuest()
+        {
+            if (_spectatedGuest == null)
+            {
+                guestPic.Image = Properties.Resources.no_guest;
+                return;
+            }
+            guestPic.Image = Properties.Resources.guestface;
+            var nl = Environment.NewLine;
+            guestData.Text = "Egyenleg: " + _spectatedGuest.Money.ToString() + nl
+                            + "Hangulat: " + _spectatedGuest.Mood.ToString() + nl
+                            + "Éhség: " + _spectatedGuest.Hunger.ToString() + nl
+                            /* + "Cél: " + _spectatedGuest.Destination.Item1.ToString() 
+                            + "  " + _spectatedGuest.Destination.Item2.ToString() + nl */
+                            + "Kupon: " + (_spectatedGuest.HasCoupon ? "van" : "nincs");
+        }
+
+        private void GenerateTable()
+        {
+            _buttonGrid = new Button[ParkHeight, ParkWidth];
+            this.buttonGridPanel.ColumnCount = ParkWidth;
+            this.buttonGridPanel.RowCount = ParkHeight;
+            this.buttonGridPanel.ColumnStyles.Clear();
+            this.buttonGridPanel.RowStyles.Clear();
+
+            for (int i = 0; i < ParkWidth; i++)
+            {
+                this.buttonGridPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,
+                                                                        1 / Convert.ToSingle(ParkWidth)));
+            }
+            for (int i = 0; i < ParkHeight; i++)
+            {
+                this.buttonGridPanel.RowStyles.Add(new RowStyle(SizeType.Percent,
+                                                                        1 / Convert.ToSingle(ParkHeight)));
+            }
+
+            for (Int32 i = 0; i < ParkHeight; i++)
+            {
+                for (Int32 j = 0; j < ParkWidth; j++)
+                {
+                    _buttonGrid[i, j] = new Button();
+                    _buttonGrid[i, j].Size = new Size(50, 50);
+                    _buttonGrid[i, j].BackgroundImageLayout = ImageLayout.Stretch;
+                    _buttonGrid[i, j].BackColor = Color.FromArgb(117, 185, 67);
+                    _buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(140, 189, 105);
+                    _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
+                    _buttonGrid[i, j].Margin = new Padding(0);
+                    _buttonGrid[i, j].TabIndex = i * ParkWidth + j;
+                    _buttonGrid[i, j].Click += buttonGrid_Click;
+                    buttonGridPanel.Controls.Add(_buttonGrid[i, j]);
+                }
+            }
+        }
+
+        private void RefreshTable()
+        {
+            foreach (ParkElement element in _model.ParkElementList)
+            {
+                if (element.GetType() == typeof(Road))
+                {
+                    _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.road;
+                }
+
+                if (element.GetType().IsSubclassOf(typeof(Building)))
+                {
+                    _buttonGrid[element.X, element.Y].Text = (element as Building).WaitingList.Count.ToString();
+                    _buttonGrid[element.X, element.Y].TextAlign = ContentAlignment.BottomRight;
+                }
+            }
+
+            foreach (Guest guest in _model.GuestList.ToList())
+            {
+                if (_model.GuestList.Count(g => g.X == guest.X && g.Y == guest.Y) > 1)
+                {
+                    _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest2;
+                }
+                else
+                {
+                    _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest;
+                }
+            }
+        }
+
+        private void BuildParkElement(ParkElement element, Action<Button> action)
+        {
+            int x = element.X;
+            int y = element.Y;
+            if (element.AreaSize == 1)
+            {
+                action(_buttonGrid[x, y]);
+            }
+            else if (element.AreaSize == 4)
+            {
+                action(_buttonGrid[x, y]);
+                action(_buttonGrid[x - 1, y]);
+                action(_buttonGrid[x, y - 1]);
+                action(_buttonGrid[x - 1, y - 1]);
+            }
+        }
+
         private void Game_NotEnoughCash(object sender, EventArgs e)
         {
             MessageBox.Show("A kiválasztott építkezéshez nincs elég pénzed!"
@@ -68,23 +168,6 @@ namespace RctByTN.View
         {
             _spectatedGuest = e.Guest;
             SpectateGuest();
-        }
-
-        private void SpectateGuest()
-        {
-            if (_spectatedGuest == null)
-            {
-                guestPic.Image = Properties.Resources.no_guest;
-                return;
-            }
-            guestPic.Image = Properties.Resources.guestface;
-            var nl = Environment.NewLine;
-            guestData.Text = "Egyenleg: " + _spectatedGuest.Money.ToString() + nl
-                            + "Hangulat: " + _spectatedGuest.Mood.ToString() + nl
-                            + "Éhség: " + _spectatedGuest.Hunger.ToString() + nl
-                            /* + "Cél: " + _spectatedGuest.Destination.Item1.ToString() 
-                            + "  " + _spectatedGuest.Destination.Item2.ToString() + nl */
-                            + "Kupon: " + (_spectatedGuest.HasCoupon?"van":"nincs");
         }
 
         private void Game_ElementChanged(Object sender, ParkElementEventArgs e)
@@ -165,89 +248,6 @@ namespace RctByTN.View
                 case ElementStatus.InBuild:
                     BuildParkElement(element, (button) => button.Image = Properties.Resources.buildsmall);
                     break;
-            }
-        }
-
-        private void BuildParkElement(ParkElement element,Action<Button> action)
-        {
-            int x = element.X;
-            int y = element.Y;
-            if (element.AreaSize == 1)
-            {
-                action(_buttonGrid[x,y]);
-            }
-            else if(element.AreaSize == 4)
-            {
-                action(_buttonGrid[x, y]);
-                action(_buttonGrid[x-1, y]);
-                action(_buttonGrid[x, y-1]);
-                action(_buttonGrid[x-1, y-1]);
-            }
-        }
-
-        public void GenerateTable()
-        {
-            _buttonGrid = new Button[ParkHeight, ParkWidth];
-            this.buttonGridPanel.ColumnCount = ParkWidth;
-            this.buttonGridPanel.RowCount = ParkHeight;
-            this.buttonGridPanel.ColumnStyles.Clear();
-            this.buttonGridPanel.RowStyles.Clear();
-
-            for (int i = 0; i < ParkWidth; i++)
-            {
-                this.buttonGridPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,
-                                                                        1 / Convert.ToSingle(ParkWidth)));
-            }
-            for (int i = 0; i < ParkHeight; i++)
-            {
-                this.buttonGridPanel.RowStyles.Add(new RowStyle(SizeType.Percent,
-                                                                        1 / Convert.ToSingle(ParkHeight)));
-            }
-
-            for (Int32 i = 0; i < ParkHeight; i++)
-            {
-                for (Int32 j = 0; j < ParkWidth; j++)
-                {
-                    _buttonGrid[i, j] = new Button();
-                    _buttonGrid[i, j].Size = new Size(50, 50);
-                    _buttonGrid[i,j].BackgroundImageLayout = ImageLayout.Stretch;
-                    _buttonGrid[i, j].BackColor = Color.FromArgb(117,185,67);
-                    _buttonGrid[i, j].FlatAppearance.BorderColor = Color.FromArgb(140,189,105);
-                    _buttonGrid[i, j].FlatStyle = FlatStyle.Flat;
-                    _buttonGrid[i, j].Margin = new Padding(0);
-                    _buttonGrid[i, j].TabIndex = i * ParkWidth + j;
-                    _buttonGrid[i, j].Click += buttonGrid_Click;
-                    buttonGridPanel.Controls.Add(_buttonGrid[i, j]);
-                }
-            }
-        }
-
-        private void RefreshTable()
-        {
-            foreach(ParkElement element in _model.ParkElementList)
-            {
-                if (element.GetType() == typeof(Road))
-                {
-                    _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.road;
-                }
-                
-                if(element.GetType().IsSubclassOf(typeof(Building)))
-                {
-                    _buttonGrid[element.X,element.Y].Text = (element as Building).WaitingList.Count.ToString();
-                    _buttonGrid[element.X, element.Y].TextAlign = ContentAlignment.BottomRight;
-                } 
-            }
-
-            foreach(Guest guest in _model.GuestList.ToList())
-            {
-                if (_model.GuestList.Count(g => g.X == guest.X && g.Y == guest.Y) > 1)
-                {
-                    _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest2;
-                }
-                else 
-                {
-                    _buttonGrid[guest.X, guest.Y].BackgroundImage = Properties.Resources.road_guest;
-                }
             }
         }
 
