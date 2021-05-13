@@ -13,7 +13,7 @@ namespace RctByTN.Model
         public override void ModifyGuest(Guest guest)
         {
             base.ModifyGuest(guest);
-            guest.Hunger -= 15;
+            guest.Hunger += 15;
         }
     }
 }
