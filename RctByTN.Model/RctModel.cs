@@ -145,17 +145,17 @@ namespace RctByTN.Model
                 else if (games.Any())
                 {
                     
-                    var exps = games.Where(game => game.UseCost >= guest.Money * 0.6 && game.UseCost <= guest.Money*0.9).ToList();
+                    var exps = games.Where(game => game.ServiceCost >= guest.Money * 0.6 && game.ServiceCost <= guest.Money*0.9).ToList();
                     if (exps.Any())
                     {
                         var rndGame = exps[rnd.Next(exps.Count)];
-                        Debug.WriteLine("g.money:{0} g.cost:{1} money*0.6:{2}", guest.Money, rndGame.UseCost, guest.Money * 0.6);
+                        Debug.WriteLine("g.money:{0} g.cost:{1} money*0.6:{2}", guest.Money, rndGame.ServiceCost, guest.Money * 0.6);
                         guest.Destination = (rndGame.X, rndGame.Y + 1);
                         guest.Status = GuestStatus.Searching;
                         Debug.Write("expensive chosen");
                         continue;
                     }
-                    var meds = games.Where(game => game.UseCost >= guest.Money * 0.4 && game.UseCost < guest.Money*0.6).ToList();
+                    var meds = games.Where(game => game.ServiceCost >= guest.Money * 0.4 && game.ServiceCost < guest.Money*0.6).ToList();
                     if (meds.Any())
                     {
                         var rndGame = meds[rnd.Next(meds.Count)];
@@ -164,7 +164,7 @@ namespace RctByTN.Model
                         Debug.Write("mid chosen");
                         continue;
                     }
-                    var cheaps = games.Where(game => game.UseCost < guest.Money).ToList();
+                    var cheaps = games.Where(game => game.ServiceCost < guest.Money).ToList();
                     if (cheaps.Any())
                     {
                         var rndGame = cheaps[rnd.Next(cheaps.Count)];

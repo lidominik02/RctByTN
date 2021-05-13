@@ -862,5 +862,529 @@ namespace RctByTN.Test
             Assert.AreEqual(guestNumber, 4);
         }
 
+        #region FindDestination Test
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_OneGame_Cheap()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 1, 50, 1);
+
+            _model.AddGuest();
+
+            int expX = 10;
+            int expY = 11;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX,actX,"X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_OneGame_Mid()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 1, 250, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 500;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 10;
+            int expY = 11;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_OneGame_Exp()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 1, 450, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 500;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 10;
+            int expY = 11;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_OneGame_TooExp()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 1, 5000, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 500;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 11;
+            int expY = 11;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Cheap_And_Exp_Enough_Money()
+        {
+            // Guest with enough money will choose the expensive game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 350, 1);
+            _model.Build(7, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 500;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 10;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Cheap_And_Exp_Not_Enough_Money()
+        {
+            // Guest with not enough money will choose the cheaper game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 350, 1);
+            _model.Build(7, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 250;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 7;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Cheap_And_Exp_No_Money()
+        {
+            // Guest with not enough money will choose the cheaper game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 350, 1);
+            _model.Build(7, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 0;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 11;
+            int expY = 11;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Cheap_And_Mid_Enough_Money()
+        {
+            // Guest with enough money will choose the expensive game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 250, 1);
+            _model.Build(7, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 500;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 10;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Cheap_And_Mid_Not_Enough_Money()
+        {
+            // Guest with not enough money will choose the cheaper game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 250, 1);
+            _model.Build(7, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 250;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 7;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Cheap_And_Mid_No_Money()
+        {
+            // Guest with not enough money will choose the cheaper game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 350, 1);
+            _model.Build(7, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 0;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 11;
+            int expY = 11;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Mid_And_Exp_Enough_Money()
+        {
+            // Guest with enough money will choose the expensive game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 350, 1);
+            _model.Build(7, 9, 1, 250, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 500;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 10;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Mid_And_Exp_Not_Enough_Money()
+        {
+            // Guest with not enough money will choose the cheaper game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 350, 1);
+            _model.Build(7, 9, 1, 250, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 300;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 7;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_TwoGame_Mid_And_Exp_No_Money()
+        {
+            // Guest with not enough money will choose the cheaper game
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 9, 1, 350, 1);
+            _model.Build(7, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 0;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 11;
+            int expY = 11;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_ThreeGame_Exp()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 6, 0, 0);
+            _model.Build(6, 11, 6, 0, 0);
+            _model.Build(5, 11, 6, 0, 0);
+            _model.Build(4, 11, 6, 0, 0);
+            _model.Build(4, 10, 6, 0, 0);
+            _model.Build(10, 9, 1, 450, 1);
+            _model.Build(7, 9, 1, 250, 1);
+            _model.Build(4, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 500;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 10;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_ThreeGame_Mid()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 6, 0, 0);
+            _model.Build(6, 11, 6, 0, 0);
+            _model.Build(5, 11, 6, 0, 0);
+            _model.Build(4, 11, 6, 0, 0);
+            _model.Build(4, 10, 6, 0, 0);
+            _model.Build(10, 9, 1, 450, 1);
+            _model.Build(7, 9, 1, 250, 1);
+            _model.Build(4, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 450;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 7;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_ThreeGame_Cheap()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 6, 0, 0);
+            _model.Build(6, 11, 6, 0, 0);
+            _model.Build(5, 11, 6, 0, 0);
+            _model.Build(4, 11, 6, 0, 0);
+            _model.Build(4, 10, 6, 0, 0);
+            _model.Build(10, 9, 1, 450, 1);
+            _model.Build(7, 9, 1, 250, 1);
+            _model.Build(4, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 200;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 4;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_FindDestinationTest_ThreeGame_None()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 6, 0, 0);
+            _model.Build(6, 11, 6, 0, 0);
+            _model.Build(5, 11, 6, 0, 0);
+            _model.Build(4, 11, 6, 0, 0);
+            _model.Build(4, 10, 6, 0, 0);
+            _model.Build(10, 9, 1, 450, 1);
+            _model.Build(7, 9, 1, 250, 1);
+            _model.Build(4, 9, 1, 50, 1);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Money = 0;
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+
+            _model.FindDestination();
+
+            int expX = 11;
+            int expY = 11;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        #endregion
     }
 }
