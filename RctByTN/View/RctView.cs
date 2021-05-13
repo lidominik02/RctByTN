@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -212,6 +213,15 @@ namespace RctByTN.View
                     {
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.gate;
                     }
+                    else if (element.GetType() == typeof(RollerCoaster))
+                    {
+                        _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.rollercoaster1;
+                        _buttonGrid[element.X, element.Y - 1].BackgroundImage = Properties.Resources.rollercoaster3;
+                        _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.rollercoaster2;
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.rollercoaster4;
+                        BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
+                        BuildParkElement(element, (button) => button.Image = null);
+                    }
                     else if(element.GetType() == typeof(GiantWheel))
                     {
                         _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.giantwheel1;
@@ -219,6 +229,15 @@ namespace RctByTN.View
                         _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.giantwheel2;
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.giantwheel4;
                         BuildParkElement(element, (button) => button.BackColor = Color.Gray);
+                        BuildParkElement(element, (button) => button.Image = null);
+                    }
+                    else if (element.GetType() == typeof(Carousel))
+                    {
+                        _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.carousel1;
+                        _buttonGrid[element.X, element.Y - 1].BackgroundImage = Properties.Resources.carousel3;
+                        _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.carousel2;
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.carousel4;
+                        BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
                         BuildParkElement(element, (button) => button.Image = null);
                     }
                     else if (element.GetType() == typeof(HotDogVendor))
@@ -236,6 +255,15 @@ namespace RctByTN.View
                         _buttonGrid[element.X, element.Y - 1].BackgroundImage = Properties.Resources.cottoncandy3;
                         _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.cottoncandy2;
                         _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.cottoncandy4;
+                        BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
+                        BuildParkElement(element, (button) => button.Image = null);
+                    }
+                    else if (element.GetType() == typeof(IceCreamVendor))
+                    {
+                        _buttonGrid[element.X - 1, element.Y - 1].BackgroundImage = Properties.Resources.icecream_vendor1;
+                        _buttonGrid[element.X, element.Y - 1].BackgroundImage = Properties.Resources.icecream_vendor3;
+                        _buttonGrid[element.X - 1, element.Y].BackgroundImage = Properties.Resources.icecream_vendor2;
+                        _buttonGrid[element.X, element.Y].BackgroundImage = Properties.Resources.icecream_vendor4;
                         BuildParkElement(element, (button) => button.BackColor = Color.LightGreen);
                         BuildParkElement(element, (button) => button.Image = null);
                     }
@@ -357,6 +385,7 @@ namespace RctByTN.View
                                     "Park szerkesztése"
                                     : "Park megnyitása";
             campaignButton.Enabled = _model.IsParkOpen;
+
         }
 
         private void cancelPictureBox_Click(object sender, EventArgs e)

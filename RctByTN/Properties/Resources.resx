@@ -127,6 +127,18 @@
   <data name="bush" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\bush.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="carousel1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\carousel1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carousel2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\carousel2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carousel3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\carousel3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carousel4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\carousel4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cottoncandy1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\cottoncandy1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -187,6 +199,18 @@
   <data name="hotdog4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\hotdog4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icecream_vendor1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icecream_vendor1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icecream_vendor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icecream_vendor2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icecream_vendor3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icecream_vendor3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icecream_vendor4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icecream_vendor4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="next" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -216,6 +240,18 @@
   </data>
   <data name="road_guest2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\road_guest2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rollercoaster1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\rollercoaster1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rollercoaster2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\rollercoaster2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rollercoaster3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\rollercoaster3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rollercoaster4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\rollercoaster4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\tree.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
