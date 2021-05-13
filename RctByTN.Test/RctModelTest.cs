@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RctByTN.Model;
+using System;
 using System.Linq;
 using System.Threading;
 
@@ -9,6 +10,7 @@ namespace RctByTN.Test
     public class RctModelTest
     {
         private RctModel _model;
+        private Random _rnd;
 
         [TestInitialize]
         public void Initialize()
@@ -28,6 +30,7 @@ namespace RctByTN.Test
             Assert.AreEqual(_model.ParkElementList.Count, 0);
         }
 
+        #region Build tests
         [TestMethod]
         public void RctModelBuildRoadTest_BuildTest()
         {
@@ -276,6 +279,9 @@ namespace RctByTN.Test
             Assert.AreEqual(bush.BuildCost, 100, "BuildCost test");
         }
 
+        #endregion
+
+        #region Private method tests
         [TestMethod]
         public void RctModel_IsFreeAreaTest_FreeAreaTest()
         {
@@ -420,6 +426,9 @@ namespace RctByTN.Test
             Assert.IsTrue(_model.IsNotFreeArea(11, 10, 0));
         }
 
+        #endregion
+
+        #region Campaign tests
         [TestMethod]
         public void RctModelCampaignTest1()
         {
@@ -428,7 +437,9 @@ namespace RctByTN.Test
             Thread.Sleep(11000);
             Assert.IsFalse(_model.IsCampaign);
         }
+        #endregion
 
+        #region Add guest tests
         [TestMethod]
         public void RctModel_Add_Zero_Guest_Without_Road_Entrance_Or_Game_Test()
         {
@@ -861,6 +872,155 @@ namespace RctByTN.Test
             int guestNumber = _model.GuestList.Count;
             Assert.AreEqual(guestNumber, 4);
         }
+        #endregion
+        
+        #region Enter game tests
+        [TestMethod]
+        public void RctModel_Guest_Enters_Game_It_Starts_Test() 
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            //two blocks of road
+            _model.Build(11, 11, 6, 20, 0);
+            _model.Build(10, 11, 6, 20, 0);
+            //Giant wheel
+            _model.Build(10, 10, 1, 0, 0);
+            Thread.Sleep(4000);
+            _model.AddGuest();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            var building = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
+            Assert.AreEqual(0, building.WaitingList.Count);
+            Assert.AreEqual(1, building.UserList.Count);
+            Assert.AreEqual(ElementStatus.Operate,building.Status);
+        }
+        
+        [TestMethod]
+        public void RctModel_Game_Starts_Guest_Mood_Increased()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            //two blocks of road
+            _model.Build(11, 11, 6, 20, 0);
+            _model.Build(10, 11, 6, 20, 0);
+            //Giant wheel
+            _model.Build(10, 10, 1, 0, 0);
+            Thread.Sleep(4000);
+            _model.AddGuest();
+            int prevMood = _model.GuestList.First().Mood;
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            Thread.Sleep(6000);
+            var building = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
+            Assert.IsTrue(prevMood < _model.GuestList.First().Mood);
+        }
+        
+        [TestMethod]
+        public void RctModel_Guest_Enters_Game_NeedToWait_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            //two blocks of road
+            _model.Build(11, 11, 6, 20, 0);
+            _model.Build(10, 11, 6, 20, 0);
+            //Giant wheel
+            _model.Build(10, 10, 1, 0, 2);
+            Thread.Sleep(4000);
+            _model.AddGuest();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.AddGuest();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            var building = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
+            Assert.AreEqual(ElementStatus.Operate, building.Status);
+        }
+        
+        [TestMethod]
+        public void RctModel_Two_Guests_Mood_Increased()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            //two blocks of road
+            _model.Build(11, 11, 6, 20, 0);
+            _model.Build(10, 11, 6, 20, 0);
+            //Giant wheel
+            _model.Build(10, 10, 1, 0, 2);
+            Thread.Sleep(4000);
+            _model.AddGuest();
+            int prevMood1 = _model.GuestList.First().Mood;
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.AddGuest();
+            //the first one has entered the game => second=first
+            int prevMood2 = _model.GuestList.First().Mood;
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            Thread.Sleep(6000);
+            Assert.IsTrue(prevMood2 < _model.GuestList.ElementAt(2).Mood);
+            Thread.Sleep(12000);
+            Assert.IsTrue(prevMood1 < _model.GuestList.First().Mood);
+        }
+        
+        [TestMethod]
+        public void RctModel_Guest_NeedToWait_Mood_Decreased_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            //two blocks of road
+            _model.Build(11, 11, 6, 20, 0);
+            _model.Build(10, 11, 6, 20, 0);
+            //Giant wheel
+            _model.Build(10, 10, 1, 0, 20);
+            Thread.Sleep(4000);
+            _model.AddGuest();
+            int prevMood1 = _model.GuestList.First().Mood;
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.AddGuest();
+            int prevMood2 = _model.GuestList.First().Mood;
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            Thread.Sleep(5000);
+            var building = _model.ParkElementList
+    .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
+            Assert.IsTrue(prevMood1 > building.WaitingList.First().Mood);
+            Assert.IsTrue(prevMood2 > building.WaitingList.ElementAt(1).Mood);
+        }
+        [TestMethod]
+        public void RctModel_Guest_Mood_Decreased_Leave_Park_Test()
+        {
+                _model.ParkElementList.Clear();
+                _model.Build(12, 11, 10, 0, 0);
+                //two blocks of road
+                _model.Build(11, 11, 6, 20, 0);
+                _model.Build(10, 11, 6, 20, 0);
+                //Giant wheel
+                _model.Build(10, 10, 1, 0, 20);
+                Thread.Sleep(4000);
+                _model.AddGuest();
+                _model.GuestList.First().Mood = 0;
+                _model.TimeElapsed();
+                _model.TimeElapsed();
+                _model.TimeElapsed();
+                 _model.TimeElapsed();
+                var building = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
+            Assert.AreEqual(11, _model.GuestList.First().Destination.Item1);
+            Assert.AreEqual(11, _model.GuestList.First().Destination.Item2);
+        }
+            #endregion
 
         #region FindDestination Test
 
