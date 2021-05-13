@@ -17,7 +17,7 @@ namespace RctByTN.Test
         {
             _model = new RctModel();
         }
-        
+
         [TestMethod]
         public void RctModelConstructorTest()
         {
@@ -29,7 +29,7 @@ namespace RctByTN.Test
             Assert.AreEqual(_model.GuestList.Count, 0);
             Assert.AreEqual(_model.ParkElementList.Count, 0);
         }
-
+        
         #region Build tests
         [TestMethod]
         public void RctModelBuildRoadTest_BuildTest()
@@ -873,8 +873,99 @@ namespace RctByTN.Test
             Assert.AreEqual(guestNumber, 4);
         }
         #endregion
-        
+
         #region Enter game tests
+
+        [TestMethod]
+        public void RctModel_Game_Modify_RollerCoaster_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 0, 10, 0);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Mood = 50;
+            int exp = _model.GuestList.First().Mood + 20;
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10);
+
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+
+            Thread.Sleep(6000);
+            Assert.AreEqual(exp - 1, _model.GuestList.First().Mood, "Mood");
+        }
+
+        [TestMethod]
+        public void RctModel_Game_Modify_Carousel_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 2, 10, 0);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Mood = 50;
+            int exp = _model.GuestList.First().Mood + 10;
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10);
+
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+
+            Thread.Sleep(6000);
+            Assert.AreEqual(exp - 1, _model.GuestList.First().Mood, "Mood");
+        }
+
+        [TestMethod]
+        public void RctModel_Game_Modify_GiantWheel_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 1, 10, 0);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Mood = 50;
+            int exp = _model.GuestList.First().Mood + 15;
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10);
+
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+
+            Thread.Sleep(6000);
+            Assert.AreEqual(exp - 1, _model.GuestList.First().Mood, "Mood");
+        }
+
         [TestMethod]
         public void RctModel_Guest_Enters_Game_It_Starts_Test() 
         {
@@ -942,6 +1033,7 @@ namespace RctByTN.Test
                 .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
             Assert.AreEqual(ElementStatus.Operate, building.Status);
         }
+
         
         [TestMethod]
         public void RctModel_Two_Guests_Mood_Increased()
@@ -955,22 +1047,54 @@ namespace RctByTN.Test
             _model.Build(10, 10, 1, 0, 2);
             Thread.Sleep(4000);
             _model.AddGuest();
+            _model.GuestList[0].Mood = 50;
             int prevMood1 = _model.GuestList.First().Mood;
             _model.TimeElapsed();
-            _model.TimeElapsed();
-            _model.TimeElapsed();
-            _model.AddGuest();
             //the first one has entered the game => second=first
+            _model.AddGuest();
+            _model.GuestList[1].Mood = 50;
             int prevMood2 = _model.GuestList.First().Mood;
             _model.TimeElapsed();
             _model.TimeElapsed();
-            _model.TimeElapsed();
+            var building = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
+            Assert.AreEqual(ElementStatus.Operate, building.Status);
             Thread.Sleep(6000);
-            Assert.IsTrue(prevMood2 < _model.GuestList.ElementAt(2).Mood);
-            Thread.Sleep(12000);
-            Assert.IsTrue(prevMood1 < _model.GuestList.First().Mood);
+            Assert.IsTrue(prevMood2 < _model.GuestList[1].Mood);
+            //Thread.Sleep(12000);
+            Assert.IsTrue(prevMood1 < _model.GuestList[0].Mood);
         }
-        
+
+        [TestMethod]
+        public void RctModel_Two_Guests_Money_Decreased()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            //two blocks of road
+            _model.Build(11, 11, 6, 20, 0);
+            _model.Build(10, 11, 6, 20, 0);
+            //Giant wheel
+            _model.Build(10, 10, 1, 100, 2);
+            Thread.Sleep(4000);
+            _model.AddGuest();
+            int prevMoney1 = _model.GuestList[0].Money;
+            _model.TimeElapsed();
+            //the first one has entered the game => second=first
+            _model.AddGuest();
+            int prevMoney2 = _model.GuestList[1].Money;
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            var building = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
+            Assert.AreEqual(ElementStatus.Operate, building.Status);
+            Thread.Sleep(6000);
+            Assert.IsTrue(prevMoney1 > _model.GuestList[0].Money);
+            Assert.IsTrue(prevMoney2 > _model.GuestList[1].Money);
+            //Thread.Sleep(12000);
+        }
+
+
         [TestMethod]
         public void RctModel_Guest_NeedToWait_Mood_Decreased_Test()
         {
@@ -994,7 +1118,7 @@ namespace RctByTN.Test
             _model.TimeElapsed();
             Thread.Sleep(5000);
             var building = _model.ParkElementList
-    .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
+                    .Find(item => item.X == 10 && item.Y == 10 && item.GetType() == typeof(GiantWheel)) as GiantWheel;
             Assert.IsTrue(prevMood1 > building.WaitingList.First().Mood);
             Assert.IsTrue(prevMood2 > building.WaitingList.ElementAt(1).Mood);
         }
@@ -1545,6 +1669,368 @@ namespace RctByTN.Test
             Assert.AreEqual(expY, actY, "Y coordinate");
         }
 
+        #endregion
+
+        #region Restaurant Test
+        
+        [TestMethod]
+        public void RctModel_Restaurant_Choose_Test_Not_Hungry()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(10, 9, 0, 10, 1);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 6, 0, 0);
+            _model.Build(7, 9, 4, 10, 0);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Hunger = 100;
+
+            _model.FindDestination();
+
+            int expX = 10;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_Restaurant_Choose_Test_Hungry()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(10, 10, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(7, 10, 6, 0, 0);
+            _model.Build(10, 9, 0, 10, 1);
+            _model.Build(7, 9, 4, 10, 0);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Hunger = _model.GuestList.First().Mood - 35;
+
+            _model.FindDestination();
+
+            int expX = 7;
+            int expY = 10;
+            int actX = _model.GuestList.First().Destination.Item1;
+            int actY = _model.GuestList.First().Destination.Item2;
+
+            Assert.AreEqual(expX, actX, "X coordinate");
+            Assert.AreEqual(expY, actY, "Y coordinate");
+        }
+
+        [TestMethod]
+        public void RctModel_Restaurant_Operate_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 10, 3, 10, 0);
+            _model.Build(7, 10, 0, 100, 1);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+            
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Hunger = _model.GuestList.First().Mood - 35;
+            
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10);
+
+            Assert.AreEqual(ElementStatus.InWaiting,res.Status);
+
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+
+            Assert.AreEqual(ElementStatus.Operate, res.Status);
+        }
+        
+        [TestMethod]
+        public void RctModel_Restaurant_EnterOne_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 10, 3, 10, 0);
+            _model.Build(7, 10, 0, 100, 1);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Hunger = _model.GuestList.First().Mood - 35;
+
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10) as Restaurant;
+
+            Assert.AreEqual(ElementStatus.InWaiting, res.Status);
+
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            Assert.AreEqual(1, res.UserList.Count, "Enter");
+            Assert.AreEqual(ElementStatus.Operate, res.Status);
+        }
+
+        [TestMethod]
+        public void RctModel_Restaurant_EnterTwo_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 10, 3, 10, 2);
+            _model.Build(7, 10, 0, 100, 1);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+            _model.TimeElapsed();
+            _model.AddGuest();
+
+            _model.GuestList[0].Status = GuestStatus.Aimless;
+            _model.GuestList[0].Hunger = _model.GuestList.First().Mood - 35;
+            _model.GuestList[1].Status = GuestStatus.Aimless;
+            _model.GuestList[1].Hunger = _model.GuestList[1].Mood - 35;
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10) as Restaurant;
+
+            Assert.AreEqual(ElementStatus.InWaiting, res.Status);
+
+            _model.TimeElapsed();
+            Assert.AreEqual(1, res.UserList.Count, "Enter");
+            _model.TimeElapsed();
+            Assert.AreEqual(1, res.WaitingList.Count, "wait");
+            Assert.AreEqual(ElementStatus.Operate, res.Status);
+            res.UserList[0].Hunger = 100;
+            Thread.Sleep(3000);
+            _model.TimeElapsed();
+            Assert.AreEqual(0, res.WaitingList.Count, "wait");
+            Assert.AreEqual(1, res.UserList.Count, "Enter");
+        }
+
+        
+        [TestMethod]
+        public void RctModel_Restaurant_Modify_HotDog_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 10, 3, 10, 0);
+            _model.Build(7, 10, 0, 100, 1);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Hunger = _model.GuestList.First().Mood - 35;
+            int exp = _model.GuestList.First().Hunger + 10;
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10);
+
+            Assert.AreEqual(ElementStatus.InWaiting, res.Status);
+
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+
+            Assert.AreEqual(ElementStatus.Operate, res.Status);
+
+            Thread.Sleep(2200);
+            Assert.AreEqual(exp-1, _model.GuestList.First().Hunger,"Hunger");
+        }
+
+        [TestMethod]
+        public void RctModel_Restaurant_Modify_IceCream_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 10, 4, 10, 0);
+            _model.Build(7, 10, 0, 100, 1);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Hunger = _model.GuestList.First().Mood - 35;
+            int exp = _model.GuestList.First().Hunger + 15;
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10);
+
+            Assert.AreEqual(ElementStatus.InWaiting, res.Status);
+
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+
+            Assert.AreEqual(ElementStatus.Operate, res.Status);
+
+            Thread.Sleep(2200);
+            Assert.AreEqual(exp - 1, _model.GuestList.First().Hunger, "Hunger");
+        }
+
+        [TestMethod]
+        public void RctModel_Restaurant_Modify_CottonCandy_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(10, 10, 5, 10, 0);
+            _model.Build(7, 10, 0, 100, 1);
+
+            Thread.Sleep(4000);
+
+            _model.AddGuest();
+
+            _model.GuestList.First().Status = GuestStatus.Aimless;
+            _model.GuestList.First().Hunger = _model.GuestList.First().Mood - 35;
+            int exp = _model.GuestList.First().Hunger + 20;
+            _model.FindDestination();
+
+            var res = _model.ParkElementList
+                .Find(item => item.X == 10 && item.Y == 10);
+
+            Assert.AreEqual(ElementStatus.InWaiting, res.Status);
+
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+            _model.TimeElapsed();
+
+            Assert.AreEqual(ElementStatus.Operate, res.Status);
+
+            Thread.Sleep(2200);
+            Assert.AreEqual(exp - 1, _model.GuestList.First().Hunger, "Hunger");
+        }
+
+        #endregion
+
+        #region Plant test
+
+        [TestMethod]
+        public void RctModel_Grass_Modify_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(6, 11, 6, 0, 0);
+            _model.Build(10, 12, 7, 0, 0);
+            _model.Build(7, 10, 0, 100, 1);
+
+            _model.AddGuest();
+            int before = _model.GuestList[0].Mood;
+            _model.TimeElapsed();
+            int after = _model.GuestList[0].Mood;
+
+            Assert.IsTrue(before < after);
+        }
+
+        [TestMethod]
+        public void RctModel_Tree_Modify_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(6, 11, 6, 0, 0);
+            _model.Build(10, 12, 8, 0, 0);
+            _model.Build(7, 10, 0, 100, 1);
+
+            _model.AddGuest();
+            int before = _model.GuestList[0].Mood;
+            _model.TimeElapsed();
+            int after = _model.GuestList[0].Mood;
+
+            Assert.IsTrue(before < after);
+        }
+
+        [TestMethod]
+        public void RctModel_Bush_Modify_Test()
+        {
+            _model.ParkElementList.Clear();
+            _model.Build(12, 11, 10, 0, 0);
+            _model.Build(11, 11, 6, 0, 0);
+            _model.Build(10, 11, 6, 0, 0);
+            _model.Build(9, 11, 6, 0, 0);
+            _model.Build(8, 11, 6, 0, 0);
+            _model.Build(7, 11, 6, 0, 0);
+            _model.Build(6, 11, 6, 0, 0);
+            _model.Build(10, 12, 9, 0, 0);
+            _model.Build(7, 10, 0, 100, 1);
+
+            _model.AddGuest();
+            int before = _model.GuestList[0].Mood;
+            _model.TimeElapsed();
+            int after = _model.GuestList[0].Mood;
+
+            Assert.IsTrue(before < after);
+        }
         #endregion
     }
 }
